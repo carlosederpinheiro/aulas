@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Semana de Arte Moderna de 1922</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Outfit:wght@400;700;800&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+
+    <!-- Alerta de Rotação -->
+    <div class="mobile-rotate-alert">
+        <svg viewBox="0 0 24 24"><path d="M16 1H8C6.34 1 5 2.34 5 4v16c0 1.66 1.34 3 3 3h8c1.66 0 3-1.34 3-3V4c0-1.66-1.34-3-3-3zm-2 20h-4v-1h4v1zm3.25-3H6.75V4h10.5v14z"/></svg>
+        <h2 style="padding-bottom: 0;">Vire o seu celular</h2>
+        <p>Apresentações exigem o formato widescreen.<br>Coloque seu aparelho na horizontal para acompanhar a aula.</p>
+    </div>
+
+    <div class="presentation-wrapper">
+        <!-- Progress Bar -->
+        <div class="progress-bar-container">
+            <div class="progress-bar" id="progress-bar"></div>
+        </div>
+
+        <main class="slides-container" id="slides-container">
+            
+            <!-- SLIDE 1: Título -->
+            <section class="slide active">
+                <div class="slide-content center-content glass-panel">
+                    <h1 class="title">Semana de Arte Moderna de 1922</h1>
+                    <div class="divider"></div>
+                    <h2 class="subtitle">Contexto, Evento e o Nascimento da Literatura Moderna</h2>
+                    <p class="author-note">Apresentação Pedagógica - Foco no Vestibular</p>
+                </div>
+            </section>
+
+            <!-- SLIDE 2: Contexto -->
+            <section class="slide">
+                <div class="slide-content">
+                    <h2 class="slide-title">Brasil: Torre de Babel no Início do Séc. XX</h2>
+                    <div class="slide-layout split">
+                        <div class="slide-text">
+                            <ul>
+                                <li><strong>Economia Agrária:</strong> Em 1920, cerca de 70% da população ativa dedicava-se à agricultura.</li>
+                                <li><strong>Urbanização e Imigração:</strong> Êxodo rural e forte imigração europeia transformam o cenário urbano.</li>
+                                <li><strong>O Polo Paulista:</strong> SP abrigava 52% dos estrangeiros no país, atuando na lavoura cafeeira e na indústria nascente.</li>
+                                <li><strong>Crescimento Notável:</strong> A população paulistana saltou de 64 mil (1890) para quase 600 mil habitantes (1920).</li>
+                            </ul>
+                        </div>
+                        <div class="slide-media">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/e/e2/Monumento_ao_Imigrante2.jpg" alt="Imigrantes no Porto de Santos" class="slide-image">
+                            <div class="img-caption">Imigrantes no Porto de Santos</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 3: Contexto Político e Social -->
+            <section class="slide">
+                <div class="slide-content">
+                    <h2 class="slide-title">Oligarquias e Coronelismo</h2>
+                    <div class="slide-layout split">
+                        <div class="slide-text">
+                            <ul>
+                                <li><strong>República Oligárquica:</strong> Eixo SP, MG e RS governava em prol da elite cafeeira.</li>
+                                <li><strong>O Poder Local:</strong> No Nordeste, coronéis e jagunços criaram "verdadeiros feudos" de poder pela força bruta.</li>
+                                <li><strong>Economia Frágil:</strong> Valorização da moeda para proteger o café gerava forte inflação, sem repasse salarial.</li>
+                            </ul>
+                        </div>
+                        <div class="slide-media">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/0/00/Pol%C3%ADtica_do_caf%C3%A9_com_leite_%28Minas_e_S%C3%A3o_Paulo%29_at%C3%A9_1930.jpg" alt="Charge da República do Café com Leite" class="slide-image">
+                            <div class="img-caption">Charge da República do Café com Leite</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 4: Movimento Operário e Tenentismo -->
+            <section class="slide">
+                <div class="slide-content">
+                    <h2 class="slide-title">Insatisfação e Luta de Classes</h2>
+                    <div class="slide-layout split">
+                        <div class="slide-text">
+                            <ul>
+                                <li><strong>Movimento Operário:</strong> Sob inflação e influência da Revolução Russa, eclode um <strong>ciclo de greves (1917-1920)</strong>.</li>
+                                <li><strong>Repressão:</strong> Leis expulsam estrangeiros e perseguem anarquistas. Em 1922, funda-se o PCB.</li>
+                                <li><strong>Tenentismo:</strong> Oficiais contra as oligarquias. Revolta de 1922 e a heroica <strong>Coluna Prestes</strong>.</li>
+                            </ul>
+                        </div>
+                        <div class="slide-media">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/5/5c/S%C3%A3o_Paulo_%28Greve_de_1917%29.jpg" alt="Greve de 1917" class="slide-image">
+                            <div class="img-caption">Greve de 1917</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 5: Influência Francesa e Passadismo -->
+            <section class="slide">
+                <div class="slide-content">
+                    <h2 class="slide-title">A "Belle Époque" Cafeeira</h2>
+                    <div class="slide-layout split">
+                        <div class="slide-text">
+                            <ul>
+                                <li><strong>Burguesia:</strong> Hábitos europeus financiados pelos lucros das bolsas (até o <em>crack</em> de 1929).</li>
+                                <li><strong>A Influência Francesa:</strong> Tudo que era "chic" e refinado vinha da França.</li>
+                                <li><strong>O Academicismo:</strong> Domínio do <strong>Parnasianismo</strong> na poesia. Forte apego à métrica rígida e ao preciosismo vocabular (passadismo).</li>
+                            </ul>
+                        </div>
+                        <div class="slide-media">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/9/90/Teatro_Municipal_de_S%C3%A3o_Paulo.jpg" alt="Salão da Elite Paulistana" class="slide-image">
+                            <div class="img-caption">Salão da Elite Paulistana</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 6: Fatos Precursores -->
+            <section class="slide">
+                <div class="slide-content">
+                    <h2 class="slide-title">Fatos Precursores (1912 - 1917)</h2>
+                    <ul class="timeline">
+                        <li><strong>1912:</strong> Oswald de Andrade vai à Europa (contato com vanguardas).</li>
+                        <li><strong>1913:</strong> Lasar Segall realiza a 1ª exposição modernista no Brasil.</li>
+                        <li><strong>1915:</strong> Lançamento da revista "Orpheu" em Portugal.</li>
+                        <li><strong>1917:</strong> <strong>Exposição de Anita Malfatti</strong> em São Paulo.</li>
+                    </ul>
+                    <div class="quote-box">
+                        <p class="quote-text">"Monteiro Lobato ataca duramente a arte de Anita classificando-a como 'anormal ou teratológica' (Paranoia ou Mistificação)."</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 7: A Articulação -->
+            <section class="slide">
+                <div class="slide-content">
+                    <h2 class="slide-title">A Articulação do Movimento (1918-1921)</h2>
+                    <div class="slide-layout split">
+                        <div class="slide-text">
+                            <ul>
+                                <li><strong>A União:</strong> Em defesa de Anita, unem-se Oswald e Mário de Andrade.</li>
+                                <li><strong>Apoio Carioca:</strong> Buscam aliança com Manoel Bandeira, Ronald de Carvalho e Villa-Lobos.</li>
+                                <li><strong>Ataque aos Parnasianos:</strong> Mário de Andrade publica artigos atacando Olavo Bilac.</li>
+                            </ul>
+                            <p class="highlight-text">"Malditos para sempre os Mestres do Passado! Que a simples recordação de um de vós escravize os espíritos!"</p>
+                        </div>
+                        <div class="slide-media">
+                            <img src="https://upload.wikimedia.org/wikipedia/pt/b/b8/Anita_Malfatti_-_A_Estudante.jpg" alt="A Boba - Anita Malfatti" class="slide-image">
+                            <div class="img-caption">A Boba - Anita Malfatti</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 8: A Semana de Arte Moderna -->
+            <section class="slide">
+                <div class="slide-content">
+                    <h2 class="slide-title">A Semana de 22: O Evento</h2>
+                    <div class="slide-layout split">
+                        <div class="slide-text">
+                            <ul>
+                                <li><strong>Onde e Quando:</strong> Teatro Municipal de SP, 13, 15 e 17 de fevereiro de 1922.</li>
+                                <li><strong>O Financiamento:</strong> Evento elitista, patrocinado pela oligarquia cafeeira (Paulo Prado).</li>
+                                <li><strong>Objetivo:</strong> Causar impacto e instaurar o "escândalo público permanente".</li>
+                            </ul>
+                        </div>
+                        <div class="slide-media">
+                            <img src="https://upload.wikimedia.org/wikipedia/pt/2/23/Semana-de-22-.jpeg" alt="Cartaz da Semana de Arte Moderna" class="slide-image">
+                            <div class="img-caption">Cartaz da Semana de Arte Moderna</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 9: Dia 13 e 15 -->
+            <section class="slide">
+                <div class="slide-content">
+                    <h2 class="slide-title">Os Dias de Escândalo (13 e 15 de Fev)</h2>
+                    <div class="slide-layout split">
+                        <div class="slide-text">
+                            <ul>
+                                <li><strong>Dia 13 (Artes Plásticas):</strong> Público faz chacota das obras no saguão. Oswald de Andrade e Mário tentam falar sob "pateada imensa".</li>
+                                <li><strong>Dia 15 (Literatura):</strong> Menotti del Picchia exige a poesia moderna (ventiladores e aeroplanos contra flautas da Arcádia).</li>
+                                <li><strong>O Ápice:</strong> Leitura de "Os Sapos" (Manuel Bandeira) sob latidos e miados da plateia.</li>
+                            </ul>
+                        </div>
+                        <div class="slide-media">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/8/8c/Oswald_de_andrade_1920.jpg" alt="Participantes da Semana de 22" class="slide-image">
+                            <div class="img-caption">Participantes da Semana de 22</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 10: PEDAGÓGICO - OS SAPOS PARTE 1 -->
+            <section class="slide">
+                <div class="slide-content">
+                    <h2 class="slide-title">Análise Literária: "Os Sapos" (Manuel Bandeira)</h2>
+                    <div class="pedagogical-layout">
+                        <div class="poem-container">
+                            <div class="poem-stanza">
+                                <p>O <span class="key-concept">sapo-tanoeiro</span>,<br>
+                                Parnasiano aguado,<br>
+                                Diz: — "Meu cancioneiro<br>
+                                É <span class="key-concept">bem martelado</span>."</p>
+                            </div>
+                            <div class="poem-stanza">
+                                <p>Vede como primo<br>
+                                Em <span class="key-concept">comer os hiatos</span>!<br>
+                                Que arte! E nunca rimo<br>
+                                Os termos cognatos.</p>
+                            </div>
+                        </div>
+                        <div class="analysis-container">
+                            <div class="teacher-note">
+                                <h3>A Metáfora do Parnasianismo</h3>
+                                <ul>
+                                    <li><strong>Sapo-tanoeiro:</strong> Representa o poeta parnasiano (metódico, fabrica os versos como um artesão).</li>
+                                    <li><strong>"Bem martelado":</strong> Crítica à métrica rígida, artificial e sem emoção, que soa mecânica.</li>
+                                    <li><strong>A forma acima de tudo:</strong> Comer hiatos e fugir de rimas fáceis (cognatos) era a obsessão acadêmica que o modernismo queria destruir.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 11: PEDAGÓGICO - OS SAPOS PARTE 2 -->
+            <section class="slide">
+                <div class="slide-content">
+                    <h2 class="slide-title">Análise Literária: "Os Sapos" (Continuação)</h2>
+                    <div class="pedagogical-layout">
+                        <div class="poem-container">
+                            <div class="poem-stanza">
+                                <p>Vai por cinqüenta anos<br>
+                                Que lhes dei a norma:<br>
+                                Reduzi sem danos<br>
+                                <span class="key-concept">A formas a forma</span>.</p>
+                            </div>
+                            <div class="poem-stanza">
+                                <p>(...)<br>Lá, fugido ao mundo,<br>
+                                Sem glória, sem fé,<br>
+                                No perau profundo<br>
+                                E solitário, é</p>
+                                <p>Que soluças tu,<br>
+                                Transido de frio,<br>
+                                <span class="key-concept">Sapo cururu</span><br>
+                                Da beira do rio...</p>
+                            </div>
+                        </div>
+                        <div class="analysis-container">
+                            <div class="teacher-note">
+                                <h3>O "Sapo Cururu": O Poeta Moderno</h3>
+                                <ul>
+                                    <li><strong>A forma vazia:</strong> Bandeira critica a poesia que vive em função da estética ("reduzi a formas a forma"), mas é vazia de vida.</li>
+                                    <li><strong>Sapo Cururu:</strong> Em contraste ao pomposo "tanoeiro", o cururu representa o poeta moderno ou romântico: simples, brasileiro, emotivo e marginalizado ("transido de frio").</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 12: Dia 17 e Repercussões -->
+            <section class="slide">
+                <div class="slide-content">
+                    <h2 class="slide-title">Dia 17 e a Reação da Imprensa</h2>
+                    <div class="slide-layout split">
+                        <div class="slide-text">
+                            <ul>
+                                <li><strong>O Episódio do Chinelo:</strong> Villa-Lobos entra de casaca, sapato e chinelo (calo inflamado). Público confunde com "atitude futurista" e vaia.</li>
+                                <li><strong>Imprensa:</strong> Ataques ferozes na "Seção Livre" do Estadão. Chamados de "pândegos", "cretinos" e "arte de dolidos" (loucos).</li>
+                            </ul>
+                            <p class="highlight-text">O conservadorismo da sociedade paulista e carioca resistia frontalmente à ruptura proposta pelo Modernismo.</p>
+                        </div>
+                        <div class="slide-media">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/4/4b/Heitor_Vila-Lobos_%28c._1922%29part.jpg" alt="Heitor Villa-Lobos" class="slide-image">
+                            <div class="img-caption">Heitor Villa-Lobos</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 13: QUESTÃO 01 -->
+            <section class="slide question-slide">
+                <div class="slide-content">
+                    <h2 class="slide-title">Questão de Vestibular 01</h2>
+                    <div class="slide-layout">
+                        <div class="slide-text" style="width: 100%; position: relative;">
+                            <img src="https://upload.wikimedia.org/wikipedia/pt/b/bd/Abaporu.jpg" alt="Abaporu" class="slide-image" style="float: right; margin: 0 0 1cqw 2cqw; width: 12cqw; height: auto; border-radius: 8px; border: 2px solid #ccc;">
+<div class="img-caption" style="position:static; float:right; clear:right; margin: 0 0 1cqw 2cqw; font-size:1cqw;">Abaporu</div>
+                            <p class="question-text" style="margin-bottom: 1.5cqh;">Abaporu (1928), pintura de Tarsila do Amaral, é considerada uma das mais representativas do Modernismo brasileiro... Constituem características do Modernismo, EXCETO:</p>
+                            <ul class="options-list">
+                                <li data-letter="A">a incorporação de temas da cultura popular brasileira, como percebemos inclusive nas ciências sociais, em intelectuais como Gilberto Freyre.</li>
+                                <li data-letter="B">as expressões artísticas variadas, como a música de Heitor Villa-Lobos, a literatura de Mário e Oswald de Andrade e as artes plásticas de Anita Malfatti.</li>
+                                <li data-letter="C">a defesa de liberdade de expressão e de crítica social, características presentes em historiadores como Sérgio Buarque de Holanda.</li>
+                                <li data-letter="D" class="correct-option">a valorização de um conhecimento determinista, orientado pelas teorias raciais aplicadas às ciências sociais e humanas.</li>
+                                <li data-letter="E">a perspectiva de caracterizar a cultura brasileira como uma mescla de elementos que podem conviver, como o mundo rural e o urbano, o antigo e o moderno, o popular e o erudito.</li>
+                            </ul>
+                            <button class="reveal-btn" onclick="this.closest('.slide').classList.add('revealed')">Mostrar Gabarito</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 14: QUESTÃO 02 -->
+            <section class="slide question-slide">
+                <div class="slide-content">
+                    <h2 class="slide-title">Questão de Vestibular 02</h2>
+                    <div class="slide-layout">
+                        <div class="slide-text" style="width: 100%;">
+                            <div class="quote-box small-quote" style="margin-top: 0; margin-bottom: 1.5cqh; padding: 1.2cqh 2cqw;">
+                                <p class="quote-text" style="font-size: 1.5cqw;">"Em 1922 o mesmo contato subversivo com a Europa se estabeleceu para dar força e direção aos anseios subjetivos nacionais, autorizados agora pela primeira indústria, como o outro o fora pela primeira mineração."</p>
+                                <p class="author-note" style="margin-top: 0.5cqh; font-size: 1.2cqw;">(Oswald de Andrade. Ponta de Lança, 1945. Apud: Aracy Amaral.)</p>
+                            </div>
+                            <p class="question-text">No excerto, Oswald de Andrade caracteriza a Semana de Arte Moderna de 1922 como uma:</p>
+                            <ul class="options-list">
+                                <li data-letter="A">cópia direta dos modelos artísticos da Europa da era industrial.</li>
+                                <li data-letter="B">manifestação artística subsidiada por recursos obtidos na mineração.</li>
+                                <li data-letter="C" class="correct-option">busca da expressão nacional comparável com a realizada no barroco.</li>
+                                <li data-letter="D">produção artística popular de massa, própria dos tempos industriais.</li>
+                                <li data-letter="E">tentativa de conquistar a independência política e econômica nacional.</li>
+                            </ul>
+                            <button class="reveal-btn" onclick="this.closest('.slide').classList.add('revealed')">Mostrar Gabarito</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 15: Revistas -->
+            <section class="slide">
+                <div class="slide-content">
+                    <h2 class="slide-title">Desdobramentos: A Fase Heroica</h2>
+                    <div class="slide-layout split">
+                        <div class="slide-text">
+                            <p>A Semana foi o gatilho inicial. As ideias se consolidaram e se diversificaram através de diversas publicações e manifestos:</p>
+                            <ul>
+                                <li><strong>Revista Klaxon (SP, 1922):</strong> Principal órgão de divulgação pós-semana.</li>
+                                <li><strong>Revista Estética (RJ, 1924)</strong></li>
+                                <li><strong>A Revista (MG, 1925/26)</strong></li>
+                                <li><strong>Revista Verde (MG, 1927)</strong></li>
+                            </ul>
+                        </div>
+                        <div class="slide-media">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/4/46/Klaxon_n._3.jpg" alt="Capa da Revista Klaxon" class="slide-image">
+                            <div class="img-caption">Capa da Revista Klaxon</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 14: PEDAGÓGICO - PAU-BRASIL -->
+            <section class="slide">
+                <div class="slide-content">
+                    <h2 class="slide-title">Análise: Manifesto Pau-Brasil (1924)</h2>
+                    <div class="pedagogical-layout">
+                        <div class="poem-container">
+                            <div class="poem-stanza">
+                                <p>"A poesia existe nos fatos. Os casebres de açafrão e de ocre nos <span class="key-concept">verdes da Favela</span>, sob o azul cabralino, são fatos estéticos."</p>
+                            </div>
+                            <div class="poem-stanza">
+                                <p>"A língua sem arcaísmos, sem erudição. Natural e neológica. A contribuição milionária de todos os erros. <span class="key-concept">Como falamos. Como somos</span>."</p>
+                            </div>
+                        </div>
+                        <div class="analysis-container">
+                            <div class="teacher-note">
+                                <h3>O Nacionalismo de Oswald de Andrade</h3>
+                                <ul>
+                                    <li><strong>Redescoberta do Brasil:</strong> Elevação da realidade crua, do popular e da favela à categoria de "fato estético", negando os temas parnasianos.</li>
+                                    <li><strong>A Língua Viva:</strong> Defesa radical da linguagem coloquial brasileira. O "erro" gramatical do povo vira contribuição milionária para a cultura.</li>
+                                    <li><strong>Arte de "Exportação":</strong> Como o pau-brasil, a arte deveria ser genuína e pronta para o mundo.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 15: Verde-Amarelo -->
+            <section class="slide">
+                <div class="slide-content">
+                    <h2 class="slide-title">O Movimento Verde-Amarelo (1929)</h2>
+                    <div class="slide-layout split">
+                        <div class="slide-text">
+                            <ul>
+                                <li><strong>A Escola da Anta:</strong> Liderada por Plínio Salgado e Menotti del Picchia.</li>
+                                <li><strong>Proposta:</strong> Reação ufanista e conservadora ao Pau-Brasil. Nacionalismo de afirmação instintiva.</li>
+                                <li><strong>Ideologia:</strong> Alinhamento político à direita que mais tarde culminaria no movimento Integralista (fascismo à brasileira).</li>
+                            </ul>
+                        </div>
+                        <!-- Placeholder REMOVIDO conforme solicitado ("Tire") -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 16: PEDAGÓGICO - ANTROPOFAGIA -->
+            <section class="slide">
+                <div class="slide-content">
+                    <h2 class="slide-title">Análise: Manifesto Antropófago (1928)</h2>
+                    <div class="pedagogical-layout">
+                        <div class="poem-container">
+                            <div class="poem-stanza">
+                                <p>"<span class="key-concept">Tupy, or not tupy</span> that is the question."</p>
+                            </div>
+                            <div class="poem-stanza">
+                                <p>"<span class="key-concept">Só me interessa o que não é meu</span>. Lei do homem. Lei do antropófago."</p>
+                            </div>
+                            <div class="poem-stanza">
+                                <p>"Nunca fomos catequizados. Fizemos foi Carnaval."</p>
+                            </div>
+                        </div>
+                        <div class="analysis-container">
+                            <div class="teacher-note">
+                                <h3>A Devoração Crítica</h3>
+                                <ul>
+                                    <li><strong>Tupy or not tupy:</strong> Paródia de Shakespeare misturada com o indígena tupi. Resume o conflito: copiar a Europa ou assumir a brasilidade?</li>
+                                    <li><strong>O Canibalismo Cultural:</strong> "Devorar" (assimilar criticamente) as influências estrangeiras, digeri-las e produzir uma arte nova, original e com as raízes do Brasil.</li>
+                                    <li><strong>Contra a Catequese:</strong> Negação da submissão pacífica ("bom selvagem") à cultura dominadora.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 17: A FASE HERÓICA -->
+            <section class="slide">
+                <div class="slide-content">
+                    <h2 class="slide-title">A Fase Heróica (1922-1930): A "Fase de Destruição"</h2>
+                    <div class="slide-layout split">
+                        <div class="slide-text">
+                            <ul>
+                                <li><strong>O Espírito da Época:</strong> Conhecida na historiografia como a "Fase de Destruição". O objetivo inicial não era apenas criar o novo, mas <strong>destruir implacavelmente</strong> os valores do passado (Parnasianismo, Simbolismo e Academicismo).</li>
+                                <li><strong>Radicalismo e Anarquia:</strong> Foi o período mais combativo e escandaloso da literatura nacional. Os autores assumiram uma postura iconoclasta, usando a provocação como arma contra o conservadorismo.</li>
+                                <li><strong>Prosa e Poesia:</strong> A poesia foi a grande protagonista e arma de choque dessa geração. A prosa engatinhava em formatos experimentais, marcada pela fragmentação e por uma linguagem telegráfica.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 18: O PROJETO ESTÉTICO -->
+            <section class="slide">
+                <div class="slide-content">
+                    <h2 class="slide-title">O Projeto Estético e Linguístico</h2>
+                    <div class="slide-layout split">
+                        <div class="slide-text">
+                            <ul>
+                                <li><strong>As Vanguardas e o Brasil:</strong> A genialidade da geração não foi copiar a Europa, mas usar o maquinário subversivo das Vanguardas (o absurdo dadaísta, a velocidade futurista, a fragmentação cubista) para "digerir" a realidade brasileira e criar identidade.</li>
+                                <li><strong>A Nova Gramática (Coloquialismo):</strong> A "língua de dicionário" é substituída pela língua das ruas. O <em>erro gramatical</em>, as gírias e a fala popular tornam-se matéria-prima literária legítima.</li>
+                                <li><strong>Fim do "Bom-Mocismo" Formal:</strong> Morte do soneto. Exigência absoluta do <strong>verso livre</strong>, do <strong>verso branco</strong> (sem rimas) e da ausência (ou extrema subjetividade) na pontuação.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 19: O ARSENAL CRÍTICO -->
+            <section class="slide">
+                <div class="slide-content">
+                    <h2 class="slide-title">O Arsenal Crítico: Humor e Cotidiano</h2>
+                    <div class="slide-layout split">
+                        <div class="slide-text">
+                            <ul>
+                                <li><strong>O Cotidiano como Arte:</strong> Poematizar fatos banais (o bonde, o casebre, o feijão com arroz), retirando a poesia do "Olimpo" e trazendo-a para o nível do homem comum.</li>
+                                <li><strong>O Poema-Piada:</strong> Poemas curtíssimos, quase telegramas (forte poder de síntese), que terminavam em uma "punchline" cômica, quebrando a expectativa acadêmica do leitor.</li>
+                                <li><strong>O Poema-Paródia (Revisão Histórica):</strong> Reescritura debochada de textos clássicos ou da história oficial do Brasil, satirizando o excesso de sentimentalismo romântico e a visão eurocêntrica do "descobrimento".</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 20: O NACIONALISMO BIFURCADO -->
+            <section class="slide">
+                <div class="slide-content">
+                    <h2 class="slide-title">O Nacionalismo Bifurcado (As Duas Correntes)</h2>
+                    <div class="slide-layout">
+                        <div class="slide-text" style="width: 100%;">
+                            <p style="margin-bottom: 1.5cqh; font-weight: 600;">A Geração de 22 buscava o "Brasil de verdade", mas dividiu-se ideologicamente:</p>
+                            <div class="pedagogical-layout" style="gap: 3cqw; height: auto;">
+                                <div class="teacher-note" style="flex: 1; margin-bottom: 0;">
+                                    <h3>Nacionalismo Crítico (Esquerda)</h3>
+                                    <ul>
+                                        <li><strong>Líder:</strong> Oswald de Andrade (Pau-Brasil / Antropofagia).</li>
+                                        <li><strong>Visão:</strong> Irônico e realista. Propunha a aceitação das nossas falhas e a valorização do negro, do índio real e da miscigenação.</li>
+                                        <li><strong>Postura:</strong> "Digerir" a cultura estrangeira criticamente.</li>
+                                    </ul>
+                                </div>
+                                <div class="teacher-note" style="flex: 1; margin-bottom: 0; border-left-color: #10b981; background: #ecfdf5;">
+                                    <h3 style="color: #065f46;">Nacionalismo Ufanista (Direita)</h3>
+                                    <ul>
+                                        <li><strong>Líderes:</strong> Plínio Salgado e Cassiano Ricardo (Verde-Amarelo / Anta).</li>
+                                        <li><strong>Visão:</strong> Reacionário e místico. Exaltava um Brasil ilusório e glorioso, baseando-se em uma idolatria cega à pátria.</li>
+                                        <li><strong>Postura:</strong> Desaguaria mais tarde no Movimento Integralista (Fascismo Brasileiro).</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 18: Oswald Agitador -->
+            <section class="slide">
+                <div class="slide-content">
+                    <h2 class="slide-title">Oswald de Andrade: O Agitador (1890-1954)</h2>
+                    <div class="slide-layout split">
+                        <div class="slide-text">
+                            <ul>
+                                <li><strong>O Perfil:</strong> Filho da rica burguesia paulista. Personalidade sarcástica, polêmica e irreverente, protagonista das inovações da Geração de 22.</li>
+                                <li><strong>A Garçonnière:</strong> Mantinha um espaço boêmio onde os modernistas se reuniam e criaram o diário coletivo <em>"O Perfeito Cozinheiro das Almas deste Mundo"</em>.</li>
+                                <li><strong>Amizades Conturbadas:</strong> Rompeu e reatou diversas amizades na vida, incluindo um longo atrito literário com Mário de Andrade.</li>
+                            </ul>
+                        </div>
+                        <div class="slide-media" style="flex: 0.5; background: transparent; border: none;">
+                            <div class="teacher-note" style="margin-bottom: 0;">
+                                <h3>O Papel de Oswald</h3>
+                                <p style="font-size: 1.8cqw;">Sua fortuna financiou o movimento, mas sua mente irrequieta e anárquica foi o verdadeiro combustível que escandalizou a sociedade.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 19: Amores e Militância -->
+            <section class="slide">
+                <div class="slide-content">
+                    <h2 class="slide-title">Oswald: Romances e Militância</h2>
+                    <div class="slide-layout split">
+                        <div class="slide-text">
+                            <ul>
+                                <li><strong>Tarsila do Amaral:</strong> Casamento icônico. Num episódio onde comiam rãs e brincaram de ser "quase-antropófagos", nasceu a inspiração para o Movimento Antropofágico.</li>
+                                <li><strong>Pagu (Patrícia Galvão):</strong> Envolvimento com a jovem militante. Juntos, filiaram-se ao Partido Comunista, atuaram como agitadores culturais e foram presos.</li>
+                                <li><strong>Anos Difíceis:</strong> Na década de 1930, Oswald viveu crises financeiras, publicou literatura proletária e enfrentou forte censura estatal no Estado Novo.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 20: Obras -->
+            <section class="slide">
+                <div class="slide-content">
+                    <h2 class="slide-title">Obras Fundamentais de Oswald</h2>
+                    <div class="slide-layout">
+                        <div class="slide-text" style="width: 100%;">
+                            <div class="pedagogical-layout" style="gap: 2cqw; height: auto;">
+                                <div class="teacher-note" style="flex: 1; margin-bottom: 0; background: #fffbef;">
+                                    <h3>Romance e Teatro</h3>
+                                    <ul>
+                                        <li><strong>Memórias Sentimentais de João Miramar (1924):</strong> Prosa fragmentária.</li>
+                                        <li><strong>Serafim Ponte Grande (1933)</strong></li>
+                                        <li><strong>O Rei da Vela (1937):</strong> Peça clássica que denuncia a burguesia e o capitalismo nacional.</li>
+                                    </ul>
+                                </div>
+                                <div class="teacher-note" style="flex: 1; margin-bottom: 0; background: #fffbef;">
+                                    <h3>Poesia e Manifestos</h3>
+                                    <ul>
+                                        <li><strong>Manifesto Pau-Brasil (1924)</strong> e <strong>Manifesto Antropófago (1928)</strong></li>
+                                        <li><strong>Pau-Brasil (1925):</strong> Coletânea de poesia.</li>
+                                        <li><strong>Primeiro Caderno do Aluno de Oswald de Andrade (1927)</strong></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 23: QUESTÃO FASE HEROICA 01 -->
+            <section class="slide question-slide">
+                <div class="slide-content">
+                    <h2 class="slide-title">Questão 01</h2>
+                    <div class="slide-layout">
+                        <div class="slide-text" style="width: 100%;">
+                            <p class="question-text">A Semana de Arte Moderna, ocorrida em 1922, inaugurou o movimento modernista no Brasil. A primeira fase do modernismo literário brasileiro, que durou de 1922 a 1930, teve como principal característica:</p>
+                            <ul class="options-list">
+                                <li data-letter="a">uso de poemas de forma fixa, como o soneto.</li>
+                                <li data-letter="b">linguagem rebuscada e acadêmica.</li>
+                                <li data-letter="c" class="correct-option">valorização das raízes culturais brasileiras.</li>
+                                <li data-letter="d">pessimismo e oposição ao romantismo.</li>
+                                <li data-letter="e">foco em temas relacionados com a colonização.</li>
+                            </ul>
+                            <button class="reveal-btn" onclick="this.closest('.slide').classList.add('revealed')">Mostrar Gabarito</button>
+                            <div class="gabarito-overlay">
+                                <p class="comentario-title">Gabarito: C</p>
+                                <p class="comentario-text">A valorização das raízes culturais brasileiras foi a principal característica da Primeira Fase do Modernismo. Os artistas buscavam criar uma arte genuinamente nacional, rompendo com a dependência estética europeia e explorando temas e linguagens próprios do Brasil.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 24: QUESTÃO FASE HEROICA 02 (Texto e Proposições) -->
+            <section class="slide question-slide">
+                <div class="slide-content">
+                    <h2 class="slide-title">Questão 02</h2>
+                    <div class="slide-layout split">
+                        <div class="slide-text" style="flex: 0.45;">
+                            <div class="quote-box" style="margin-bottom: 2cqh;">
+                                <h3 style="font-size: 1.5cqw; color: #0f172a; margin-bottom: 1cqh;">Pronominais</h3>
+                                <p class="quote-text" style="font-size: 1.6cqw; white-space: pre-line;">Dê-me um cigarro
+Diz a gramática
+Do professor e do aluno
+E do mulato sabido
+Mas o bom negro e o bom branco
+Da Nação Brasileira
+Dizem todos os dias
+Deixa disso camarada
+Me dá um cigarro.</p>
+                                <p class="author-note" style="margin-top: 1cqh;">(Oswald de Andrade)</p>
+                            </div>
+                        </div>
+                        <div class="slide-text" style="flex: 0.55;">
+                            <p class="question-text" style="font-size: 1.6cqw;">Oswald de Andrade foi um dos principais autores da primeira fase do modernismo no Brasil. Na poesia acima, o escritor propõe:</p>
+                            <ul class="options-list">
+                                <li data-letter="a">a busca de uma identidade universal.</li>
+                                <li data-letter="b" class="correct-option">a valorização da linguagem coloquial brasileira.</li>
+                                <li data-letter="c">uma crítica aos maus hábitos, como o tabagismo.</li>
+                                <li data-letter="d">enfatizar a relação entre professor e aluno.</li>
+                                <li data-letter="e">repensar o uso do português do Brasil.</li>
+                            </ul>
+                            <button class="reveal-btn" onclick="this.closest('.slide').classList.add('revealed')">Mostrar Gabarito</button>
+                            <div class="gabarito-overlay" style="bottom: 1cqh; left: 1cqw; right: 1cqw; padding: 1.5cqh 2cqw;">
+                                <p class="comentario-title">Gabarito: B</p>
+                                <p class="comentario-text" style="font-size: 1.4cqw;">No poema "Pronominais", Oswald de Andrade critica a gramática normativa em favor da linguagem coloquial brasileira. Ele demonstra como a fala popular, com suas particularidades, é uma expressão autêntica da identidade nacional, em contraste com as regras impostas pela norma culta.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 25: QUESTÃO FASE HEROICA 03 (Texto Base) -->
+            <section class="slide question-slide">
+                <div class="slide-content">
+                    <h2 class="slide-title">Questão 03</h2>
+                    <div class="slide-layout split">
+                        <div class="slide-text" style="flex: 0.45;">
+                            <div class="quote-box" style="margin-bottom: 0;">
+                                <h3 style="font-size: 1.5cqw; color: #0f172a; margin-bottom: 1cqh;">O trovador</h3>
+                                <p class="quote-text" style="font-size: 1.5cqw; white-space: pre-line;">Sentimentos em mim do asperamente
+dos homens das primeiras eras...
+As primaveras do sarcasmo
+intermitentemente no meu coração arlequinal...
+Intermitentemente...
+Outras vezes é um doente, um frio
+na minha alma doente como um longo som redondo...
+Cantabona! Cantabona!
+Dlorom...
+Sou um tupi tangendo um alaúde!</p>
+                                <p class="author-note" style="margin-top: 1cqh; font-size: 1.3cqw;">(ANDRADE, M. Poesias completas de Mário de Andrade. Belo Horizonte: Itatiaia, 2005.)</p>
+                            </div>
+                        </div>
+                        <div class="slide-text" style="flex: 0.55;">
+                            <p class="question-text" style="font-size: 1.6cqw;">Cara ao Modernismo, a questão da identidade nacional é recorrente na prosa e na poesia de Mário de Andrade. Em O trovador, esse aspecto é:</p>
+                            <ul class="options-list" style="margin-top: 0;">
+                                <li data-letter="a" style="font-size: 1.4cqw; padding: 1cqh 1cqw 1cqh 3.5cqw; margin-bottom: 0.5cqh;">abordado subliminarmente, por meio de expressões como "coração arlequinal" que, evocando o carnaval, remete à brasilidade.</li>
+                                <li data-letter="b" style="font-size: 1.4cqw; padding: 1cqh 1cqw 1cqh 3.5cqw; margin-bottom: 0.5cqh;">verificado já no título, que remete aos repentistas nordestinos, estudados por Mário de Andrade em suas viagens e pesquisas folclóricas.</li>
+                                <li data-letter="c" style="font-size: 1.4cqw; padding: 1cqh 1cqw 1cqh 3.5cqw; margin-bottom: 0.5cqh;">lamentado pelo eu lírico, tanto no uso de expressões como "Sentimentos em mim do asperamente", "frio", "alma doente", como pelo som triste do alaúde "Dlorom".</li>
+                                <li data-letter="d" class="correct-option" style="font-size: 1.4cqw; padding: 1cqh 1cqw 1cqh 3.5cqw; margin-bottom: 0.5cqh;">problematizado na oposição tupi (selvagem) x alaúde (civilizado), apontando a síntese nacional que seria proposta no Manifesto Antropófago, de Oswald de Andrade.</li>
+                                <li data-letter="e" style="font-size: 1.4cqw; padding: 1cqh 1cqw 1cqh 3.5cqw; margin-bottom: 0.5cqh;">exaltado pelo eu lírico, que evoca os "sentimentos dos homens das primeiras eras" para mostrar o orgulho brasileiro por suas raízes indígenas.</li>
+                            </ul>
+                            <button class="reveal-btn" onclick="this.closest('.slide').classList.add('revealed')" style="margin-top: 0.5cqh;">Mostrar Gabarito</button>
+                            <div class="gabarito-overlay" style="bottom: 1cqh; left: 1cqw; right: 1cqw; padding: 1.5cqh 2cqw;">
+                                <p class="comentario-title">Gabarito: D</p>
+                                <p class="comentario-text" style="font-size: 1.3cqw;">Em "O trovador", Mário de Andrade problematiza a identidade nacional ao confrontar o "tupi" (elemento indígena, selvagem) com o "alaúde" (instrumento musical europeu, civilizado). Essa oposição reflete a busca modernista por uma síntese cultural que integrasse as diversas influências formadoras do Brasil, um conceito que seria aprofundado no Manifesto Antropófago.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 26: QUESTÃO FASE HEROICA 04 (Parte 1) -->
+            <section class="slide question-slide">
+                <div class="slide-content">
+                    <h2 class="slide-title">Questão 04 - Texto Base</h2>
+                    <div class="slide-layout split">
+                        <div class="slide-text" style="flex: 0.45;">
+                            <div class="quote-box" style="margin-bottom: 1.5cqh;">
+                                <h3 style="font-size: 1.5cqw; color: #0f172a; margin-bottom: 1cqh;">Vício na fala</h3>
+                                <p class="quote-text" style="font-size: 1.6cqw; white-space: pre-line;">Para dizerem milho dizem mio
+Para melhor dizem mió
+Para pior pió
+Para telha dizem teia
+Para telhado dizem teiado
+E vão fazendo telhados.</p>
+                                <p class="author-note" style="margin-top: 1cqh;">(Oswald de Andrade)</p>
+                            </div>
+                            <p class="question-text" style="font-size: 1.5cqw;">Sobre o poema de Oswald de Andrade, julgue as seguintes proposições:</p>
+                        </div>
+                        <div class="slide-text" style="flex: 0.55;">
+                            <ul class="propositions-list">
+                                <li><strong>I.</strong> O poema de Oswald de Andrade volta-se contra o preconceito linguístico e nos chama a atenção para a necessidade de uma espécie de ética linguística pautada na diferença entre as línguas.</li>
+                                <li><strong>II.</strong> O poema critica a maneira de falar do povo brasileiro, sobretudo das classes incultas que desconhecem o nível formal da língua.</li>
+                                <li><strong>III.</strong> Para ele, os falantes que dizem “mio”, “mió”, “pió”, “teia”, “teiado”, de certa forma, constroem um “telhado”, ou seja, criam novas formas de pronúncia que se sobressaem à norma culta.</li>
+                                <li><strong>IV.</strong> A palavra “vício”, encontrada no título do poema, denota certo preconceito linguístico do autor, que julga a norma culta superior ao coloquialismo.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 27: QUESTÃO FASE HEROICA 04 (Parte 2) -->
+            <section class="slide question-slide">
+                <div class="slide-content">
+                    <h2 class="slide-title">Questão 04 - Alternativas</h2>
+                    <div class="slide-layout">
+                        <div class="slide-text" style="width: 100%;">
+                            <p class="question-text" style="font-size: 1.8cqw; margin-bottom: 2cqh;">Com base na leitura do poema e nas proposições analisadas, está(ão) correta(s):</p>
+                            <ul class="options-list">
+                                <li data-letter="a">Todas estão corretas.</li>
+                                <li data-letter="b" class="correct-option">I e III estão corretas.</li>
+                                <li data-letter="c">I, III e IV estão corretas.</li>
+                                <li data-letter="d">II e III estão corretas.</li>
+                            </ul>
+                            <button class="reveal-btn" onclick="this.closest('.slide').classList.add('revealed')">Mostrar Gabarito</button>
+                            <div class="gabarito-overlay">
+                                <p class="comentario-title">Gabarito: B</p>
+                                <p class="comentario-text">As proposições I e III estão corretas. Oswald de Andrade valoriza o falar do povo e suas variantes linguísticas como uma forma legítima de construção da identidade nacional, sem a intenção de criticar ou denotar preconceito. A palavra "vício" no título é usada ironicamente para subverter a ideia de que a fala popular é "incorreta".</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 28: QUESTÃO FASE HEROICA 05 (Parte 1) -->
+            <section class="slide question-slide">
+                <div class="slide-content">
+                    <h2 class="slide-title">Questão 05 - Texto Base</h2>
+                    <div class="slide-layout split">
+                        <div class="slide-text" style="flex: 0.45;">
+                            <div class="quote-box" style="margin-bottom: 1.5cqh;">
+                                <h3 style="font-size: 1.5cqw; color: #0f172a; margin-bottom: 1cqh;">Erro de português</h3>
+                                <p class="quote-text" style="font-size: 1.6cqw; white-space: pre-line;">Quando o português chegou
+Debaixo de uma bruta chuva
+Vestiu o índio
+Que pena!
+Fosse uma manhã de sol
+O índio tinha despido
+O português.</p>
+                                <p class="author-note" style="margin-top: 1cqh;">(Oswald de Andrade)</p>
+                            </div>
+                            <p class="question-text" style="font-size: 1.5cqw;">Sobre o poema de Oswald de Andrade, estão corretas as seguintes proposições:</p>
+                        </div>
+                        <div class="slide-text" style="flex: 0.55;">
+                            <ul class="propositions-list" style="gap: 1cqh;">
+                                <li><strong>I.</strong> Faz uma crítica contra a colonização portuguesa no Brasil. Essa crítica pode ser confirmada a partir do título do poema, o qual contém uma ambiguidade intencional.</li>
+                                <li><strong>II.</strong> Nesse poema, a temática do relacionamento amoroso é abordada de maneira inovadora, distante da idealização romântica.</li>
+                                <li><strong>III.</strong> O poema utiliza elementos como o humor, a ironia e o sarcasmo para relatar a chegada do português em terras brasileiras.</li>
+                                <li><strong>IV.</strong> Apropria-se de uma linguagem simples e prosaica para fazer uma reflexão profunda e complexa.</li>
+                                <li><strong>V.</strong> No poema de Oswald nota-se a preocupação com a métrica, a versificação e a rima, embora o conteúdo do poema seja inovador.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 29: QUESTÃO FASE HEROICA 05 (Parte 2) -->
+            <section class="slide question-slide">
+                <div class="slide-content">
+                    <h2 class="slide-title">Questão 05 - Alternativas</h2>
+                    <div class="slide-layout">
+                        <div class="slide-text" style="width: 100%;">
+                            <p class="question-text" style="font-size: 1.8cqw; margin-bottom: 2cqh;">Considerando a análise do poema e as proposições, assinale a alternativa correta:</p>
+                            <ul class="options-list">
+                                <li data-letter="a">I, II e IV.</li>
+                                <li data-letter="b">II, III e V.</li>
+                                <li data-letter="c" class="correct-option">I, III e IV.</li>
+                                <li data-letter="d">III e IV.</li>
+                                <li data-letter="e">II e V.</li>
+                            </ul>
+                            <button class="reveal-btn" onclick="this.closest('.slide').classList.add('revealed')">Mostrar Gabarito</button>
+                            <div class="gabarito-overlay">
+                                <p class="comentario-title">Gabarito: C</p>
+                                <p class="comentario-text">As proposições I, III e IV estão corretas. Em "Erro de português", Oswald de Andrade faz uma crítica irônica à colonização portuguesa no Brasil, utilizando uma linguagem simples e direta para subverter a narrativa histórica tradicional. O humor e o sarcasmo são ferramentas para questionar a imposição cultural e linguística dos colonizadores.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 28: QUESTÃO FASE HEROICA 06 -->
+            <section class="slide question-slide">
+                <div class="slide-content">
+                    <h2 class="slide-title">Questão 06</h2>
+                    <div class="slide-layout split">
+                        <div class="slide-text" style="flex: 0.45;">
+                            <div class="quote-box" style="margin-bottom: 1.5cqh;">
+                                <h3 style="font-size: 1.5cqw; color: #0f172a; margin-bottom: 1cqh;">O capoeira</h3>
+                                <p class="quote-text" style="font-size: 1.6cqw; white-space: pre-line;">— Qué apanhá sordado?
+— O quê?
+— Qué apanhá?
+Pernas e cabeça na calçada.</p>
+                                <p class="author-note" style="margin-top: 1cqh;">(Oswald de Andrade)</p>
+                            </div>
+                        </div>
+                        <div class="slide-text" style="flex: 0.55;">
+                            <p class="question-text" style="font-size: 1.6cqw;">Sobre a linguagem modernista da primeira fase, é incorreto afirmar:</p>
+                            <ul class="options-list">
+                                <li data-letter="a">busca de uma linguagem mais coloquial.</li>
+                                <li data-letter="b">valorização de temas ligados ao cotidiano.</li>
+                                <li data-letter="c">uso dos versos livres, sem métrica definida.</li>
+                                <li data-letter="d" class="correct-option">defesa da "arte pela arte", focada apenas na estética técnica.</li>
+                                <li data-letter="e">irreverência e subjetivismo dos textos.</li>
+                            </ul>
+                            <button class="reveal-btn" onclick="this.closest('.slide').classList.add('revealed')">Mostrar Gabarito</button>
+                            <div class="gabarito-overlay" style="bottom: 1cqh; left: 1cqw; right: 1cqw; padding: 1.5cqh 2cqw;">
+                                <p class="comentario-title">Gabarito: D</p>
+                                <p class="comentario-text" style="font-size: 1.4cqw;">É incorreto afirmar que a linguagem modernista da primeira fase defendia a "arte pela arte". Essa concepção, que prioriza a estética pela estética e se afasta de preocupações sociais ou ideológicas, era característica do Parnasianismo, movimento ao qual o Modernismo se opôs veementemente. O Modernismo buscava engajamento e reflexão sobre a realidade brasileira.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 29: QUESTÃO FASE HEROICA 07 -->
+            <section class="slide question-slide">
+                <div class="slide-content">
+                    <h2 class="slide-title">Questão 07</h2>
+                    <div class="slide-layout">
+                        <div class="slide-text" style="width: 100%;">
+                            <p class="question-text">Assinale a alternativa em que se encontram preocupações estéticas da Primeira Geração Modernista:</p>
+                            <ul class="options-list">
+                                <li data-letter="a">Rompimento com a estrutura discursiva do verso tradicional, valendo-se apenas de materiais gráficos e visuais.</li>
+                                <li data-letter="b">Busca pelo sentido da existência humana, confronto entre o homem e a realidade, reflexão espiritualista.</li>
+                                <li data-letter="c" class="correct-option">Reconstrução da cultura brasileira sobre bases nacionais, revisão crítica de nosso passado histórico e eliminação do complexo de colonizados.</li>
+                                <li data-letter="d">Amadurecimento da prosa realista-naturalista e caráter documental focado no determinismo racial.</li>
+                            </ul>
+                            <button class="reveal-btn" onclick="this.closest('.slide').classList.add('revealed')">Mostrar Gabarito</button>
+                            <div class="gabarito-overlay">
+                                <p class="comentario-title">Gabarito: C</p>
+                                <p class="comentario-text">A reconstrução da cultura brasileira sobre bases nacionais, a revisão crítica do passado histórico e a eliminação do complexo de colonizados foram preocupações centrais da Primeira Geração Modernista. O movimento visava à autonomia cultural do Brasil, buscando uma expressão artística que refletisse a realidade e a identidade do país, livre de influências estrangeiras excessivas.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 30: QUESTÃO FASE HEROICA 08 -->
+            <section class="slide question-slide">
+                <div class="slide-content">
+                    <h2 class="slide-title">Questão 08</h2>
+                    <div class="slide-layout">
+                        <div class="slide-text" style="width: 100%;">
+                            <p class="question-text">Os principais nomes da primeira fase do Modernismo na Literatura Brasileira foram:</p>
+                            <ul class="options-list">
+                                <li data-letter="a">Lima Barreto, Augusto dos Anjos e Oswald de Andrade.</li>
+                                <li data-letter="b" class="correct-option">Mário de Andrade, Manuel Bandeira e Oswald de Andrade.</li>
+                                <li data-letter="c">Mário Quintana, Mário de Andrade e Patrícia Galvão.</li>
+                                <li data-letter="d">Manuel Bandeira, Tarsila do Amaral e Lima Barreto.</li>
+                            </ul>
+                            <button class="reveal-btn" onclick="this.closest('.slide').classList.add('revealed')">Mostrar Gabarito</button>
+                            <div class="gabarito-overlay">
+                                <p class="comentario-title">Gabarito: B</p>
+                                <p class="comentario-text">Os principais nomes da primeira fase do Modernismo na Literatura Brasileira foram Mário de Andrade, Manuel Bandeira e Oswald de Andrade. Eles são considerados os pilares do movimento, responsáveis por suas principais manifestações e pela consolidação de suas propostas estéticas e ideológicas.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 31: QUESTÃO FASE HEROICA 09 -->
+            <section class="slide question-slide">
+                <div class="slide-content">
+                    <h2 class="slide-title">Questão 09</h2>
+                    <div class="slide-layout split">
+                        <div class="slide-text" style="flex: 0.45;">
+                            <div class="quote-box" style="margin-bottom: 1.5cqh;">
+                                <p class="quote-text" style="font-size: 1.6cqw; white-space: pre-line;">Nós somos as Juvenilidades Auriverdes!
+As franjadas flâmulas das bananeiras,
+as esmeraldas das araras,
+os rubis dos colibris,
+os lirismos dos sabiás e das jandaias,
+os abacaxis, as mangas, os cajus
+almejam localizar-se triunfantemente,
+na fremente celebração do Universal!…</p>
+                                <p class="author-note" style="margin-top: 1cqh;">(Mário de Andrade. Poesias completas, 2013.)</p>
+                            </div>
+                        </div>
+                        <div class="slide-text" style="flex: 0.55;">
+                            <p class="question-text" style="font-size: 1.6cqw;">Os versos do poema de Mário de Andrade, originalmente publicado em 1922, apresentam como uma das principais características da Semana de Arte Moderna:</p>
+                            <ul class="options-list">
+                                <li data-letter="a">a celebração ufanista das riquezas pátrias sem crítica social.</li>
+                                <li data-letter="b">a defesa da sustentabilidade e do mundo natural.</li>
+                                <li data-letter="c" class="correct-option">o esforço de conciliar o nacional e o internacional (universal).</li>
+                                <li data-letter="d">a valorização da arte naturalista e acadêmica.</li>
+                                <li data-letter="e">o empenho em conectar o ser humano à natureza de forma romântica.</li>
+                            </ul>
+                            <button class="reveal-btn" onclick="this.closest('.slide').classList.add('revealed')">Mostrar Gabarito</button>
+                            <div class="gabarito-overlay" style="bottom: 1cqh; left: 1cqw; right: 1cqw; padding: 1.5cqh 2cqw;">
+                                <p class="comentario-title">Gabarito: C</p>
+                                <p class="comentario-text" style="font-size: 1.3cqw;">Os versos de Mário de Andrade em "Juvenilidades Auriverdes" demonstram o esforço de conciliar o nacional e o internacional (universal). O poema celebra as riquezas naturais e culturais do Brasil ("bananeiras", "araras", "sabiás") ao mesmo tempo em que almeja sua inserção e reconhecimento na "celebração do Universal", buscando uma identidade brasileira que fosse ao mesmo tempo autêntica e relevante no cenário global.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 32: QUESTÃO FASE HEROICA 10 -->
+            <section class="slide question-slide">
+                <div class="slide-content">
+                    <h2 class="slide-title">Questão 10</h2>
+                    <div class="slide-layout">
+                        <div class="slide-text" style="width: 100%;">
+                            <p class="question-text">O poema de Oswald de Andrade remonta à ideia de que a brasilidade está relacionada ao futebol. Quanto à questão da identidade nacional, as anotações em torno dos versos em obras modernistas desse autor constituem:</p>
+                            <ul class="options-list">
+                                <li data-letter="a" class="correct-option">direcionamentos possíveis para uma leitura crítica de dados histórico-culturais.</li>
+                                <li data-letter="b">forma clássica da construção poética brasileira.</li>
+                                <li data-letter="c">rejeição à ideia do Brasil como o país do futebol.</li>
+                                <li data-letter="d">intervenções de um leitor estrangeiro no exercício de leitura poética.</li>
+                                <li data-letter="e">lembretes de palavras tipicamente brasileiras substitutivas das originais.</li>
+                            </ul>
+                            <button class="reveal-btn" onclick="this.closest('.slide').classList.add('revealed')">Mostrar Gabarito</button>
+                            <div class="gabarito-overlay">
+                                <p class="comentario-title">Gabarito: A</p>
+                                <p class="comentario-text">As anotações em torno dos versos em obras modernistas de Oswald de Andrade, como a que relaciona brasilidade ao futebol, constituem direcionamentos possíveis para uma leitura crítica de dados histórico-culturais. O Modernismo propunha uma reinterpretação da história e da cultura brasileira, convidando o leitor a uma reflexão aprofundada e desmistificada sobre os símbolos e valores nacionais.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <!-- Controls -->
+        <div class="controls-overlay">
+            <button id="prev-btn" class="nav-btn" aria-label="Slide Anterior">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+            </button>
+            <div class="slide-counter"><span id="current-slide">1</span> / <span id="total-slides">16</span></div>
+            <button id="next-btn" class="nav-btn" aria-label="Próximo Slide">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+            </button>
+        </div>
+    </div>
+    <script src="index.js"></script>
+</body>
+</html>

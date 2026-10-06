@@ -1,0 +1,627 @@
+/* Reset e Variáveis Essenciais */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    /* Paleta Vermelho e Branco (Cursinho) */
+    --bg-outside: #111111;     
+    --bg-slide: #ffffff;       
+    --bg-panel: #f8fafc;       
+    --text-main: #0f172a;      
+    --text-muted: #475569;     
+    --accent-red: #dc2626;     
+    --accent-dark: #991b1b;    
+    --border-color: #cbd5e1;
+
+    --font-heading: 'Outfit', sans-serif;
+    --font-body: 'Inter', sans-serif;
+    --font-quote: 'Playfair Display', serif;
+}
+
+body {
+    background-color: var(--bg-outside);
+    font-family: var(--font-body);
+    overflow: hidden; 
+    line-height: 1.35;
+}
+
+.presentation-wrapper {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.slides-container {
+    container-type: size; 
+    width: 100vw;
+    height: 56.25vw; 
+    max-height: 100vh;
+    max-width: 177.78vh; 
+    position: relative;
+    background-color: var(--bg-slide);
+    box-shadow: 0 0 20px rgba(0,0,0,0.8);
+    overflow: hidden;
+}
+
+.progress-bar-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 1cqh;
+    background: #e2e8f0;
+    z-index: 100;
+}
+
+.progress-bar {
+    height: 100%;
+    background: var(--accent-red);
+    width: 0%;
+    transition: width 0.4s ease;
+}
+
+.slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.4s ease;
+    padding: 4cqh 5cqw; 
+    display: flex;
+    flex-direction: column;
+}
+
+.slide.active {
+    opacity: 1;
+    visibility: visible;
+    z-index: 10;
+}
+
+/* Tipografia Base */
+.title {
+    font-family: var(--font-heading);
+    font-size: 5.5cqw;
+    font-weight: 800;
+    color: var(--accent-dark);
+    text-align: center;
+    line-height: 1.1;
+    margin-bottom: 2cqh;
+}
+
+.subtitle {
+    font-family: var(--font-heading);
+    font-size: 2.8cqw;
+    color: var(--text-main);
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 2cqh;
+}
+
+.slide-title {
+    font-family: var(--font-heading);
+    font-size: 3.5cqw;
+    color: var(--accent-red);
+    font-weight: 800;
+    margin-bottom: 1.5cqh;
+    border-bottom: 3px solid var(--accent-red);
+    padding-bottom: 0.5cqh;
+}
+
+.slide-content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.center-content {
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.glass-panel {
+    background: var(--bg-panel);
+    border: 2px solid var(--accent-red);
+    border-radius: 20px;
+    padding: 4cqw;
+    box-shadow: 0 10px 25px rgba(220, 38, 38, 0.1);
+}
+
+.divider {
+    width: 15cqw;
+    height: 0.6cqh;
+    background: var(--accent-red);
+    margin: 0 auto 3cqh;
+}
+
+.author-note {
+    font-family: var(--font-body);
+    font-size: 1.8cqw;
+    color: var(--text-muted);
+    font-style: italic;
+    margin-top: auto;
+}
+
+.slide-layout.split {
+    display: flex;
+    gap: 3cqw;
+    height: calc(100% - 7cqh); 
+}
+
+.slide-text {
+    flex: 1.5; 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.slide-text ul { list-style-type: none; }
+
+.slide-text li {
+    font-size: 2.2cqw; 
+    margin-bottom: 1.2cqh;
+    position: relative;
+    padding-left: 2cqw;
+    color: var(--text-main);
+}
+
+.slide-text li::before {
+    content: "■";
+    position: absolute;
+    left: 0;
+    color: var(--accent-red);
+    font-size: 1.5cqw;
+    top: 0.4cqw;
+}
+
+.slide-text li strong {
+    color: var(--accent-dark);
+    font-weight: 700;
+}
+
+.slide-text p {
+    font-size: 2.2cqw;
+    margin-bottom: 1.2cqh;
+}
+
+.highlight-text {
+    font-size: 2cqw !important;
+    background: #fef2f2;
+    border-left: 4px solid var(--accent-red);
+    padding: 1cqh 1.5cqw;
+    margin-top: 1cqh !important;
+    border-radius: 0 8px 8px 0;
+    color: var(--accent-dark);
+    font-weight: 600;
+}
+
+.quote-box {
+    margin-top: 2cqh;
+    background: #f8fafc;
+    border: 1px solid var(--border-color);
+    border-left: 6px solid var(--accent-red);
+    padding: 2cqh 2cqw;
+    border-radius: 8px;
+    position: relative;
+}
+
+.quote-text {
+    font-family: var(--font-quote);
+    font-size: 2.1cqw;
+    font-style: italic;
+    color: var(--accent-dark);
+}
+
+.small-quote .quote-text {
+    font-size: 1.9cqw;
+}
+
+/* Media / Images */
+.slide-media {
+    position: relative;
+    flex: 0.5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.slide-image {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    border: 3px solid var(--border-color);
+}
+
+.slide-media:hover {
+    border-color: var(--accent-red);
+    background: #fef2f2;
+}
+
+.placeholder-text {
+    font-size: 1.8cqw;
+    color: var(--text-muted);
+    font-weight: 600;
+}
+
+/* Timeline Básica (Corrigido tamanho de fonte) */
+.timeline {
+    margin-top: 1cqh;
+    border-left: 3px solid var(--accent-red);
+    padding-left: 2.5cqw;
+    list-style: none !important;
+}
+
+.timeline li {
+    font-size: 2.2cqw; /* CORREÇÃO AQUI */
+    padding-left: 0 !important;
+    margin-bottom: 1.2cqh;
+    position: relative;
+}
+
+.timeline li::before {
+    content: "" !important;
+    position: absolute;
+    left: -3cqw;
+    top: 0.6cqw;
+    width: 1cqw;
+    height: 1cqw;
+    border-radius: 50%;
+    background: var(--bg-slide);
+    border: 3px solid var(--accent-red);
+}
+
+/* ===== NOVAS CLASSES PEDAGÓGICAS ===== */
+.pedagogical-layout {
+    display: flex;
+    gap: 3cqw;
+    height: calc(100% - 7cqh);
+}
+
+.poem-container {
+    flex: 0.8;
+    background: #fffbef; /* Tom leve de papel envelhecido */
+    border-left: 6px solid var(--accent-red);
+    padding: 2cqw;
+    border-radius: 8px;
+    font-family: var(--font-quote);
+    font-size: 2.1cqw; 
+    color: #1c1917;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    box-shadow: 2px 2px 10px rgba(0,0,0,0.05);
+}
+
+.poem-stanza {
+    margin-bottom: 2cqh;
+    line-height: 1.5;
+}
+
+.poem-stanza p {
+    margin: 0;
+}
+
+.analysis-container {
+    flex: 1.2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.teacher-note {
+    background: rgba(220, 38, 38, 0.04);
+    border: 2px solid var(--accent-red);
+    padding: 2.5cqw 2cqw 1.5cqw 2cqw;
+    border-radius: 12px;
+    margin-bottom: 2cqh;
+    position: relative;
+}
+
+.teacher-note::before {
+    content: "💡 Foco no Vestibular";
+    position: absolute;
+    top: -1.5cqh;
+    left: 2cqw;
+    background: var(--accent-red);
+    color: white;
+    padding: 0.5cqh 1.5cqw;
+    border-radius: 20px;
+    font-size: 1.4cqw;
+    font-weight: 700;
+}
+
+.teacher-note h3 {
+    color: var(--accent-dark);
+    font-size: 2.2cqw;
+    margin-bottom: 1cqh;
+}
+
+.teacher-note p, .teacher-note li {
+    font-size: 2cqw;
+    color: var(--text-main);
+    margin-bottom: 1cqh;
+}
+
+.teacher-note ul {
+    list-style-type: disc;
+    padding-left: 2cqw;
+}
+
+.teacher-note li::marker {
+    color: var(--accent-red);
+}
+
+.key-concept {
+    background-color: #fef08a; /* Marca-texto amarelo */
+    padding: 0 0.5cqw;
+    border-radius: 4px;
+    color: #854d0e;
+    font-weight: bold;
+}
+
+/* Controles UI Overlay */
+.controls-overlay {
+    position: absolute;
+    bottom: 2cqh;
+    right: 2cqw;
+    display: flex;
+    align-items: center;
+    gap: 1cqw;
+    z-index: 100;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 0.5cqh 1cqw;
+    border-radius: 30px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    border: 1px solid var(--border-color);
+}
+
+.nav-btn {
+    background: transparent;
+    border: none;
+    color: var(--accent-red);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5cqw;
+    border-radius: 50%;
+    transition: all 0.2s ease;
+}
+
+.nav-btn:hover {
+    background: #fef2f2;
+}
+
+.slide-counter {
+    font-family: var(--font-body);
+    font-size: 1.6cqw;
+    font-weight: 700;
+    color: var(--text-main);
+    min-width: 4cqw;
+    text-align: center;
+}
+
+/* ===== QUESTÕES DE VESTIBULAR ===== */
+.question-text {
+    font-size: 1.6cqw;
+    font-weight: 700;
+    margin-bottom: 1cqh;
+    color: var(--text-main);
+    line-height: 1.3;
+}
+
+.slide-text ul.options-list {
+    margin-top: 0.5cqh;
+    margin-bottom: 0.5cqh;
+}
+
+.slide-text ul.options-list li {
+    font-size: 1.5cqw;
+    margin-bottom: 0.8cqh;
+    padding: 1cqh 1.5cqw 1cqh 3.5cqw;
+    background: #f8fafc;
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    line-height: 1.3;
+}
+
+.slide-text ul.options-list li::before {
+    content: attr(data-letter);
+    left: 1cqw;
+    top: 50%;
+    transform: translateY(-50%);
+    font-weight: 800;
+    font-size: 1.5cqw;
+    color: var(--accent-red);
+    background: transparent;
+    border: none;
+    width: auto;
+    height: auto;
+}
+
+.slide-text ul.options-list li:hover {
+    background: #fef2f2;
+    border-color: var(--accent-red);
+}
+
+.slide.revealed .correct-option {
+    background: #ecfdf5 !important;
+    border-color: #10b981 !important;
+    color: #065f46 !important;
+    font-weight: 700;
+}
+
+.slide.revealed .correct-option::before {
+    color: #10b981 !important;
+}
+
+.reveal-btn {
+    background: var(--accent-red);
+    color: white;
+    border: none;
+    padding: 1cqh 2cqw;
+    font-size: 1.4cqw;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 0.5cqh;
+    transition: background 0.2s;
+    box-shadow: 0 4px 6px rgba(220, 38, 38, 0.2);
+}
+
+.reveal-btn:hover {
+    background: var(--accent-dark);
+}
+
+.slide.revealed .reveal-btn {
+    display: none;
+}
+
+/* ===== UX DESIGN DAS QUESTÕES ===== */
+/* Overlay do Gabarito para não empurrar o layout para baixo */
+.gabarito-overlay {
+    display: none;
+    position: absolute;
+    bottom: 3cqh;
+    left: 4cqw;
+    right: 4cqw;
+    background: rgba(240, 253, 244, 0.98);
+    border: 3px solid #10b981;
+    padding: 2cqh 3cqw;
+    border-radius: 8px;
+    box-shadow: 0 2cqh 4cqh rgba(0,0,0,0.3);
+    z-index: 100;
+}
+
+.gabarito-overlay .comentario-title {
+    font-size: 1.6cqw;
+    font-weight: 700;
+    color: #064e3b;
+    margin-bottom: 0.5cqh;
+}
+
+.gabarito-overlay .comentario-text {
+    font-size: 1.5cqw;
+    color: #065f46;
+    line-height: 1.4;
+}
+
+.slide.revealed .gabarito-overlay {
+    display: block;
+    animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Legibilidade das proposições longas */
+.propositions-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5cqh;
+}
+
+.propositions-list li {
+    font-size: 1.5cqw;
+    line-height: 1.4;
+    background: rgba(255, 255, 255, 0.5);
+    padding: 1.5cqh;
+    border-radius: 4px;
+    border-left: 4px solid #dc2626;
+}
+
+
+/* Correção Anti-Seleção */
+body, html {
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+/* Alerta Mobile Retrato */
+.mobile-rotate-alert {
+    display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: #0f172a; color: #fff; z-index: 99999;
+    flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 5vw;
+}
+.mobile-rotate-alert svg { width: 15vw; height: 15vw; margin-bottom: 5vw; fill: #fff; animation: rotatePhone 2s ease-in-out infinite; }
+.mobile-rotate-alert h2 { font-size: 6vw; color: #fff; border-bottom: none; margin-bottom: 2vw;}
+.mobile-rotate-alert p { font-size: 4.5vw; color: #cbd5e1; line-height: 1.5;}
+@keyframes rotatePhone { 0% { transform: rotate(0deg); } 50% { transform: rotate(-90deg); } 100% { transform: rotate(-90deg); } }
+
+@media screen and (orientation: portrait) and (max-width: 900px) {
+    .mobile-rotate-alert { display: flex; }
+    .presentation-wrapper { display: none; }
+}
+
+/* Esconder os botões de controle antigos para ficar minimalista */
+.presentation-controls {
+    display: none !important;
+}
+#prev-btn, #next-btn {
+    display: none !important;
+}
+
+
+/* Correção Definitiva de Imagens */
+
+/* Garante que o flex container não estoure e centralize o conteúdo */
+.slide-media {
+    position: relative;
+    flex: 0.5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 0;
+    min-width: 0;
+    height: 100%;
+}
+
+/* As imagens de fundo da galeria devem preencher 100% sem distorcer. 
+   O seletor restrito (.slide-media .slide-image) previne que afete 
+   imagens flutuantes nas questões! */
+.slide-media .slide-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 12px;
+    background-color: transparent;
+}
+
+
+/* Legendas Singelas das Imagens */
+.img-caption {
+    position: absolute;
+    bottom: 3cqw;
+    right: 3cqw;
+    background: rgba(0, 0, 0, 0.75);
+    color: #fff;
+    padding: 0.5cqw 1cqw;
+    border-radius: 6px;
+    font-size: 1.1cqw;
+    pointer-events: none;
+    z-index: 10;
+    backdrop-filter: blur(2px);
+    max-width: 80%;
+    text-align: right;
+}

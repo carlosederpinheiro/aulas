@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Modernismo - Geração de 30 (Premium)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: #0f172a; color: #1e293b; display: flex; align-items: center; justify-content: center; height: 100vh; overflow: hidden; }
+        
+        .slide-container { width: 100vw; height: 100vh; max-width: 177.78vh; max-height: 56.25vw; position: relative; background: #ffffff; overflow: hidden; container-type: size; box-shadow: 0 0 30px rgba(0,0,0,0.8); }
+        .slide { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; transition: opacity 0.4s ease; display: none; }
+        .slide.active { opacity: 1; display: flex; z-index: 10; }
+        
+        h1, h2, h3 { color: #0f172a; }
+        h2 { font-size: 2.8cqw; margin-bottom: 2cqw; font-weight: 800; border-bottom: 0.3cqw solid #e2e8f0; padding-bottom: 0.5cqw; }
+        p, li { font-size: 1.6cqw; line-height: 1.6; }
+        ul { margin-left: 2cqw; margin-bottom: 1.5cqw; }
+        li { margin-bottom: 1cqw; }
+
+        .cover-slide { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); color: white; padding: 5cqw; }
+        .cover-slide h1 { font-size: 4.5cqw; font-weight: 800; color: #f8fafc; margin-bottom: 1cqw; border: none; }
+        .cover-slide h2 { font-size: 2cqw; color: #cbd5e1; font-weight: 400; border: none; }
+        
+        .split-slide { display: flex; width: 100%; height: 100%; background: #f8fafc; flex-direction: row !important; }
+        .split-text { flex: 1.2; padding: 4cqw 5cqw; display: flex; flex-direction: column; justify-content: center; }
+        .split-image { flex: 0.8; background-size: cover; background-position: center; position: relative; }
+        .split-image::after { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; box-shadow: inset 4cqw 0 4cqw -2cqw rgba(248, 250, 252, 1); pointer-events: none; }
+        .img-caption { position: absolute; bottom: 2cqw; right: 2cqw; background: rgba(0,0,0,0.7); color: white; padding: 0.5cqw 1cqw; font-size: 1cqw; border-radius: 0.3cqw; }
+
+        .text-slide { display: flex; flex-direction: column; padding: 5cqw 8cqw; background: #fff; justify-content: center; }
+        
+        .question-slide { display: flex; flex-direction: column; padding: 4cqw 6cqw; background: #fff; justify-content: center; }
+        .q-box { background: #f1f5f9; padding: 2cqw; border-radius: 0.5cqw; font-size: 1.6cqw; font-weight: 600; border-left: 0.8cqw solid #2563eb; margin-bottom: 1.5cqw; }
+        .q-box { margin-bottom: 0.8cqw !important; font-size: 1.3cqw !important; line-height: 1.4; } .question-slide h2 { margin-bottom: 0.5cqw; font-size: 2.2cqw; }
+        .options-list { list-style: none; padding: 0; }
+        .options-list li { font-size: 1.25cqw; padding: 0.5cqw 1cqw; margin-bottom: 0.3cqw; border-radius: 0.3cqw; background: #fff; border: 2px solid #e2e8f0; display: flex; align-items: center; line-height: 1.3; }
+        .options-list li strong { margin-right: 1cqw; color: #2563eb; }
+        
+        .slide.revealed .answer-correct { background: #dcfce7 !important; border-color: #22c55e !important; color: #166534; font-weight: 600; }
+        .explanation-box { display: none; margin-top: 0.8cqw; padding: 0.8cqw; background: #fffbeb; border-left: 0.5cqw solid #f59e0b; font-size: 1.15cqw; color: #92400e; font-weight: 600; animation: fadeIn 0.5s ease; line-height: 1.3; }
+        .slide.revealed .explanation-box { display: block; }
+        
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(1cqw); } to { opacity: 1; transform: translateY(0); } }
+
+        .keyboard-hint { position: absolute; bottom: 1cqw; right: 1cqw; font-size: 1cqw; color: rgba(0,0,0,0.4); z-index: 100; font-style: italic; pointer-events: none;}
+        .slide-counter { position: absolute; top: 1cqw; right: 1.5cqw; font-size: 1cqw; color: rgba(0,0,0,0.5); z-index: 100; font-weight: bold; pointer-events: none;}
+
+        .mobile-rotate-alert { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #0f172a; color: white; z-index: 9999; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 2rem; }
+        .mobile-rotate-alert svg { width: 80px; height: 80px; fill: white; margin-bottom: 20px; animation: rotatePhone 2s infinite ease-in-out; }
+        @keyframes rotatePhone { 0% { transform: rotate(0deg); } 50% { transform: rotate(-90deg); } 100% { transform: rotate(-90deg); } }
+        @media screen and (max-width: 900px) and (orientation: portrait) { .mobile-rotate-alert { display: flex; } .slide-container { display: none; } }
+        
+        .question-slide .quote-box { margin-bottom: 0.5cqw !important; padding: 0.8cqw !important; } .question-slide .quote-text { font-size: 1.25cqw !important; line-height: 1.3 !important; }
+        
+        /* Utility styles */
+        .quote-box { background: rgba(0,0,0,0.05); padding: 1.5cqw; border-left: 3px solid #f59e0b; border-radius: 8px; margin-bottom: 1.5cqw; }
+        .quote-text { font-size: 1.5cqw; white-space: pre-line; line-height: 1.4; font-style: italic; }
+        .author-note { margin-top: 1cqw; font-size: 1.2cqw; color: #475569; text-align: right; }
+    
+        .cover-30 {
+            background-image: linear-gradient(rgba(10, 15, 30, 0.85), rgba(15, 20, 35, 0.95)), url("capa_modernismo_30.jpg");
+            background-size: cover;
+            background-position: center;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="mobile-rotate-alert">
+        <svg viewBox="0 0 24 24"><path d="M16 1H8C6.34 1 5 2.34 5 4v16c0 1.66 1.34 3 3 3h8c1.66 0 3-1.34 3-3V4c0-1.66-1.34-3-3-3zm-2 20h-4v-1h4v1zm3.25-3H6.75V4h10.5v14z"/></svg>
+        <h2>Vire o seu celular</h2>
+        <p>Apresentações exigem o formato widescreen.<br>Coloque seu aparelho na horizontal para acompanhar a aula.</p>
+    </div>
+
+    <div class="slide-container" id="presentation">
+        <div class="keyboard-hint">Use as setas ⬅ ➡ ou toque nas laterais para navegar</div>
+        <div class="slide-counter" id="progress">1 / X</div>
+        <div class="slide cover-slide active cover-30">
+            <h1>Modernismo: Geração de 30</h1>
+            <h2 style="margin-top: 2cqw;">A Fase da Consolidação e Maturidade (1930 - 1945)</h2>
+        </div>
+        <div class="slide split-slide">
+            <div class="split-text">
+                <h2>Revisão Rápida: O Papel de 22</h2>
+                
+                            <p><strong>A Fase Heroica e de Destruição (1922-1930):</strong></p>
+                            <ul>
+                                <li>O objetivo principal da Geração de 22 (Oswald e Mário de Andrade, Anita Malfatti) era <strong>destruir</strong> o academicismo (Parnasianismo) e o passadismo europeu.</li>
+                                <li><strong>Estética do Choque:</strong> A Semana de Arte Moderna serviu para chocar a burguesia e instaurar a liberdade de criação, o verso livre e a valorização do popular.</li>
+                                <li><strong>O Limite:</strong> Foi uma geração muito voltada para a "bagunça" estética e a busca de identidade (Manifesto Antropófago, Pau-Brasil). Faltava uma reflexão mais madura e engajada sobre a dura realidade do país.</li>
+                            </ul>
+                        
+            </div>
+            <div class="split-image" style="background-image: url('https://upload.wikimedia.org/wikipedia/pt/thumb/2/23/Semana-de-22-.jpeg/250px-Semana-de-22-.jpeg');">
+                <div class="img-caption">Cartaz Semana de Arte Moderna</div>
+            </div>
+        </div>
+        <div class="slide split-slide">
+            <div class="split-text">
+                <h2>A Transição (1929 - 1930)</h2>
+                
+                            <p><strong>O mundo desaba. O que mudou?</strong> A alegria debochada dos anos 20 dá lugar à tensão mundial e à reestruturação nacional.</p>
+                            <ul>
+                                <li><strong>A Crise de 1929:</strong> A quebra da Bolsa de Nova York destrói a economia baseada na exportação de café. A "Belle Époque" paulista e a República das Oligarquias entram em colapso.</li>
+                                <li><strong>A Revolução de 1930:</strong> Getúlio Vargas chega ao poder, acabando com a República do Café com Leite. O Brasil começa a se modernizar industrialmente, e o Nordeste (antes esquecido) entra em profunda decadência econômica.</li>
+                                <li><strong>A Consequência na Arte:</strong> O artista não tem mais espaço para brincadeiras. A literatura precisa olhar para a miséria, para a seca e para os problemas sociais urgentes.</li>
+                            </ul>
+                        
+            </div>
+            <div class="split-image" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/Alegoria_estados_revolucao_1930.jpg/250px-Alegoria_estados_revolucao_1930.jpg');">
+                <div class="img-caption">Revolução de 1930 - Vargas</div>
+            </div>
+        </div>
+        <div class="slide split-slide">
+            <div class="split-text">
+                <h2>O Mundo em Tensão (1930-1945)</h2>
+                
+                            <p>O contexto internacional dessa geração é um dos mais sombrios e ideológicos da história humana.</p>
+                            <ul>
+                                <li><strong>Os Totalitarismos:</strong> Ascensão do Nazismo (Hitler) e do Fascismo (Mussolini), além da consolidação do Stalinismo na URSS. O mundo se divide em ideologias extremas.</li>
+                                <li><strong>Guerra Civil Espanhola (1936-1939):</strong> O ensaio geral da barbárie militar.</li>
+                                <li><strong>Segunda Guerra Mundial (1939-1945):</strong> O holocausto, a bomba atômica e a total destruição humana obrigam os poetas a questionarem o próprio sentido da existência (o silêncio de Deus).</li>
+                            </ul>
+                        
+            </div>
+            <div class="split-image" style="background-image: url('https://static.todamateria.com.br/upload/gu/er/guernica-de-pablo-picasso-og.jpg?class=ogImageWide');">
+                <div class="img-caption">Guernica de Picasso</div>
+            </div>
+        </div>
+        <div class="slide text-slide">
+            <h2>A Geração da Consolidação</h2>
+            <ul style="margin-top: 2cqw; font-size: 1.6cqw; line-height: 2; display: flex; flex-direction: column; gap: 1cqw;">
+                        <li><strong>O que é Consolidação?</strong> Eles não precisam mais provar que são modernos. O verso livre e a linguagem coloquial já são a norma. Agora, usam a forma moderna para produzir literatura séria.</li>
+                        <li><strong>Engajamento Político e Social:</strong> A obra de arte vira um instrumento de denúncia. A fome, a desigualdade, o coronelismo e a luta de classes tornam-se protagonistas.</li>
+                        <li><strong>Questionamento Existencial:</strong> Na poesia, há uma volta para dentro. O "Eu" diante de um mundo em ruínas.</li>
+                        <li><strong>Regionalismo Universal:</strong> Eles falam dos problemas locais (ex: a Seca no Ceará), mas a dor abordada é universal (a fome dói igual em qualquer lugar do mundo).</li>
+                    </ul>
+        </div>
+        <div class="slide cover-slide">
+            <h1 style="color: #f59e0b;">A Grande Divisão</h1>
+            <h2 style="margin-top: 2cqw;">A Prosa e a Poesia seguiram caminhos distintos</h2>
+        </div>
+        <div class="slide split-slide">
+            <div class="split-text">
+                <h2>O Romance Regionalista de 30</h2>
+                
+                            <p><strong>A Redescoberta do Brasil Profundo:</strong> Diferente do regionalismo romântico (que idealizava o interior de forma exótica), o regionalismo de 30 é <strong>neorrealista</strong>. Ele mostra o interior sujo, faminto e injusto.</p>
+                            <ul>
+                                <li><strong>O Nordeste no Centro:</strong> A maioria das grandes obras foca no ciclo da cana-de-açúcar em declínio, no cangaço, no misticismo fanático e, principalmente, na <strong>Seca</strong>.</li>
+                                <li><strong>Determinismo:</strong> O ambiente hostil molda o homem, animalizando-o. (O homem seco na terra seca).</li>
+                                <li><strong>Linguagem:</strong> Direta, seca, crua e incisiva.</li>
+                            </ul>
+                        
+            </div>
+            <div class="split-image" style="background-image: url('https://static.todamateria.com.br/upload/po/rt/portinari-cke.jpg');">
+                <div class="img-caption">Os Retirantes - Portinari</div>
+            </div>
+        </div>
+        <div class="slide split-slide">
+            <div class="split-text">
+                <h2>Graciliano Ramos: O Mestre da Secura</h2>
+                
+                            <p><strong>O Estilo (A Palavra Cortada):</strong> "Escrever é cortar palavras", dizia Graciliano. Seu estilo é avesso a sentimentalismos. A linguagem é enxuta, ríspida e cirúrgica, refletindo a dureza do mundo que descreve.</p>
+                            <ul>
+                                <li><strong>Profundidade Psicológica:</strong> Mais do que a paisagem externa, ele explora a aridez interna dos personagens. A degradação mental diante da pobreza ou do excesso de poder.</li>
+                                <li><strong>Obras Principais:</strong> <em>Vidas Secas</em>, <em>São Bernardo</em> (a ganância que coisifica o homem) e <em>Angústia</em> (o fluxo de consciência de um homem em ruínas no ambiente urbano).</li>
+                            </ul>
+                        
+            </div>
+            <div class="split-image" style="background-image: url('https://static.portugues.com.br/2025/02/1-graciliano-ramos-com-um-cigarro-na-boca-segurando-uma-edicao-de-seu-livro-s-bernardo.jpg');">
+                <div class="img-caption">Graciliano Ramos</div>
+            </div>
+        </div>
+        <div class="slide split-slide">
+            <div class="split-text">
+                <h2>Raio-X Literário: Vidas Secas (1938)</h2>
+                
+                            <p><strong>A Obra-Prima do Regionalismo:</strong> O livro narra a fuga cíclica da família de Fabiano contra a seca e a miséria.</p>
+                            <ul>
+                                <li><strong>O Determinismo e a Animalização:</strong> Pressionado pelo meio e pelos coronéis, Fabiano vai perdendo as características humanas. Ele se comunica por grunhidos e se acha um "bicho", enquanto a cadela Baleia ganha traços humanos (antropomorfização).</li>
+                                <li><strong>Falta de Comunicação:</strong> A incapacidade de usar as palavras aprisiona a família em sua classe social. Eles são vítimas de quem detém o poder da palavra (o patrão, o soldado amarelo).</li>
+                                <li><strong>Estrutura:</strong> Capítulos autônomos que podem ser lidos fora de ordem, refletindo o ciclo interminável da seca.</li>
+                            </ul>
+                        
+            </div>
+            <div class="split-image" style="background-image: url('https://sto-blog.s3.amazonaws.com/images/2016/03/24/baleia-vidas-secas.jpg');">
+                <div class="img-caption">Filme Vidas Secas</div>
+            </div>
+        </div>
+        <div class="slide split-slide">
+            <div class="split-text">
+                <h2>Jorge Amado: A Voz da Bahia</h2>
+                
+                            <p><strong>Estilo: Sensualidade e Denúncia:</strong> Jorge Amado é o mais popular dos romancistas de 30. Ele traz o Nordeste colorido, misturando a profunda denúncia social (era filiado ao PCB) com o lirismo e a vivacidade do povo baiano.</p>
+                            <ul>
+                                <li><strong>A Cultura Popular:</strong> Inseriu o candomblé, a capoeira, o samba e o sincretismo religioso na alta literatura brasileira.</li>
+                                <li><strong>Heróis Marginalizados:</strong> Seus protagonistas não são reis, mas malandros, prostitutas, marinheiros e meninos de rua. O "povo" é o herói que luta contra a burguesia e os coronéis do cacau.</li>
+                            </ul>
+                        
+            </div>
+            <div class="split-image" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/8/89/Jorge_Amado%2C_Headshot_2%2C_1988_%28cropped%29.png');">
+                <div class="img-caption">Jorge Amado</div>
+            </div>
+        </div>
+        <div class="slide split-slide">
+            <div class="split-text">
+                <h2>Raio-X Literário: Capitães da Areia (1937)</h2>
+                
+                            <p><strong>A Infância Roubada:</strong> O romance narra a dura vida de um bando de meninos de rua abandonados em Salvador, que vivem num trapiche (armazém abandonado) e sobrevivem de furtos.</p>
+                            <ul>
+                                <li><strong>Denúncia Social:</strong> O Estado só aparece para reprimir (polícia) ou castigar (reformatório). Os meninos só encontram afeto e solidariedade entre si.</li>
+                                <li><strong>Personagens Icônicos:</strong> Pedro Bala (o líder que vira revolucionário), Volta Seca (que se junta ao cangaço), Sem-Pernas, Gato, e <strong>Dora</strong> (a única menina, mãe/esposa do bando, cuja morte é um dos momentos mais tristes da literatura).</li>
+                                <li><strong>A Censura:</strong> O livro foi queimado em praça pública pela ditadura Vargas por seu teor socialista (o "Perigo Comunista").</li>
+                            </ul>
+                        
+            </div>
+            <div class="split-image" style="background-image: url('https://www.jornaldocomercio.com/_midias/jpg/2022/02/01/capitaes_da_areia_01_cre_dito_divulgacao_tv_brasil__1_-9532696.jpg');">
+                <div class="img-caption">Filme Capitães da Areia</div>
+            </div>
+        </div>
+        <div class="slide split-slide">
+            <div class="split-text">
+                <h2>Rachel de Queiroz: A Pioneira</h2>
+                
+                            <p><strong>O Ponto de Partida:</strong> Rachel publicou sua grande obra com apenas 20 anos, "inaugurando" oficialmente o romance regionalista de 30 e abrindo espaço para Graciliano e Jorge Amado.</p>
+                            <ul>
+                                <li><strong>O Olhar Cearense:</strong> Foca intensamente na tragédia da seca, mas com um toque de compaixão profunda que a difere da frieza cortante de Graciliano.</li>
+                                <li><strong>O Papel da Mulher:</strong> Foi a primeira mulher a ingressar na Academia Brasileira de Letras. Suas protagonistas (como Conceição) são mulheres fortes, que fogem do estereótipo de donzela romântica, preferindo a independência, os livros e o trabalho.</li>
+                            </ul>
+                        
+            </div>
+            <div class="split-image" style="background-image: url('https://static.todamateria.com.br/upload/ra/ch/racheldequeiroz2.jpg');">
+                <div class="img-caption">Rachel de Queiroz</div>
+            </div>
+        </div>
+        <div class="slide split-slide">
+            <div class="split-text">
+                <h2>Raio-X Literário: O Quinze (1930)</h2>
+                
+                            <p><strong>A Seca de 1915:</strong> Baseado nas memórias da própria autora (que tinha 5 anos na época), narra a brutal seca que devastou o Ceará.</p>
+                            <ul>
+                                <li><strong>Os Campos de Concentração:</strong> A denúncia histórica chocante da obra: o governo criava os "Currais do Governo" (campos de concentração no Alagadiço) para impedir que os retirantes esqueléticos invadissem Fortaleza, deixando-os morrer de fome nas periferias.</li>
+                                <li><strong>Duas Frentes:</strong> A obra acompanha a saga trágica do vaqueiro Chico Bento, caminhando a pé com a família, e a história paralela da professora Conceição e seu primo Vicente.</li>
+                            </ul>
+                        
+            </div>
+            <div class="split-image" style="background-image: url('https://m.media-amazon.com/images/I/61g43KcOIzL._AC_UF1000,1000_QL80_.jpg');">
+                <div class="img-caption">Capa O Quinze</div>
+            </div>
+        </div>
+        <div class="slide split-slide">
+            <div class="split-text">
+                <h2>Érico Veríssimo: O Épico do Sul</h2>
+                
+                            <p><strong>Nem só de Nordeste vive a Geração de 30.</strong> Érico Veríssimo é o grande nome do regionalismo gaúcho, mas sua obra ultrapassa as fronteiras do regional para contar a própria história de formação do Brasil Meridional.</p>
+                            <ul>
+                                <li><strong>Estilo de Romance Histórico:</strong> Mistura personagens fictícios memoráveis com eventos reais das revoluções e guerras gaúchas (Farroupilha, Guerra do Paraguai).</li>
+                                <li><strong>Linguagem Fluida e Envolvente:</strong> É considerado um dos melhores contadores de histórias (narrativa épica e longa) da nossa literatura.</li>
+                            </ul>
+                        
+            </div>
+            <div class="split-image" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/2/25/Correio_da_Manh%C3%A3_AN_399.jpg');">
+                <div class="img-caption">Érico Veríssimo</div>
+            </div>
+        </div>
+        <div class="slide split-slide">
+            <div class="split-text">
+                <h2>Raio-X Literário: O Tempo e o Vento</h2>
+                
+                            <p><strong>A Grande Epopeia Brasileira:</strong> Trilogia monumental ("O Continente", "O Retrato", "O Arquipélago") que cobre mais de 200 anos da história do Rio Grande do Sul através da saga das famílias Terra e Cambará.</p>
+                            <ul>
+                                <li><strong>A Metáfora do Vento e do Sobrado:</strong> O tempo e o vento apagam os homens, mas a história continua. O Sobrado representa a resistência da família nas guerras e cercos.</li>
+                                <li><strong>Ana Terra:</strong> O símbolo da resistência, do sofrimento calado e da força da mulher pioneira no pampa selvagem (fio condutor da herança genética da família).</li>
+                                <li><strong>Capitão Rodrigo Cambará:</strong> O arquétipo do herói boêmio, valente e irresponsável. O gaúcho sedutor e guerreiro que moldou o imaginário da região.</li>
+                            </ul>
+                        
+            </div>
+            <div class="split-image" style="background-image: url('https://midias-publicas.enciclopedia.itaucultural.org.br/g9b941zieziz5xw8xn4k442xbw1b');">
+                <div class="img-caption">O Tempo e o Vento</div>
+            </div>
+        </div>
+        <div class="slide cover-slide">
+            <h1 style="color: #f59e0b;">A Poesia de 30</h1>
+            <h2 style="margin-top: 2cqw;">Introspecção, Universalismo e Neossimbolismo</h2>
+        </div>
+        <div class="slide split-slide">
+            <div class="split-text">
+                <h2>Carlos Drummond de Andrade (O Gauche)</h2>
+                
+                            <p><strong>O Maior Poeta do Século XX:</strong> Drummond não tentava embelezar o mundo. O eixo central de sua obra é a inadequação, o desencontro entre o homem (o poeta *Gauche* = torto, esquerdo) e o universo que o cerca.</p>
+                            <ul>
+                                <li><strong>Fase Irônica/Gaucherie (Alguma Poesia - 1930):</strong> É a herança direta da Semana de 22.</li>
+                                <li>Poemas com versos livres, ironia cortante e linguagem coloquial, falando do cotidiano em Itabira e da inércia humana.</li>
+                                <li><em>"No meio do caminho tinha uma pedra / tinha uma pedra no meio do caminho."</em> - A pedra simboliza o obstáculo incontornável da vida.</li>
+                            </ul>
+                        
+            </div>
+            <div class="split-image" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/1/17/Foto_Carlos_Drummond_de_Andrade_%28restaurada%29.png');">
+                <div class="img-caption">Carlos Drummond de Andrade</div>
+            </div>
+        </div>
+        <div class="slide split-slide">
+            <div class="split-text">
+                <h2>Carlos Drummond (Engajamento e Filosofia)</h2>
+                
+                            <p>À medida que o mundo escureceu (Segunda Guerra Mundial, Fascismo), Drummond precisou abandonar a ironia adolescente para lidar com o peso da existência.</p>
+                            <ul>
+                                <li><strong>Fase Social (A Rosa do Povo - 1945):</strong> O auge do engajamento político antifascista. Ele rompe com o isolamento (<em>"Não nos afastemos muito, vamos de mãos dadas"</em>) e exige solidariedade coletiva.</li>
+                                <li><strong>Fase Filosófica (Claro Enigma - 1951):</strong> Pós-Guerra Fria. O desencanto com a humanidade. Drummond volta ao Classicismo (usa até sonetos) para refletir amargamente sobre a morte, o tempo, a máquina e a falta de esperança no homem.</li>
+                            </ul>
+                        
+            </div>
+            <div class="split-text" style="flex: 0.8; padding-left: 3cqw; border-left: 2px solid #cbd5e1;">
+                <div class="quote-box" style="background: rgba(0,0,0,0.2); padding: 2cqw; border-left: 3px solid #f59e0b; border-radius: 8px;">
+                    <p class="quote-text" style="font-size: 1.8cqw; white-space: pre-line; line-height: 1.5; font-style: italic;">"As leis não bastam. Os lírios não nascem / das leis. Meu nome é tumulto, e escreve-se / na pedra."</p>
+                    <p class="author-note" style="margin-top: 1.5cqh; font-style: italic; color: #475569; font-size: 1.2cqw; text-align: right;">(A Rosa do Povo)</p>
+                </div>
+            </div>
+        </div>
+        <div class="slide split-slide">
+            <div class="split-text">
+                <h2>Cecília Meireles: O Neossimbolismo</h2>
+                
+                            <p><strong>A Poesia Etérea:</strong> Em meio a uma geração engajada, Cecília resgata a herança Simbolista (musicalidade, sugestão, sinestesia). Sua obra é intimista e extremamente lírica.</p>
+                            <ul>
+                                <li><strong>Temas Principais:</strong> A fugacidade do tempo, a efemeridade da vida, a solidão e a morte. Tudo flui (a metáfora constante da Água e do Vento).</li>
+                                <li><em>"Eu canto porque o instante existe e a minha vida está completa. Não sou alegre nem sou triste: sou poeta."</em> (Motivo)</li>
+                                <li><strong>Romanceiro da Inconfidência (1953):</strong> Sua grande obra épica, misturando o rigor da pesquisa histórica com uma estrutura de poesia ibérica (medida velha) para narrar o drama de Tiradentes e os Inconfidentes.</li>
+                            </ul>
+                        
+            </div>
+            <div class="split-image" style="background-image: url('https://s1.static.brasilescola.uol.com.br/be/conteudo/images/cecilia-meireles-58a306443af1f.jpg');">
+                <div class="img-caption">Cecília Meireles</div>
+            </div>
+        </div>
+        <div class="slide split-slide">
+            <div class="split-text">
+                <h2>Vinicius de Moraes: A Fase Mística</h2>
+                
+                            <p><strong>Muito além da Bossa Nova:</strong> Antes de se tornar o boêmio "poetinha" e escrever letras consagradas da MPB, o jovem Vinicius fez parte da Geração de 30 produzindo uma poesia densa e reflexiva (fase de <em>Caminho para a Distância</em>).</p>
+                            <ul>
+                                <li><strong>O Conflito Espiritual:</strong> O poeta vivia angustiado pela dualidade entre a Matéria (a tentação da carne, o pecado, a boemia) e o Espírito (a busca de Deus, a purificação, a culpa cristã).</li>
+                                <li>Aos poucos, no final dos anos 30 e 40, a balança pendeu para a "Matéria" e ele passou a celebrar o amor sensual, as mulheres e o cotidiano (o clássico "Soneto de Fidelidade").</li>
+                            </ul>
+                        
+            </div>
+            <div class="split-image" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/1/19/Vinicius.jpg');">
+                <div class="img-caption">Vinicius de Moraes</div>
+            </div>
+        </div>
+        <div class="slide question-slide split-slide" style="align-items: center; flex-direction: row !important; padding: 2cqw 4cqw !important;">
+            <div class="split-text" style="flex: 0.45; padding-right: 3cqw; height: 100%; display: flex; flex-direction: column; justify-content: center;">
+                <h2 style="margin-bottom: 2cqw;">Questão 01 - ENEM</h2>
+                <div class="quote-box" style="background: rgba(0,0,0,0.2); padding: 1.5cqw; border-left: 3px solid #f59e0b; border-radius: 8px;">
+                    
+                                <p class="quote-text" style="font-size: 2cqw; line-height: 1.6;">"(...) Fabiano, você é um homem, exclamou em voz alta.<br>
+                                Reteve-se, notou que os meninos estavam perto, com certeza iam admirar-se ouvindo-o falar só. E, pensando bem, ele não era homem: era apenas um cabra ocupado em guardar coisas dos outros. Vermelho, queimado, tinha os olhos azuis, a barba e os cabelos ruivos; mas como vivia em terra alheia, cuidava de animais alheios, descobria-se, encolhia-se na presença dos brancos e julgava-se cabra."</p>
+                                <p style="text-align: right; font-style: italic; font-size: 1.4cqw; margin-top: 2cqh;">(Graciliano Ramos, Vidas Secas)</p>
+                            
+                </div>
+            </div>
+            <div class="split-text" style="flex: 0.55; border-left: 2px solid #cbd5e1; padding-left: 3cqw; height: 100%; display: flex; flex-direction: column; justify-content: center;">
+                <div class="q-box" style="margin-bottom: 1.5cqw; font-size: 1.4cqw;">O fragmento de <em>Vidas Secas</em> ilustra uma característica central da prosa de 30, que é:</div>
+                <ul class="options-list">
+                    
+                                <li><strong>a)</strong> a idealização do trabalhador rural como herói nacional da caatinga.</li>
+                                <li class="answer-correct"><strong>b)</strong> a animalização do homem nordestino e sua profunda degradação social e psicológica.</li>
+                                <li><strong>c)</strong> a valorização da fala culta e parnasiana na descrição do cenário nordestino.</li>
+                                <li><strong>d)</strong> o conformismo religioso diante da seca, tratado de forma mística.</li>
+                                <li><strong>e)</strong> a visão romântica de que o trabalho dignifica o homem, independentemente da miséria.</li>
+                            
+                </ul>
+                <div class="explanation-box">🎯 Gabarito: B: O trecho demonstra a alienação e a reificação (coisificação) de Fabiano. Ele tenta se convencer de que é um "homem" (cidadão de direitos, respeitado), mas a dura realidade da exploração (cuidar de coisas alheias, curvar-se aos "brancos") o faz se sentir inferiorizado, um animal ("cabra"). A prosa regionalista de 30 é neorrealista e não idealiza a pobreza; ela a denuncia cruamente através do determinismo do meio sobre a mente do indivíduo.</div>
+            </div>
+        </div>
+        <div class="slide question-slide split-slide" style="align-items: center; flex-direction: row !important; padding: 2cqw 4cqw !important;">
+            <div class="split-text" style="flex: 0.45; padding-right: 3cqw; height: 100%; display: flex; flex-direction: column; justify-content: center;">
+                <h2 style="margin-bottom: 2cqw;">Questão 02 - FUVEST</h2>
+                <div class="quote-box" style="background: rgba(0,0,0,0.2); padding: 1.5cqw; border-left: 3px solid #f59e0b; border-radius: 8px;">
+                    
+                                <p class="quote-text" style="font-size: 2.2cqw; line-height: 1.8; text-align: center;">"Não serei o poeta de um mundo caduco.<br>
+                                Também não cantarei o mundo futuro.<br>
+                                Estou preso à vida e olho meus companheiros.<br>
+                                Estão taciturnos mas nutrem grandes esperanças.<br>
+                                Entre eles, considero a enorme realidade.<br>
+                                O presente é tão grande, não nos afastemos.<br>
+                                Não nos afastemos muito, vamos de mãos dadas."</p>
+                                <p style="text-align: right; font-style: italic; font-size: 1.4cqw; margin-top: 2cqh;">(Carlos Drummond de Andrade - Mãos Dadas)</p>
+                            
+                </div>
+            </div>
+            <div class="split-text" style="flex: 0.55; border-left: 2px solid #cbd5e1; padding-left: 3cqw; height: 100%; display: flex; flex-direction: column; justify-content: center;">
+                <div class="q-box" style="margin-bottom: 1.5cqw; font-size: 1.4cqw;">Neste poema, Drummond rompe com a poesia puramente estética para abraçar uma postura que caracteriza a Geração de 30:</div>
+                <ul class="options-list">
+                    
+                                <li><strong>a)</strong> o escapismo romântico e a fuga para realidades oníricas.</li>
+                                <li class="answer-correct"><strong>b)</strong> o engajamento social e a solidariedade diante das crises do presente.</li>
+                                <li><strong>c)</strong> o saudosismo, preferindo olhar para o passado como porto seguro.</li>
+                                <li><strong>d)</strong> o individualismo exacerbado, focando apenas na sua dor particular.</li>
+                                <li><strong>e)</strong> a busca pela perfeição formal típica dos poetas parnasianos.</li>
+                            
+                </ul>
+                <div class="explanation-box">🎯 Gabarito: B: O poema "Mãos Dadas", pertencente ao livro *A Rosa do Povo* (1945), representa a fase social de Carlos Drummond de Andrade. A Geração de 30 foi marcada por tensões extremas (Segunda Guerra, Nazifascismo). Ao dizer "Estou preso à vida e olho meus companheiros" e "vamos de mãos dadas", o autor convoca a solidariedade humana e o engajamento coletivo para enfrentar as duras realidades do "presente", rejeitando fugas alienantes para o passado ou o futuro.</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let current = 0;
+        const slides = document.querySelectorAll('.slide');
+        const counter = document.getElementById('progress');
+
+        function update() {
+            slides.forEach((s, i) => {
+                if (i === current) {
+                    s.classList.add('active');
+                } else {
+                    s.classList.remove('active');
+                }
+            });
+            if(counter) counter.innerText = `${current + 1} / ${slides.length}`;
+        }
+
+        function goNext() {
+            const s = slides[current];
+            if (s.classList.contains('question-slide') && !s.classList.contains('revealed')) {
+                s.classList.add('revealed');
+                return;
+            }
+            if(current < slides.length - 1) {
+                current++;
+                update();
+            }
+        }
+        
+        function goPrev() {
+            if(current > 0) {
+                current--;
+                update();
+            }
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                goNext();
+            } else if (e.key === 'ArrowLeft') {
+                goPrev();
+            }
+        });
+        
+        document.addEventListener('click', (e) => {
+            if (window.innerHeight > window.innerWidth && window.innerWidth < 900) return;
+            const x = e.clientX;
+            const halfScreen = window.innerWidth / 2;
+            if (x > halfScreen) {
+                goNext();
+            } else {
+                goPrev();
+            }
+        });
+        
+        update(); 
+    </script>
+</body>
+</html>

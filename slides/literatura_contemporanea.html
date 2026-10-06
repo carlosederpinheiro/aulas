@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aula de Literatura Contemporânea</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800;900&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+    <style>
+        /* CSS Reset e Configuração Anti-Scroll */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body, html { 
+            width: 100%; height: 100%; background-color: #000; overflow: hidden; 
+            display: flex; justify-content: center; align-items: center; 
+            font-family: 'Montserrat', sans-serif; 
+            user-select: none; -webkit-user-select: none; /* Previne seleção de texto ao clicar */
+        }
+
+        /* Container 16:9 forçado */
+        .slide-container {
+            width: 100vw;
+            height: 100vh;
+            max-width: 177.78vh; 
+            max-height: 56.25vw; 
+            position: relative;
+            background: #ffffff;
+            overflow: hidden; 
+            container-type: size; 
+            box-shadow: 0 0 30px rgba(0,0,0,0.8);
+        }
+
+        /* Estrutura do Slide */
+        .slide {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            opacity: 0; transition: opacity 0.4s ease-in-out, transform 0.4s ease;
+            transform: scale(0.98); pointer-events: none;
+        }
+        .slide.active { opacity: 1; transform: scale(1); pointer-events: auto; z-index: 10; }
+
+        /* Tipografia Dinâmica */
+        h1 { font-size: 4.5cqw; font-weight: 900; line-height: 1.1; color: #fff; text-transform: uppercase; letter-spacing: -1px; }
+        h2 { font-size: 3cqw; font-weight: 800; color: #1e293b; margin-bottom: 1.5cqw; line-height: 1.1; border-bottom: 0.4cqw solid #e11d48; padding-bottom: 0.5cqw; display: inline-block;}
+        h3 { font-family: 'Playfair Display', serif; font-size: 2cqw; font-style: italic; color: #64748b; margin-bottom: 1cqw; }
+        p { font-size: 1.6cqw; line-height: 1.4; color: #334155; margin-bottom: 1cqw; }
+        ul { padding-left: 2cqw; margin-bottom: 1cqw; }
+        li { font-size: 1.5cqw; line-height: 1.4; color: #334155; margin-bottom: 0.8cqw; }
+        
+        .highlight { color: #e11d48; font-weight: 800; }
+        .quote { font-family: 'Playfair Display', serif; font-size: 1.8cqw; border-left: 0.4cqw solid #e11d48; padding-left: 1.5cqw; margin-top: 1cqw; font-style: italic; color: #0f172a; }
+
+        /* Legendas das Fotos */
+        .img-caption {
+            position: absolute; bottom: 1.5cqw; right: 1.5cqw;
+            background: rgba(0, 0, 0, 0.7); color: rgba(255, 255, 255, 0.95);
+            padding: 0.6cqw 1cqw; font-size: 0.9cqw; border-radius: 0.4cqw;
+            pointer-events: none; font-weight: 600; z-index: 5;
+        }
+
+        /* --- Layouts --- */
+        .cover-slide {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 6cqw;
+        }
+        
+        .split-slide { display: flex; width: 100%; height: 100%; background: #f8fafc; }
+        .split-text { flex: 1.2; padding: 4cqw 5cqw; display: flex; flex-direction: column; justify-content: center; }
+        .split-image { flex: 0.8; background-size: cover; background-position: center; position: relative; }
+        .split-image::after { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; box-shadow: inset 4cqw 0 4cqw -2cqw rgba(248, 250, 252, 1); pointer-events: none; }
+
+        .text-slide { display: flex; flex-direction: column; padding: 5cqw 8cqw; background: #fff; justify-content: center; }
+        
+        .grid-slide { display: flex; flex-direction: column; padding: 5cqw 6cqw; background: #0f172a; }
+        .grid-slide h2 { color: #fff; border-bottom-color: #38bdf8;}
+        .cards-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2cqw; margin-top: 1cqw; }
+        .card { background: rgba(255,255,255,0.05); border-left: 0.5cqw solid #38bdf8; padding: 2cqw; }
+        .card h4 { font-size: 1.8cqw; color: #38bdf8; margin-bottom: 0.5cqw; }
+        .card p { color: #cbd5e1; font-size: 1.4cqw; line-height: 1.4;}
+
+        /* Caixas p/ Obras */
+        .obras-box { background: #f1f5f9; padding: 1.5cqw; border-left: 0.5cqw solid #0f172a; margin-top: 1cqw;}
+        .obras-box h4 { font-size: 1.6cqw; color: #0f172a; margin-bottom: 0.5cqw;}
+        .obras-box ul { margin: 0; padding-left: 1.5cqw;}
+        .obras-box li { font-size: 1.4cqw; margin-bottom: 0.3cqw;}
+
+        /* Questões */
+        .question-slide { display: flex; flex-direction: column; padding: 4cqw 6cqw; background: #fff; justify-content: center; }
+        .q-box { background: #f1f5f9; padding: 2cqw; border-radius: 0.5cqw; font-size: 1.6cqw; font-weight: 600; border-left: 0.8cqw solid #2563eb; margin-bottom: 1.5cqw; }
+        .options-list { list-style: none; padding: 0; }
+        .options-list li { font-size: 1.4cqw; padding: 0.8cqw 1cqw; margin-bottom: 0.8cqw; border-radius: 0.3cqw; background: #fff; border: 2px solid #e2e8f0; display: flex; align-items: center; }
+        .options-list li strong { margin-right: 1cqw; color: #2563eb; }
+        .answer-correct { background: #dcfce7 !important; border-color: #22c55e !important; color: #166534; font-weight: 600; }
+        .explanation-box { margin-top: 1.5cqw; padding: 1cqw; background: #fffbeb; border-left: 0.5cqw solid #f59e0b; font-size: 1.3cqw; color: #92400e; font-weight: 600; animation: fadeIn 0.5s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(1cqw); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Controles e Avisos */
+        .keyboard-hint { position: absolute; bottom: 1cqw; right: 1cqw; font-size: 1cqw; color: rgba(0,0,0,0.4); z-index: 100; font-style: italic; pointer-events: none;}
+        .slide-counter { position: absolute; top: 1cqw; right: 1.5cqw; font-size: 1cqw; color: rgba(0,0,0,0.5); z-index: 100; font-weight: bold; pointer-events: none;}
+
+        /* --- Alerta Mobile (Forçar Horizontal) --- */
+        .mobile-rotate-alert {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: #0f172a; color: #fff; z-index: 99999;
+            flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 5vw;
+        }
+        .mobile-rotate-alert svg { width: 15vw; height: 15vw; margin-bottom: 5vw; fill: #fff; animation: rotatePhone 2s ease-in-out infinite; }
+        .mobile-rotate-alert h2 { font-size: 6vw; color: #fff; border-bottom: none; margin-bottom: 2vw;}
+        .mobile-rotate-alert p { font-size: 4.5vw; color: #cbd5e1; line-height: 1.5;}
+        
+        @keyframes rotatePhone { 
+            0% { transform: rotate(0deg); } 
+            50% { transform: rotate(-90deg); } 
+            100% { transform: rotate(-90deg); } 
+        }
+        
+        /* Se a tela estiver em modo retrato (em celulares) */
+        @media screen and (orientation: portrait) and (max-width: 900px) {
+            .mobile-rotate-alert { display: flex; }
+            .slide-container { display: none; }
+        }
+
+    
+        .cover-masp {
+            background-image: linear-gradient(rgba(15,23,42,0.8), rgba(30,41,59,0.9)), url("capa_contemporanea.jpg");
+            background-size: cover;
+            background-position: center;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Alerta de Rotação (Apenas visível em modo Retrato no Celular) -->
+    <div class="mobile-rotate-alert">
+        <svg viewBox="0 0 24 24"><path d="M16 1H8C6.34 1 5 2.34 5 4v16c0 1.66 1.34 3 3 3h8c1.66 0 3-1.34 3-3V4c0-1.66-1.34-3-3-3zm-2 20h-4v-1h4v1zm3.25-3H6.75V4h10.5v14z"/></svg>
+        <h2 style="padding-bottom: 0;">Vire o seu celular</h2>
+        <p>Apresentações exigem o formato widescreen.<br>Coloque seu aparelho na horizontal para acompanhar a aula.</p>
+    </div>
+
+    <!-- Container Principal dos Slides -->
+    <div class="slide-container">
+        <div class="keyboard-hint">Navegue com Setas ou Toque nas Laterais da Tela →</div>
+        <div class="slide-counter" id="progress"></div>
+
+        <!-- 1. CAPA -->
+        <div class="slide cover-slide active cover-masp">
+            <h1 style="color: #e11d48; margin-bottom: 1cqw;">Literatura Contemporânea</h1>
+            <h3 style="color: #cbd5e1; font-size: 2.2cqw;">Da Fase da Maturidade (Anos 40-50) até os Dias Atuais</h3>
+            <p style="color: #94a3b8; font-size: 1.5cqw; margin-top: 2cqw;">Obras, Autores, Tendências e Teatro</p>
+        </div>
+
+        <!-- 2. CONTEXTO HISTÓRICO -->
+        <div class="slide split-slide">
+            <div class="split-text">
+                <h2>Contexto: Anos 1940-50</h2>
+                <h3>A Fase da Maturidade</h3>
+                <ul>
+                    <li><strong class="highlight">No Mundo:</strong> Término da Segunda Guerra Mundial e o Início da Guerra Fria (tensão global e ameaça atômica).</li>
+                    <li><strong class="highlight">No Brasil:</strong> Término da ditadura de Vargas.</li>
+                    <li>Início de um período democrático e desenvolvimentista, que chegaria ao ápice da euforia nos <strong>Anos Dourados</strong> do governo de Juscelino Kubitschek (1956-1961).</li>
+                </ul>
+            </div>
+            <div class="split-image" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/8/89/War_tanks_in_Brasilia%2C_1964.jpg');">
+                <div class="img-caption">A instabilidade política brasileira marcou toda a literatura posterior.</div>
+            </div>
+        </div>
+
+        <!-- 3. CARACTERÍSTICAS DA FASE 40-50 -->
+        <div class="slide grid-slide">
+            <h2>A Literatura nos anos 1940-50</h2>
+            <div class="cards-grid">
+                <div class="card">
+                    <h4>Na Poesia</h4>
+                    <ul>
+                        <li><span style="color:#cbd5e1;">Meta: <strong>renovar a forma poética</strong> (neoparnasianismo).</span></li>
+                        <li><span style="color:#cbd5e1;">Alguns poetas tenderam a um estilo muito culto e elevado.</span></li>
+                        <li><span style="color:#cbd5e1;">Outros buscaram uma linguagem essencial, sintética, precisa, <strong>concreta e racional</strong> (preparando terreno para os anos 60).</span></li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h4>Na Prosa</h4>
+                    <ul>
+                        <li><span style="color:#cbd5e1;">Retomada do <strong>Regionalismo</strong>, mas com um tratamento totalmente renovado, filosófico e universal.</span></li>
+                        <li><span style="color:#cbd5e1;">Foco intenso no <strong>espaço urbano</strong> e na mente humana.</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- 4. CLARICE LISPECTOR -->
+        <div class="slide split-slide">
+            <div class="split-text">
+                <h2>Clarice Lispector (1920-1977)</h2>
+                <h3>O mergulho no íntimo.</h3>
+                <ul>
+                    <li>Introdução de novas <strong>técnicas de expressão</strong> no Brasil.</li>
+                    <li><strong>Subversão:</strong> quebra a sequência "começo, meio e fim". A ordem cronológica desaparece.</li>
+                    <li>Funde a prosa à poesia: uso constante de imagens, metáforas, paradoxos e símbolos.</li>
+                    <li><strong class="highlight">O fluxo de consciência:</strong> quebra os limites espaço-temporais (presente e passado se misturam livremente na mente).</li>
+                </ul>
+            </div>
+            <div class="split-image" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/7/7c/%281920-1977%29_Clarice_Lispector_6zxkp_please_credit%28palette.fm%29_%28cropped%29.png'); background-position: top;">
+                <div class="img-caption">Clarice Lispector - Mestra da prosa intimista</div>
+            </div>
+        </div>
+
+        <!-- 5. CLARICE LISPECTOR (CARACTERÍSTICAS) -->
+        <div class="slide text-slide">
+            <h2>Características e Temas Clariceanos</h2>
+            <ul>
+                <li><strong class="highlight">Epifania:</strong> As personagens vivem um processo epifânico — um momento de súbita "revelação" a partir de um evento banal do cotidiano (como olhar para uma barata ou um cego).</li>
+                <li><strong>Protagonistas Femininas:</strong> O foco está na dona de casa, na mulher reprimida pela rotina burguesa.</li>
+                <li><strong>Temas Universais:</strong> A falsidade das relações humanas, o esvaziamento da família, a angústia existencial e o limite da própria linguagem.</li>
+            </ul>
+            <div class="obras-box">
+                <h4>Principais Obras:</h4>
+                <ul>
+                    <li><em>Perto do coração selvagem</em> (1943)</li>
+                    <li><em>Laços de família</em> (Contos, 1960)</li>
+                    <li><em>A paixão segundo G. H.</em> (1964)</li>
+                    <li><em>A hora da estrela</em> (1977)</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 6. JOÃO GUIMARÃES ROSA -->
+        <div class="slide split-slide">
+            <div class="split-text">
+                <h2>Guimarães Rosa (1908-1967)</h2>
+                <h3>O sertão é o mundo.</h3>
+                <ul>
+                    <li>Obra de cunho regionalista (Sertão de Minas Gerais), porém com temas universais (O bem e o mal, Deus e o diabo, a morte, o amor).</li>
+                    <li><strong class="highlight">A Inovação Linguística:</strong> Empregava a língua culta fundida a termos regionais e neologismos (palavras inventadas).</li>
+                    <li>Sua obra é o resultado de anos de anotações e pesquisas linguísticas diretamente com os vaqueiros.</li>
+                </ul>
+            </div>
+            <div class="split-image" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/9/99/Guimar%C3%A3es_Rosa%2C_anos_1960.jpg'); background-position: top;">
+                <div class="img-caption">João Guimarães Rosa - A recriação do Sertão</div>
+            </div>
+        </div>
+
+        <!-- 7. GUIMARÃES ROSA (CARACTERÍSTICAS) -->
+        <div class="slide text-slide">
+            <h2>Regionalismo Universal de Guimarães Rosa</h2>
+            <ul>
+                <li><strong>Técnicas Narrativas:</strong> Foco narrativo em 1ª pessoa; uso brilhante do <em>discurso indireto livre</em> fundido à fala oral do sertanejo.</li>
+                <li>Uso intenso de recursos comuns à <strong>poesia dentro da prosa</strong>: ritmo, aliterações, musicalidade e metáforas (A "Prosa Poética").</li>
+            </ul>
+            <div class="obras-box">
+                <h4>Principais Obras:</h4>
+                <ul>
+                    <li><em>Sagarana</em> (1946)</li>
+                    <li><em>Corpo de baile</em> (1956)</li>
+                    <li><strong class="highlight">Grande sertão: veredas (1956)</strong> - Obra-prima protagonizada por Riobaldo e Diadorim.</li>
+                    <li><em>Primeiras estórias</em> (1962)</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 8. JOÃO CABRAL DE MELO NETO -->
+        <div class="slide split-slide">
+            <div class="split-text">
+                <h2>João Cabral de Melo Neto <span style="font-size:1.5cqw;">(1920-1999)</span></h2>
+                <h3>O engenheiro da palavra.</h3>
+                <ul>
+                    <li>Poesia <strong>substantiva, objetiva e sem sentimentalismos</strong> (anti-romântico). Busca a precisão matemática dos vocábulos.</li>
+                    <li>Tendência crescente à <strong class="highlight">geometrização e à exatidão</strong> da linguagem.</li>
+                    <li>A poesia de João resulta de um trabalho racional, árduo (a "Linguagem objeto"). O poeta como um arquiteto construindo um muro de palavras.</li>
+                </ul>
+            </div>
+            <div class="split-image" style="background-image: url('https://upload.wikimedia.org/wikipedia/pt/a/a0/JoaoCabral.JPG'); background-position: top;">
+                <div class="img-caption">João Cabral de Melo Neto - A educação pela pedra</div>
+            </div>
+        </div>
+
+        <!-- 9. JOÃO CABRAL (CARACTERÍSTICAS) -->
+        <div class="slide text-slide">
+            <h2>O Nordeste Árido de João Cabral</h2>
+            <ul>
+                <li>Além da forma rigorosa, há imensa <strong>preocupação com a realidade social</strong>, particularmente a fome, a seca e o retirante do Nordeste brasileiro.</li>
+            </ul>
+            <div class="obras-box">
+                <h4>Principais Obras:</h4>
+                <ul>
+                    <li><em>O cão sem plumas</em> (1950) e <em>O rio</em> (1954)</li>
+                    <li><strong class="highlight">Morte e vida severina (1955)</strong> - Auto de Natal Pernambucano. A obra mais famosa.</li>
+                    <li><em>A educação pela pedra</em> (1966)</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 10. O TEATRO BRASILEIRO -->
+        <div class="slide split-slide">
+            <div class="split-text">
+                <h2>O Teatro (Séc. XX e XXI)</h2>
+                <h3>A renovação dos palcos.</h3>
+                <ul>
+                    <li>Até os anos 40, os palcos limitavam-se a comédias de costumes, chanchadas ou textos estrangeiros.</li>
+                    <li><strong class="highlight">1943 - O Marco Zero:</strong> Inicia-se a renovação do teatro brasileiro com a peça <em>Vestido de Noiva</em> (de Nelson Rodrigues).</li>
+                    <li>O diretor de teatro passa a fazer do espetáculo um trabalho técnico de equipe.</li>
+                    <li><strong>1948 a 1960:</strong> Surgem o TBC (Teatro Brasileiro de Comédia), o <em>Teatro de Arena</em> e o <em>Teatro Oficina</em> (grupos de forte caráter político e contestador).</li>
+                </ul>
+            </div>
+            <div class="split-image" style="background-image: url('https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b8/O_riso%2C_o_choro_e_a_vida_-_Teatro_Oficina.jpg/960px-O_riso%2C_o_choro_e_a_vida_-_Teatro_Oficina.jpg');">
+                <div class="img-caption">Teatro Oficina (São Paulo) - Renovação cênica</div>
+            </div>
+        </div>
+
+        <!-- 11. NELSON RODRIGUES -->
+        <div class="slide split-slide">
+            <div class="split-text">
+                <h2>Nelson Rodrigues</h2>
+                <h3>O Maior Dramaturgo Brasileiro</h3>
+                <ul>
+                    <li><strong class="highlight">Renovação Técnica:</strong> Jogou com 3 planos dramáticos simultâneos (Plano da Realidade, Memória e Alucinação), utilizando o ritmo rápido e os cortes da <strong>linguagem cinematográfica</strong>.</li>
+                    <li><strong>Temas Polêmicos:</strong> Desnudou a hipocrisia da sociedade. Suas peças são repletas de incesto, suicídio, adultérios, loucura e tragédias do subúrbio.</li>
+                </ul>
+                <div class="obras-box">
+                    <h4>Obras:</h4>
+                    <ul>
+                        <li><em>Vestido de Noiva</em>, <em>Boca de Ouro</em>, <em>A Falecida</em>, <em>Os sete gatinhos</em>.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="split-image" style="background-image: url('https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8e/Nelson_Rodrigues_%281971%29.jpg/960px-Nelson_Rodrigues_%281971%29.jpg'); background-position: top;">
+                <div class="img-caption">Nelson Rodrigues, revolucionário do teatro nacional</div>
+            </div>
+        </div>
+
+        <!-- 12. TENDÊNCIAS DA LITERATURA CONTEMPORÂNEA -->
+        <div class="slide text-slide" style="align-items: center; text-align: center; background: #e11d48;">
+            <h2 style="color:#fff; border-bottom: none; font-size: 4cqw;">As Tendências Pós-1950</h2>
+            <p style="color:#fff; font-size: 2cqw;">O Rompimento Total com a Tradição e o Contexto Político.</p>
+        </div>
+
+        <!-- 13. CONCRETISMO -->
+        <div class="slide grid-slide">
+            <h2>Concretismo (Anos 50 aos dias atuais)</h2>
+            <div class="cards-grid">
+                <div class="card">
+                    <h4>Os Líderes</h4>
+                    <ul>
+                        <li><span style="color:#cbd5e1;">Liderado pelos irmãos <strong>Augusto e Haroldo de Campos</strong>, além de <strong>Décio Pignatari</strong>.</span></li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h4>Características Formais</h4>
+                    <ul>
+                        <li><span style="color:#cbd5e1;"><strong>Geometrização e visualização</strong> da linguagem na página em branco (fim do verso tradicional).</span></li>
+                        <li><span style="color:#cbd5e1;">Uso de materiais gráficos. O poema passa a imitar os anúncios propagandísticos, outdoors e néon das grandes cidades.</span></li>
+                    </ul>
+                </div>
+            </div>
+            <p style="color:#94a3b8; font-size: 1.4cqw; margin-top: 1cqw;">*Desdobramentos posteriores: Neoconcretismo no RJ, Poema-Processo e Poesia-Práxis.</p>
+        </div>
+
+        <!-- 14. FERREIRA GULLAR -->
+        <div class="slide split-slide">
+            <div class="split-text">
+                <h2>Ferreira Gullar (1930 - 2016)</h2>
+                <h3>A Poesia Social</h3>
+                <ul>
+                    <li>Poeta maranhense que iniciou no concretismo/neoconcretismo, mas rompeu com a forma pura para abraçar a urgência social.</li>
+                    <li><strong>Temas:</strong> Abordou temas políticos como a Guerra Fria, a corrida atômica, a opressão no Terceiro Mundo e o neocapitalismo.</li>
+                </ul>
+                <div class="obras-box">
+                    <h4>Principais Obras:</h4>
+                    <ul>
+                        <li><em>Dentro da noite veloz</em> (1975)</li>
+                        <li><strong class="highlight">Poema sujo (1976)</strong> - Sua obra-prima escrita durante o exílio, misturando fluxo de memória e denúncia.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="split-image" style="background-image: url('https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c8/Ferreira_Gullar_no_Fronteiras_do_Pensamento_S%C3%A3o_Paulo_2015_%2821676572720%29_%28cropped%29.jpg/960px-Ferreira_Gullar_no_Fronteiras_do_Pensamento_S%C3%A3o_Paulo_2015_%2821676572720%29_%28cropped%29.jpg'); background-position: top;">
+                <div class="img-caption">Ferreira Gullar - A poesia de resistência</div>
+            </div>
+        </div>
+
+        <!-- 15. THIAGO DE MELLO -->
+        <div class="slide split-slide">
+            <div class="split-text">
+                <h2>Thiago de Mello (1926)</h2>
+                <h3>A voz da Amazônia.</h3>
+                <ul>
+                    <li>Poeta amazonense, grande voz da resistência cultural.</li>
+                    <li><strong class="highlight">Traços principais:</strong> Luta incansável contra a opressão política, amor profundo à terra e à natureza da Amazônia.</li>
+                    <li>Sua obra é marcada por forte sentimento de alteridade (colocar-se no lugar do outro), solidariedade aos oprimidos e uma obstinada alegria de viver.</li>
+                </ul>
+                <div class="obras-box">
+                    <h4>Obras:</h4>
+                    <ul>
+                        <li><strong class="highlight">Os estatutos do homem</strong> (Poema icônico).</li>
+                        <li><em>Faz escuro mas eu canto</em> (1965).</li>
+                        <li><em>Poesia comprometida com a minha e a tua vida</em> (1975).</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="split-image" style="background-image: url('https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c2/Thiago_de_Mello%2C_sem_data.tif/lossy-page1-960px-Thiago_de_Mello%2C_sem_data.tif.jpg'); background-position: top;">
+                <div class="img-caption">Thiago de Mello - Os Estatutos do Homem</div>
+            </div>
+        </div>
+
+        <!-- 16. TROPICALISMO -->
+        <div class="slide split-slide">
+            <div class="split-text">
+                <h2>Tropicália (1967-1968)</h2>
+                <h3>A revolução musical e literária.</h3>
+                <ul>
+                    <li>Retomada da <strong>Antropofagia</strong> (Oswald de Andrade): misturar a cultura pop internacional (rock, guitarra elétrica) com a cultura de raiz nacional (baião, samba).</li>
+                    <li><strong>Estilo de Escrita:</strong> Letras em forma de colagem (pastiche), alegóricas, caóticas e repletas de crítica irônica à ditadura militar e à moral conservadora.</li>
+                </ul>
+                <div class="obras-box">
+                    <h4>Principais Autores:</h4>
+                    <ul>
+                        <li><strong>Torquato Neto:</strong> O grande letrista e poeta do movimento (<em>Geleia Geral</em>).</li>
+                        <li><strong>Caetano Veloso & Gilberto Gil:</strong> (<em>Tropicália</em>, <em>Panis et Circenses</em>).</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="split-image" style="background-image: url('https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d3/Caetano_Veloso_no_III_Festival_da_M%C3%BAsica_Popular.jpg/960px-Caetano_Veloso_no_III_Festival_da_M%C3%BAsica_Popular.jpg'); background-position: top;">
+                <div class="img-caption">Caetano Veloso, ícone do Tropicalismo</div>
+            </div>
+        </div>
+
+        <!-- 17. GERAÇÃO MIMEÓGRAFO (CONCEITO) -->
+        <div class="slide text-slide">
+            <h2>A Geração Mimeógrafo (Anos 70)</h2>
+            <h3>A Poesia Marginal e a Contracultura</h3>
+            <p>No auge do AI-5 (Censura de 1968) e à margem do mercado editorial oficial, os jovens adotam a atitude de guerrilha cultural.</p>
+            <ul>
+                <li><strong>Como publicavam:</strong> Imprimiam seus poemas em mimeógrafos (equipamento barato escolar) e vendiam de mão em mão em bares, teatros e portas de universidades.</li>
+                <li><strong>O Estilo Marginal:</strong> Anti-acadêmico. Uso abusivo de gírias, coloquialismos, palavrões, piadas rápidas e sarcasmo.</li>
+                <li><strong>Temas:</strong> O tédio urbano, as drogas, a sexualidade livre, a violência policial e a repressão. Uma atitude muito semelhante ao movimento Punk e Hippie.</li>
+            </ul>
+        </div>
+
+        <!-- 18. MARGINAIS: LEMINSKI E CHACAL -->
+        <div class="slide split-slide">
+            <div class="split-text">
+                <h2>Ícones Marginais (I)</h2>
+                <ul>
+                    <li><strong class="highlight">Paulo Leminski:</strong> O gigante curitibano. Fundiu o rigor do concretismo, a cultura pop, artes marciais, zen-budismo e trocadilhos. Consagrou os <strong>haicais</strong> (poemas minúsculos de quebra de expectativa).
+                        <div class="obras-box">📚 <em>Obras: Catatau (1975), Caprichos e Relaxos (1983).</em></div>
+                    </li>
+                    <li><strong class="highlight">Chacal:</strong> Trazia o frescor da rua, da poesia falada, do humor carioca e do registro efêmero da juventude transgressora.
+                        <div class="obras-box">📚 <em>Obras: Muito Prazer (1971), Preço da Passagem (1972).</em></div>
+                    </li>
+                </ul>
+            </div>
+            <div class="split-image" style="background-image: url('https://upload.wikimedia.org/wikipedia/pt/5/59/Paulo_Leminski.jpg');">
+                <div class="img-caption">Paulo Leminski - Cultura Zen e Deboche Pop</div>
+            </div>
+        </div>
+
+        <!-- 19. MARGINAIS: ANA C. E CACASO -->
+        <div class="slide text-slide">
+            <h2>Ícones Marginais (II)</h2>
+            <ul>
+                <li><strong class="highlight">Ana Cristina Cesar (Ana C.):</strong> A voz feminina mais densa da Geração Mimeógrafo. Sua escrita parecia um <strong>diário íntimo roubado</strong>: tom hiperconfessional, fragmentado, irônico, abordando a sexualidade e a depressão nas metrópoles.
+                    <div class="obras-box">📚 <em>Principais Obras: A Teus Pés (1982), Luvas de Pelica (1980).</em></div>
+                </li>
+                <li><strong class="highlight">Cacaso (Antônio Carlos de Brito):</strong> Unia a militância política com uma ironia fina. Foi um dos maiores teóricos do movimento marginal, usando o humor rápido para driblar os censores do regime.
+                    <div class="obras-box">📚 <em>Principais Obras: Grupo Escolar (1974), Beijo na Boca (1975).</em></div>
+                </li>
+            </ul>
+        </div>
+
+        <!-- 20. POESIA ATUALIDADE -->
+        <div class="slide text-slide">
+            <h2>Da Poesia Marginal aos Dias Atuais</h2>
+            <ul>
+                <li>O perfil do poeta mudou: ele deixou de ser um produtor cultural solitário. O número de poetas hoje é imenso e as tendências são variadíssimas.</li>
+                <li><strong class="highlight">Anos 1990 até o momento atual:</strong> Segundo críticos, após o "desbunde" dos anos 70 e 80, há hoje uma preocupação maior com a teoria, metalinguística, <strong>rigor construtivo</strong> e a precisão léxica (palavras).</li>
+                <li><strong>Poetas de Destaque da Atualidade:</strong> Carlito Azevedo, Nelson Ascher, Arnaldo Antunes, Glauco Mattoso, Fabrício Carpinejar.</li>
+            </ul>
+        </div>
+
+        <!-- 21. A PROSA CONTEMPORÂNEA -->
+        <div class="slide grid-slide">
+            <h2>A Prosa Contemporânea</h2>
+            <div class="cards-grid">
+                <div class="card">
+                    <h4>Ruptura Narrativa</h4>
+                    <ul>
+                        <li><span style="color:#cbd5e1;">Tendência de abandonar a abordagem realista tradicional e ufanista.</span></li>
+                        <li><span style="color:#cbd5e1;">Ruptura da narrativa linear totalizante: a narração torna-se <strong class="highlight">desordenada e fragmentária</strong>, muitas vezes sem um foco claramente definido.</span></li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h4>O Romance e a Crônica</h4>
+                    <ul>
+                        <li><span style="color:#cbd5e1;"><strong>Crônica:</strong> Amplamente difundida em jornais e revistas (Luis Fernando Verissimo, Jô Soares, Marcos Rey).</span></li>
+                        <li><span style="color:#cbd5e1;"><strong>Romance:</strong> Desdobra-se em diversas linhas, como o romance policial brutalista (Rubem Fonseca), o psicológico, o histórico e o memorialista.</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- 22. LITERATURA DE MINORIAS -->
+        <div class="slide split-slide">
+            <div class="split-text">
+                <h2>As Vozes Periféricas</h2>
+                <h3>A "Escrevivência"</h3>
+                <p>O foco das principais bancas (ENEM e Vunesp) na atualidade é a literatura de minorias. Pessoas historicamente marginalizadas assumem o controle da narrativa.</p>
+                <ul>
+                    <li><strong class="highlight">Carolina Maria de Jesus:</strong> Literatura de testemunho autêntica e visceral do lixo e da fome (<em>Quarto de Despejo</em>, publicado nos anos 60).</li>
+                    <li><strong class="highlight">Conceição Evaristo:</strong> Criadora da "Escrevivência" (Escrever + Vivência negra na diáspora).</li>
+                </ul>
+            </div>
+            <div class="split-image" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/a/a9/Concei%C3%A7%C3%A3o_Evaristo%2C_September_2024.jpg');">
+                <div class="img-caption">Conceição Evaristo - A força da Escrevivência</div>
+            </div>
+        </div>
+
+        <!-- 23. QUESTÃO 1 (PERGUNTA) -->
+        <div class="slide question-slide">
+            <h2>Fixação VUNESP (Questão 1)</h2>
+            <div class="q-box">A obra de Clarice Lispector marca a prosa intimista no Brasil. Uma das principais características de suas protagonistas femininas e de sua estrutura narrativa é:</div>
+            <ul class="options-list">
+                <li><strong>A)</strong> A descrição detalhada do espaço rural brasileiro, denunciando a seca.</li>
+                <li><strong>B)</strong> O fluxo de consciência e a experiência da "epifania", em que um fato banal desencadeia uma profunda revelação existencial.</li>
+                <li><strong>C)</strong> O foco no romance policial e na linguagem agressiva do submundo metropolitano.</li>
+                <li><strong>D)</strong> A estrutura narrativa linear clássica (começo, meio e fim) com linguagem estritamente acadêmica.</li>
+            </ul>
+        </div>
+
+        <!-- 24. QUESTÃO 1 (RESPOSTA) -->
+        <div class="slide question-slide">
+            <h2>Fixação VUNESP (Questão 1)</h2>
+            <div class="q-box">A obra de Clarice Lispector marca a prosa intimista no Brasil. Uma das principais características de suas protagonistas femininas e de sua estrutura narrativa é:</div>
+            <ul class="options-list">
+                <li><strong>A)</strong> A descrição detalhada do espaço rural brasileiro, denunciando a seca.</li>
+                <li class="answer-correct"><strong>B)</strong> O fluxo de consciência e a experiência da "epifania", em que um fato banal desencadeia uma profunda revelação existencial.</li>
+                <li><strong>C)</strong> O foco no romance policial e na linguagem agressiva do submundo metropolitano.</li>
+                <li><strong>D)</strong> A estrutura narrativa linear clássica (começo, meio e fim).</li>
+            </ul>
+            <div class="explanation-box">🎯 Clarice é sinônimo de "Fluxo de Consciência" e "Epifania" (O momento de iluminação). Rompe totalmente com a linearidade!</div>
+        </div>
+
+        <!-- 25. QUESTÃO 2 (PERGUNTA) -->
+        <div class="slide question-slide">
+            <h2>Fixação VUNESP (Questão 2)</h2>
+            <div class="q-box">A poesia concreta, cujo marco inicial no Brasil é a Exposição Nacional de Arte Concreta (1956), caracteriza-se por:</div>
+            <ul class="options-list">
+                <li><strong>A)</strong> priorizar a expressão dos sentimentos íntimos do eu lírico em detrimento da forma.</li>
+                <li><strong>B)</strong> valorizar o rigor métrico (como sonetos) e o emprego constante de rimas ricas.</li>
+                <li><strong>C)</strong> explorar a materialidade do signo linguístico (Som/Imagem), abolindo o verso tradicional e a sintaxe.</li>
+                <li><strong>D)</strong> resgatar a temática nacionalista e o folclore popular herdado do Romantismo.</li>
+            </ul>
+        </div>
+
+        <!-- 26. QUESTÃO 2 (RESPOSTA) -->
+        <div class="slide question-slide">
+            <h2>Fixação VUNESP (Questão 2)</h2>
+            <div class="q-box">A poesia concreta, cujo marco inicial no Brasil é a Exposição Nacional de Arte Concreta (1956), caracteriza-se por:</div>
+            <ul class="options-list">
+                <li><strong>A)</strong> priorizar a expressão dos sentimentos íntimos do eu lírico em detrimento da forma.</li>
+                <li><strong>B)</strong> valorizar o rigor métrico (como sonetos) e o emprego constante de rimas ricas.</li>
+                <li class="answer-correct"><strong>C)</strong> explorar a materialidade do signo linguístico (Som/Imagem), abolindo o verso tradicional e a sintaxe.</li>
+                <li><strong>D)</strong> resgatar a temática nacionalista e o folclore popular herdado do Romantismo.</li>
+            </ul>
+            <div class="explanation-box">🎯 Concretismo destrói o sentimentalismo (A) e as rimas/métricas antigas (B). Foco na Palavra como Imagem (Outdoor, neon).</div>
+        </div>
+
+        <!-- 27. QUESTÃO 3 (PERGUNTA) -->
+        <div class="slide question-slide">
+            <h2>Fixação VUNESP (Questão 3)</h2>
+            <div class="q-box">As obras da Poesia Marginal dos anos 1970 (como as de Paulo Leminski) foram fortemente marcadas pelo contexto da Ditadura. Uma característica forte dessa poética é:</div>
+            <ul class="options-list">
+                <li><strong>A)</strong> a irreverência, a adoção de coloquialismos, gírias e um forte experimentalismo muitas vezes impresso em mimeógrafos.</li>
+                <li><strong>B)</strong> a submissão aos ideais governamentais de censura, produzindo obras de exaltação patriótica.</li>
+                <li><strong>C)</strong> a linguagem rebuscada e o formato épico para agradar os acadêmicos das universidades.</li>
+                <li><strong>D)</strong> a preocupação extrema com as regras de gramática normativa impostas pelas grandes editoras.</li>
+            </ul>
+        </div>
+
+        <!-- 28. QUESTÃO 3 (RESPOSTA) -->
+        <div class="slide question-slide">
+            <h2>Fixação VUNESP (Questão 3)</h2>
+            <div class="q-box">As obras da Poesia Marginal dos anos 1970 (como as de Paulo Leminski) foram fortemente marcadas pelo contexto da Ditadura. Uma característica forte dessa poética é:</div>
+            <ul class="options-list">
+                <li class="answer-correct"><strong>A)</strong> a irreverência, a adoção de coloquialismos, gírias e um forte experimentalismo muitas vezes impresso em mimeógrafos.</li>
+                <li><strong>B)</strong> a submissão aos ideais governamentais de censura, produzindo obras de exaltação patriótica.</li>
+                <li><strong>C)</strong> a linguagem rebuscada e o formato épico para agradar os acadêmicos das universidades.</li>
+                <li><strong>D)</strong> a preocupação extrema com as regras de gramática normativa impostas pelas grandes editoras.</li>
+            </ul>
+            <div class="explanation-box">🎯 A poesia "Marginal" era exatamente a poesia contra o sistema acadêmico, cheia de gírias, feita nos mimeógrafos, à margem das editoras.</div>
+        </div>
+
+        <!-- 29. CONCLUSÃO -->
+        <div class="slide cover-slide">
+            <h2 style="border-bottom: none; color: #fff;">Sucesso no Vestibular!</h2>
+            <p style="color: #cbd5e1; font-size: 1.8cqw; margin-top: 1cqw;">Lembre-se: O exame busca capacidade de interpretação.<br>A Literatura não é um punhado de datas, mas a leitura viva da nossa sociedade.</p>
+            <p style="color: #94a3b8; font-size: 1cqw; margin-top: 5cqw;">Referência Base: Cereja, William R.; Magalhães, Thereza C. Português Linguagens.</p>
+        </div>
+
+    </div>
+
+    <script>
+        let current = 0;
+        const slides = document.querySelectorAll('.slide');
+        const counter = document.getElementById('progress');
+
+        function update() {
+            slides.forEach((s, i) => {
+                if (i === current) {
+                    s.classList.add('active');
+                } else {
+                    s.classList.remove('active');
+                }
+            });
+            counter.innerText = `${current + 1} / ${slides.length}`;
+        }
+
+        // Navegação por Teclado
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                if(current < slides.length - 1) current++;
+                update();
+            } else if (e.key === 'ArrowLeft') {
+                if(current > 0) current--;
+                update();
+            }
+        });
+        
+        // Navegação por Clique / Toque nas laterais da tela
+        document.addEventListener('click', (e) => {
+            // Se o usuário estiver no celular em modo Retrato (vertical), o alerta cobre a tela.
+            // Para não avançar slide enquanto o usuário só tentava arrumar, ignoramos:
+            if (window.innerHeight > window.innerWidth && window.innerWidth < 900) return;
+            
+            const x = e.clientX;
+            const halfScreen = window.innerWidth / 2;
+            
+            if (x > halfScreen) {
+                if(current < slides.length - 1) current++;
+            } else {
+                if(current > 0) current--;
+            }
+            update();
+        });
+        
+        update(); 
+    </script>
+</body>
+</html>
