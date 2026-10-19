@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>O Quinhentismo - Prof. Carlos</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800;900&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Montserrat', sans-serif; background-color: #0f172a; color: #1e293b; overflow: hidden; width: 100vw; height: 100vh; position: relative; }
+        
+        .slide { 
+            position: absolute; top: 0; left: 0; width: 100vw; height: 100vh; 
+            opacity: 0; pointer-events: none; transition: opacity 0.4s ease; z-index: 1;
+        }
+        .slide.active { opacity: 1; pointer-events: auto; z-index: 10; }
+        
+        /* Tipografia Base */
+        h1, h2, h3 { font-family: 'Montserrat', sans-serif; font-weight: 900; line-height: 1.1; letter-spacing: -1px; }
+        h1 { font-size: 4cqw; color: #0f172a; margin-bottom: 2cqw; border-bottom: 0.5cqw solid #e11d48; display: inline-block; padding-bottom: 0.5cqw; }
+        h2 { font-size: 2.5cqw; color: #e11d48; margin-bottom: 1.5cqw; }
+        p { font-size: 1.4cqw; line-height: 1.6; margin-bottom: 1.5cqw; color: #334155; }
+        ul { margin-left: 2cqw; margin-bottom: 1.5cqw; }
+        li { font-size: 1.4cqw; line-height: 1.6; margin-bottom: 0.8cqw; color: #334155; }
+        strong { color: #0f172a; }
+
+        /* Layouts */
+        .cover-slide { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; color: white; padding: 5cqw; background: #0f172a; }
+        .cover-quinhentismo {
+            background-image: linear-gradient(rgba(10, 15, 30, 0.85), rgba(15, 20, 35, 0.95)), url("capa_quinhentismo.jpg");
+            background-size: cover;
+            background-position: center;
+        }
+        .cover-slide h1 { font-size: 4.5cqw; font-weight: 900; color: #f8fafc; margin-bottom: 1cqw; border: none; text-transform: uppercase; }
+        .cover-slide h2 { font-size: 2.2cqw; color: #cbd5e1; font-weight: 400; border: none; }
+        .cover-slide .badge { background: #e11d48; color: white; padding: 0.5cqw 1.5cqw; border-radius: 99px; font-size: 1.2cqw; font-weight: 700; margin-bottom: 2cqw; letter-spacing: 2px; }
+        
+        .split-slide { display: flex; width: 100%; height: 100%; background: #f8fafc; flex-direction: row; }
+        .split-text { flex: 1.2; padding: 4cqw 5cqw; display: flex; flex-direction: column; justify-content: center; }
+        .split-image { flex: 0.8; background-size: cover; background-position: center; position: relative; }
+        .split-image::after { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; box-shadow: inset 4cqw 0 4cqw -2cqw rgba(248, 250, 252, 1); pointer-events: none; }
+        .img-caption { position: absolute; bottom: 2cqw; right: 2cqw; background: rgba(0,0,0,0.7); color: white; padding: 0.5cqw 1cqw; font-size: 1cqw; border-radius: 0.3cqw; }
+
+        .text-slide { display: flex; flex-direction: column; padding: 5cqw 8cqw; background: #fff; justify-content: center; }
+        .question-slide { display: flex; flex-direction: row; padding: 2cqw 4cqw; background: #fff; justify-content: center; gap: 3cqw; align-items: center;}
+        
+        /* Citações e Caixas */
+        .quote-box { background: #f1f5f9; border-left: 0.6cqw solid #3b82f6; padding: 2cqw; font-family: 'Playfair Display', serif; font-size: 1.6cqw; font-style: italic; color: #1e293b; margin: 1cqw 0; }
+        .alert-box { background: #fff1f2; border: 0.2cqw solid #fda4af; padding: 1.5cqw 2cqw; border-radius: 1cqw; margin-bottom: 1.5cqw; }
+        .alert-box h3 { font-size: 1.5cqw; color: #be123c; margin-bottom: 0.5cqw; display: flex; align-items: center; gap: 0.5cqw; }
+        .alert-box p { font-size: 1.3cqw; margin-bottom: 0; color: #881337; }
+
+        /* Questões */
+        .question-text { flex: 1; padding: 2cqw; }
+        .question-text h2 { font-size: 2cqw; color: #0f172a; margin-bottom: 1cqw; }
+        .question-text p { font-size: 1.3cqw; line-height: 1.5; margin-bottom: 1cqw; }
+        .options-container { flex: 1; display: flex; flex-direction: column; gap: 1cqw; }
+        .option { background: #f8fafc; border: 0.2cqw solid #cbd5e1; padding: 1.2cqw 1.5cqw; border-radius: 0.8cqw; font-size: 1.2cqw; font-weight: 600; cursor: pointer; transition: all 0.2s ease; display: flex; align-items: center; gap: 1cqw; }
+        
+        /* Spoiler/Gabarito System */
+        .revealed .option.correct { background: #dcfce7; border-color: #22c55e; color: #166534; box-shadow: 0 4px 12px rgba(34, 197, 94, 0.2); }
+        .revealed .option.correct::after { content: '✓ Resposta Correta'; margin-left: auto; color: #166534; font-weight: 800; font-size: 1cqw; }
+        .revealed .option:not(.correct) { opacity: 0.5; filter: grayscale(1); }
+        .explanation-box { display: none; margin-top: 1.5cqw; background: #f0fdf4; border: 0.2cqw solid #86efac; padding: 1.5cqw; border-radius: 0.8cqw; }
+        .explanation-box h4 { color: #166534; font-size: 1.3cqw; margin-bottom: 0.5cqw; }
+        .explanation-box p { font-size: 1.1cqw; color: #15803d; margin-bottom: 0; }
+        .revealed .explanation-box { display: block; animation: fadeIn 0.5s ease; }
+        
+        #progress { position: fixed; bottom: 3cqw; left: 3cqw; color: #94a3b8; font-weight: 800; font-size: 1.2cqw; z-index: 100; background: rgba(255,255,255,0.9); padding: 0.5cqw 1cqw; border-radius: 99px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+    
+        /* --- Alerta Mobile (Forçar Horizontal) --- */
+        .mobile-rotate-alert {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: #0f172a; color: #fff; z-index: 99999;
+            flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 5vw;
+        }
+        .mobile-rotate-alert svg { width: 15vw; height: 15vw; margin-bottom: 5vw; fill: #fff; animation: rotatePhone 2s ease-in-out infinite; }
+        .mobile-rotate-alert h2 { font-size: 6vw; color: #fff; border-bottom: none; margin-bottom: 2vw;}
+        .mobile-rotate-alert p { font-size: 4.5vw; color: #cbd5e1; line-height: 1.5;}
+        
+        @keyframes rotatePhone { 
+            0% { transform: rotate(0deg); } 
+            50% { transform: rotate(-90deg); } 
+            100% { transform: rotate(-90deg); } 
+        }
+        
+        /* Se a tela estiver em modo retrato (em celulares) */
+        @media screen and (orientation: portrait) and (max-width: 900px) {
+            .mobile-rotate-alert { display: flex; }
+            .slide, #progress { display: none !important; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Alerta de Rotação (Apenas visível em modo Retrato no Celular) -->
+    <div class="mobile-rotate-alert">
+        <svg viewBox="0 0 24 24"><path d="M16 1H8C6.34 1 5 2.34 5 4v16c0 1.66 1.34 3 3 3h8c1.66 0 3-1.34 3-3V4c0-1.66-1.34-3-3-3zm-2 20h-4v-1h4v1zm3.25-3H6.75V4h10.5v14z"/></svg>
+        <h2 style="padding-bottom: 0;">Vire o seu celular</h2>
+        <p>Apresentações exigem o formato widescreen.<br>Coloque seu aparelho na horizontal para acompanhar a aula.</p>
+    </div>
+
+
+    <div id="progress">1 / X</div>
+
+    <!-- SLIDE 1: CAPA -->
+    <div class="slide cover-slide active cover-quinhentismo">
+        <div class="badge">LITERATURA - 1ª SÉRIE</div>
+        <h1 style="color: #f59e0b;">O Quinhentismo</h1>
+        <h2 style="margin-top: 2cqw;">As Grandes Navegações, O Descobrimento e a Literatura de Informação (1500)</h2>
+        <p style="color: #94a3b8; font-size: 1.2cqw; margin-top: 2cqw; font-weight: 600;">PORTAL LITERÁRIO - PROF. CARLOS</p>
+    </div>
+
+    <!-- SLIDE 2: CONTEXTO HISTÓRICO -->
+    <div class="slide split-slide">
+        <div class="split-text">
+            <h2>A Era das Grandes Navegações</h2>
+            <p><strong>O que foi?</strong> No final do século XV, a Europa vivia a transição do sistema feudal para o <strong>capitalismo mercantil</strong>. Havia uma necessidade urgente de buscar novas rotas comerciais para as Índias, fugindo do monopólio no Mar Mediterrâneo.</p>
+            <ul>
+                <li><strong>O Pioneirismo Português:</strong> Graças a uma burguesia forte e conhecimentos náuticos avançados, Portugal dominou os oceanos, buscando especiarias e metais preciosos.</li>
+            </ul>
+        </div>
+        <div class="split-image" style="background-image: url('cabral.jpg');">
+            <div class="img-caption">Chegada dos Portugueses ao Brasil</div>
+        </div>
+    </div>
+
+    <!-- SLIDE 3: CABRAL (NOVO) -->
+    <div class="slide split-slide">
+        <div class="split-text">
+            <h2>A Esquadra de Pedro Álvares Cabral</h2>
+            <p>Em 1500, a esquadra liderada por Pedro Álvares Cabral desvia sua rota principal (que ia para as Índias) e chega oficialmente às terras brasileiras.</p>
+            <p>Cabral trouxe consigo o primeiro "escritor" da literatura do Brasil: <strong>Pero Vaz de Caminha</strong>, o escrivão oficial da frota.</p>
+            <p>O choque cultural entre o europeu cristão vestido e armado, e o indígena nu, pacífico e desconhecido, exigiu que Caminha produzisse um relatório detalhado para o Rei.</p>
+        </div>
+        <div class="split-image" style="background-image: url('cabral_rosto.jpg'); background-position: top center;">
+            <div class="img-caption">Pedro Álvares Cabral</div>
+        </div>
+    </div>
+    
+    <!-- SLIDE 4: MAPA ISOLADO -->
+    <div class="slide cover-slide" style="background-color: #f1f5f9; background-image: url('mapa.jpg'); background-size: contain; background-position: center; background-repeat: no-repeat;">
+        <div style="position: absolute; bottom: 2cqw; right: 2cqw; background: rgba(0,0,0,0.8); color: white; padding: 1cqw 2cqw; border-radius: 0.5cqw; font-size: 1.5cqw; font-weight: bold;">
+            O Mapa das Grandes Navegações
+        </div>
+    </div>
+
+    <!-- SLIDE 4: O QUE É O QUINHENTISMO -->
+    <div class="slide text-slide">
+        <h1>Não é uma Escola Literária!</h1>
+        <p>Um dos maiores "pegas" de vestibular é chamar o Quinhentismo de Escola Literária Brasileira. <strong>Isso é falso.</strong></p>
+        <p>O Quinhentismo é considerado uma <strong>manifestação literária</strong> ou um período de transição. Os textos escritos nessa época no Brasil não possuíam uma estética literária autônoma, e não foram escritos por brasileiros.</p>
+        
+        <div class="alert-box">
+            <h3>⚠️ O que isso significa na prática?</h3>
+            <p>Eram <strong>portugueses</strong> escrevendo <strong>sobre</strong> o Brasil, para o público europeu. A literatura servia a propósitos práticos: informar o rei sobre as riquezas (político/econômico) ou catequizar os nativos (religioso).</p>
+        </div>
+        
+        <p style="margin-top: 1cqw;">Por causa disso, dividimos o Quinhentismo em duas vertentes claras: a <strong>Literatura de Informação</strong> e a <strong>Literatura de Formação (Jesuítica)</strong>.</p>
+    </div>
+
+    <!-- SLIDE 5: DIVISOR LITERATURA INFORMAÇÃO -->
+    <div class="slide cover-slide" style="background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);">
+        <h1 style="color: #38bdf8; font-size: 4cqw;">1. Literatura de Informação</h1>
+        <h2 style="margin-top: 2cqw;">Documental, Eurocêntrica e Pragmática</h2>
+    </div>
+
+    <!-- SLIDE 6: A CARTA DE CAMINHA -->
+    <div class="slide split-slide">
+        <div class="split-text" style="flex: 1.5;">
+            <h2>A Carta de Achamento (Pero Vaz de Caminha)</h2>
+            <p>A "certidão de nascimento" do Brasil. Caminha descreve a fauna, a flora e os nativos com um olhar deslumbrado, mas etnocêntrico e exploratório.</p>
+            
+            <div class="quote-box" style="border-left-color: #10b981; font-size: 1.3cqw;">
+                "A feição deles é serem pardos, maneira de avermelhados, de bons rostos e bons narizes, bem-feitos. Andam nus, sem cobertura alguma."
+            </div>
+            <p style="font-size: 1.2cqw;"><strong>Eurocentrismo:</strong> A nudez é vista como inocência (ausência do pecado cristão), justificando a necessidade de catequização.</p>
+
+            <div class="quote-box" style="border-left-color: #3b82f6; font-size: 1.3cqw;">
+                "Águas são muitas; infinitas. (...) querendo-a aproveitar, dar-se-á nela tudo; por causa das águas que tem!"
+            </div>
+            <p style="font-size: 1.2cqw;"><strong>O Mito Agrícola:</strong> Daqui surgiu a famosa frase distorcida <em>"em se plantando, tudo dá"</em>. Caminha atestava a fertilidade econômica, mas o "melhor fruto", segundo ele, seria "salvar essa gente".</p>
+        </div>
+        <div class="split-image" style="background-image: url('caminha_rosto.jpg'); background-size: contain; background-repeat: no-repeat; background-color: #f8fafc; background-position: center;">
+            <div class="img-caption" style="color: black; background: rgba(255,255,255,0.9); border: 1px solid #ccc;">Pero Vaz de Caminha</div>
+        </div>
+    </div>
+    
+    <!-- SLIDE 7: GÂNDAVO -->
+    <div class="slide split-slide">
+        <div class="split-text">
+            <h2>Pero de Magalhães Gândavo</h2>
+            <p>Escreveu o <em>Tratado da Terra do Brasil</em> (1570). Sua principal função era atuar como <strong>propaganda colonial</strong>: ele queria convencer portugueses empobrecidos a imigrarem para o Brasil, prometendo terras férteis e enriquecimento.</p>
+            <p>Gândavo eternizou um dos trechos mais famosos – e preconceituosos – sobre a língua indígena (Tupi), caindo frequentemente em vestibulares:</p>
+            
+            <div class="quote-box" style="font-size: 1.4cqw;">
+                "A língua deste gentio (...) carece de três letras, convém a saber, não se acha nela F, nem L, nem R, coisa digna de espanto, porque assim <strong>não têm Fé, nem Lei, nem Rei</strong>, e dessa maneira vivem desordenadamente."
+            </div>
+            <p>Isso reflete a miopia cultural europeia: julgar uma cultura nativa inteira baseando-se apenas na falta de instituições políticas ou religiosas europeias.</p>
+        </div>
+        <div class="split-image" style="background-image: url('gandavo.jpg'); background-position: top;">
+            <div class="img-caption">Pero de Magalhães Gândavo</div>
+        </div>
+    </div>
+
+    <!-- SLIDE 8: QUESTÃO 1 (INFORMAÇÃO) -->
+    <div class="slide question-slide">
+        <div class="question-text">
+            <h2>Questão 01 - ENEM</h2>
+            <p>"A feição deles é serem pardos, maneira de avermelhados... Andam nus, sem cobertura alguma. (...) o melhor fruto que nela se pode fazer me parece que será salvar esta gente." (Pero Vaz de Caminha)</p>
+            <p>A Carta de Caminha permite entender o projeto colonizador. O trecho acima revela a intenção de:</p>
+            
+            <div class="explanation-box">
+                <h4>✓ Comentário</h4>
+                <p>O trecho mostra explicitamente o olhar cristão eurocêntrico que via os indígenas como "tábuas rasas" ou almas inocentes que precisavam ser catequizadas (salvas), justificando o domínio cultural.</p>
+            </div>
+        </div>
+        <div class="options-container">
+            <div class="option">A) Construir um império colonial focado apenas no comércio de especiarias asiáticas.</div>
+            <div class="option correct">B) Justificar a conquista territorial através do discurso da evangelização e da conversão religiosa dos nativos.</div>
+            <div class="option">C) Denunciar as atrocidades cometidas contra as nações indígenas durante as grandes navegações.</div>
+            <div class="option">D) Promover o intercâmbio cultural igualitário entre as tradições europeias e tupis.</div>
+        </div>
+    </div>
+    
+    <!-- SLIDE 9: QUESTÃO 2 (INFORMAÇÃO) -->
+    <div class="slide question-slide">
+        <div class="question-text">
+            <h2>Questão 02 - UNESP (Adaptada)</h2>
+            <p>Leia o trecho de Magalhães Gândavo: "não se acha nela F, nem L, nem R... porque assim não têm Fé, nem Lei, nem Rei". A afirmação do cronista sobre os indígenas brasileiros demonstra:</p>
+            
+            <div class="explanation-box">
+                <h4>✓ Comentário</h4>
+                <p>Gândavo utiliza o fato de a língua indígena não ter as consoantes F, L e R para atestar, de forma etnocêntrica e preconceituosa, que eles eram incivilizados por não seguirem os moldes monárquicos, jurídicos e cristãos da Europa.</p>
+            </div>
+        </div>
+        <div class="options-container">
+            <div class="option correct">A) A visão etnocêntrica e de superioridade do europeu, que não compreendia a organização sociocultural das comunidades nativas.</div>
+            <div class="option">B) Uma constatação científica neutra de um linguista da era renascentista.</div>
+            <div class="option">C) A tolerância religiosa dos cronistas portugueses perante os costumes indígenas locais.</div>
+            <div class="option">D) A valorização da liberdade indígena em oposição à tirania das monarquias absolutistas.</div>
+        </div>
+    </div>
+
+    <!-- SLIDE 10: DIVISOR LITERATURA FORMAÇÃO -->
+    <div class="slide cover-slide" style="background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);">
+        <h1 style="color: #a855f7; font-size: 4cqw;">2. Literatura de Formação</h1>
+        <h2 style="margin-top: 2cqw;">Os Jesuítas, a Catequese e o Teatro Pedagógico</h2>
+    </div>
+
+    <!-- SLIDE 11: OS JESUÍTAS -->
+    <div class="slide split-slide">
+        <div class="split-text">
+            <h2>A Companhia de Jesus no Brasil</h2>
+            <p>Os jesuítas chegaram ao Brasil em 1549 (junto com o primeiro Governador Geral, Tomé de Sousa), liderados pelo <strong>Padre Manuel da Nóbrega</strong>.</p>
+            <p>A Igreja Católica vivia o período da Contrarreforma (após perder fiéis para o protestantismo na Europa), e viu nas Américas a oportunidade de conseguir novos devotos.</p>
+            <ul>
+                <li><strong>Objetivo:</strong> Catequizar os indígenas e moralizar os colonos portugueses (que estavam vivendo "soltos" na colônia).</li>
+                <li><strong>Os Meios:</strong> Criação de aldeamentos (missões), fundação de colégios (como o de São Paulo de Piratininga) e o uso do teatro e da poesia.</li>
+            </ul>
+        </div>
+        <div class="split-image" style="background-image: url('anchieta.jpg'); background-position: top;">
+            <div class="img-caption">A Missão Jesuítica</div>
+        </div>
+    </div>
+
+    <!-- SLIDE 12: JOSÉ DE ANCHIETA E O TEATRO -->
+    <div class="slide text-slide">
+        <h1 style="border-bottom-color: #a855f7;">Padre José de Anchieta: O "Apóstolo do Brasil"</h1>
+        <p>Enquanto Nóbrega era o estrategista político, Anchieta foi a grande mente pedagógica e literária do Quinhentismo.</p>
+        
+        <div style="display: flex; gap: 2cqw; margin-top: 2cqw;">
+            <div style="flex: 1; background: #faf5ff; padding: 2cqw; border-radius: 1cqw; border: 1px solid #d8b4fe;">
+                <h3 style="color: #7e22ce; font-size: 1.5cqw; margin-bottom: 1cqw;">📖 A Gramática Tupi</h3>
+                <p style="font-size: 1.2cqw;">Ele percebeu que para converter o índio, precisava falar a língua dele. Escreveu a <em>Arte de Gramática da Língua mais Usada na Costa do Brasil</em>, sendo o primeiro a estruturar o idioma nativo.</p>
+            </div>
+            <div style="flex: 1; background: #f0fdf4; padding: 2cqw; border-radius: 1cqw; border: 1px solid #86efac;">
+                <h3 style="color: #15803d; font-size: 1.5cqw; margin-bottom: 1cqw;">🎭 O Teatro de Catequese</h3>
+                <p style="font-size: 1.2cqw;">Sua principal obra é o <strong>Auto de São Lourenço</strong>. Anchieta misturava santos católicos com deuses e pajés indígenas (que viravam demônios na peça). Usava 3 línguas (Português, Espanhol, Tupi) para que todos na plateia entendessem o confronto entre o "Bem Cristão" e o "Mal Selvagem".</p>
+            </div>
+        </div>
+        
+        <div class="alert-box" style="margin-top: 2cqw; background: #fffbeb; border-color: #fcd34d;">
+            <h3 style="color: #d97706;">🚨 Alerta de Pegadinha! (Vieira vs Anchieta)</h3>
+            <p style="color: #b45309;">O <strong>Padre Antônio Vieira</strong>, grande defensor dos índios e mestre dos sermões, NÃO é do Quinhentismo. Ele faz parte do <strong>Barroco</strong> (Séc. XVII). Falou de Quinhentismo Jesuíta? O nome é Anchieta ou Nóbrega!</p>
+        </div>
+    </div>
+
+    <!-- SLIDE 13: QUESTÃO 3 (FORMAÇÃO) -->
+    <div class="slide question-slide">
+        <div class="question-text">
+            <h2>Questão 03 - FUVEST</h2>
+            <p>A produção teatral de Padre José de Anchieta, no século XVI, teve fundamental importância na colonização brasileira porque:</p>
+            
+            <div class="explanation-box">
+                <h4>✓ Comentário</h4>
+                <p>O teatro (os "autos") de Anchieta era um forte instrumento pedagógico. Ele mesclava a doutrina católica com elementos culturais indígenas (num processo de sincretismo aparente) para facilitar a evangelização e o controle social.</p>
+            </div>
+        </div>
+        <div class="options-container">
+            <div class="option">A) Exaltava as lendas nativas de forma pura, promovendo a superioridade da religião tupi-guarani.</div>
+            <div class="option">B) Criticava abertamente as ações da Inquisição através de sátiras políticas complexas.</div>
+            <div class="option correct">C) Utilizava recursos cênicos e o idioma nativo como ferramenta pedagógica para catequizar e aculturar o indígena.</div>
+            <div class="option">D) Foi a primeira manifestação literária a reivindicar a independência política do Brasil.</div>
+        </div>
+    </div>
+
+    <!-- SLIDE 14: QUESTÃO 4 (SÍNTESE QUINHENTISMO) -->
+    <div class="slide question-slide">
+        <div class="question-text">
+            <h2>Questão 04 - UEL</h2>
+            <p>Assinale a alternativa que descreve corretamente o Quinhentismo no Brasil.</p>
+            
+            <div class="explanation-box">
+                <h4>✓ Comentário</h4>
+                <p>Perfeito! O Quinhentismo é essa dupla engrenagem: a literatura de informação (material/mercantil/exploratória) dos viajantes, e a literatura de formação (espiritual/catequética) dos jesuítas.</p>
+            </div>
+        </div>
+        <div class="options-container">
+            <div class="option">A) É um movimento literário estritamente brasileiro, com obras de autores nascidos na colônia que já demonstravam sentimento nacionalista.</div>
+            <div class="option correct">B) Compreende a produção literária vinculada aos interesses mercantis de expansão de Portugal (literatura de informação) e à intenção catequética dos jesuítas (literatura de formação).</div>
+            <div class="option">C) É a fase em que o Padre Antônio Vieira escreve seus sermões inflamados para combater as invasões holandesas.</div>
+            <div class="option">D) Consiste unicamente nos relatos de viagem com profundo respeito pelas culturas locais, evitando impor dogmas europeus.</div>
+        </div>
+    </div>
+
+    <script>
+        let current = 0;
+        const slides = document.querySelectorAll('.slide');
+        const counter = document.getElementById('progress');
+
+        function update() {
+            slides.forEach((s, i) => {
+                if (i === current) {
+                    s.classList.add('active');
+                } else {
+                    s.classList.remove('active');
+                }
+            });
+            if(counter) counter.innerText = `${current + 1} / ${slides.length}`;
+        }
+
+        function goNext() {
+            const s = slides[current];
+            if (s.classList.contains('question-slide') && !s.classList.contains('revealed')) {
+                s.classList.add('revealed');
+                return;
+            }
+            if(current < slides.length - 1) {
+                current++;
+                update();
+            }
+        }
+        
+        function goPrev() {
+            if(current > 0) {
+                current--;
+                update();
+            }
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                goNext();
+            } else if (e.key === 'ArrowLeft') {
+                goPrev();
+            }
+        });
+        
+        document.addEventListener('click', (e) => {
+            if (window.innerHeight > window.innerWidth && window.innerWidth < 900) return;
+            const x = e.clientX;
+            const halfScreen = window.innerWidth / 2;
+            if (x > halfScreen) {
+                goNext();
+            } else {
+                goPrev();
+            }
+        });
+        
+        update();
+    </script>
+</body>
+</html>

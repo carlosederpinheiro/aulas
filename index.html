@@ -473,18 +473,18 @@
             </div>
             
             <div class="grid-series">
-                <button class="series-card" onclick="alert('O módulo da Primeira Série será liberado no próximo semestre.')">
-                    <div class="icon-wrapper bg-slate"><span>📖</span></div>
+                <button class="series-card active-card" style="border-color: #0ea5e9;" onclick="showView('view-primeira')">
+                    <div class="icon-wrapper" style="background: #e0f2fe; color: #0ea5e9;"><span>📖</span></div>
                     <h3>1ª Série</h3>
                     <p>Origens da Literatura e Quinhentismo</p>
-                    <div class="badge">Em Breve</div>
+                    <div class="badge success" style="background: #0ea5e9;">Liberado</div>
                 </button>
                 
-                <button class="series-card" onclick="alert('O módulo da Segunda Série será liberado no próximo semestre.')">
-                    <div class="icon-wrapper bg-slate"><span>🎭</span></div>
-                    <h3>2ª Série</h3>
-                    <p>Romantismo, Realismo e Simbolismo</p>
-                    <div class="badge">Em Breve</div>
+                <button class="series-card active-card" style="border-color: #7c3aed;" onclick="showView('view-segunda')">
+                    <div class="icon-wrapper" style="background: #f5f3ff; color: #7c3aed;"><span>🎭</span></div>
+                    <h3>2ª Série • PSC</h3>
+                    <p>Romantismo, Realismo, Simbolismo e Pré-Modernismo</p>
+                    <div class="badge success" style="background: #7c3aed;">Liberado</div>
                 </button>
                 
                 <button class="series-card active-card" onclick="showView('view-terceira')">
@@ -493,6 +493,99 @@
                     <p>Modernismo e Literatura Contemporânea</p>
                     <div class="badge success">Liberado</div>
                 </button>
+            </div>
+        </div>
+
+        <!-- VIEW: SEGUNDA SÉRIE / REVISÃO PSC -->
+        <div id="view-segunda" class="view">
+            <button class="btn-back" onclick="showView('view-series')">
+                <svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+                Voltar para Séries
+            </button>
+            
+            <div class="section-header">
+                <h2>Literatura: 2ª Série &amp; Revisão PSC</h2>
+                <p>Estudo direcionado das escolas literárias e resolução comentada de provas anteriores do PSC/UFAM.</p>
+            </div>
+            
+            <div class="subject-list">
+                <!-- AULA 1: REVISÃO PSC SIMBOLISMO E PRÉ-MODERNISMO -->
+                <a href="slides/revisao_psc_simbolismo_premodernismo.html" target="_blank" rel="noopener noreferrer" class="lesson-card">
+                    <div class="lesson-icon" style="background: #f5f3ff; color: #7c3aed;">01</div>
+                    <div class="lesson-content">
+                        <div class="lesson-header">
+                            <span class="lesson-tag" style="color: #7c3aed; background: #f5f3ff;">Especial PSC • UFAM</span>
+                            <div class="pedagogy-badges">
+                                <span>⏱️ 40 min</span>
+                                <span>📝 15 Questões PSC + Teoria Completa</span>
+                            </div>
+                        </div>
+                        <h3>Revisão PSC: Simbolismo e Pré-Modernismo</h3>
+                        <p>Cruz e Sousa, Alphonsus de Guimaraens, Augusto dos Anjos, Lima Barreto, Euclides da Cunha, Monteiro Lobato e Graça Aranha com 15 questões oficiais do PSC comentadas.</p>
+                    </div>
+                    <div class="lesson-action" style="background: #7c3aed; box-shadow: 0 4px 12px rgba(124, 58, 237, 0.25);">
+                        <span>Acessar</span>
+                        <svg viewBox="0 0 24 24"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/></svg>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        
+        <!-- VIEW: PRIMEIRA SÉRIE -->
+        <div id="view-primeira" class="view">
+            <button class="btn-back" onclick="showView('view-series')">
+                <svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+                Voltar para Séries
+            </button>
+            
+            <div class="section-header">
+                <h2>Literatura: 1ª Série</h2>
+                <p>O início de tudo: origens literárias, descobrimento e a construção do Brasil colonial.</p>
+            </div>
+            
+            <div class="subject-list">
+                
+                <!-- AULA 1: QUINHENTISMO -->
+                <a href="slides/quinhentismo_completo.html" target="_blank" rel="noopener noreferrer" class="lesson-card">
+                    <div class="lesson-icon" style="background: #e0f2fe; color: #0ea5e9;">01</div>
+                    <div class="lesson-content">
+                        <div class="lesson-header">
+                            <span class="lesson-tag" style="color: #0ea5e9;">1500 a 1601</span>
+                            <div class="pedagogy-badges">
+                                <span>⏱️ 20 min</span>
+                                <span>📝 2 Questões Práticas</span>
+                            </div>
+                        </div>
+                        <h3>O Quinhentismo (A Literatura de Informação)</h3>
+                        <p>A chegada dos portugueses, a Carta de Caminha, os jesuítas e a literatura como ferramenta de exploração e fé.</p>
+                    </div>
+                    <div class="lesson-action" style="background: #0ea5e9; box-shadow: 0 4px 12px rgba(14, 165, 233, 0.2);">
+                        <span>Acessar</span>
+                        <svg viewBox="0 0 24 24"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/></svg>
+                    </div>
+                </a>
+
+
+                <!-- AULA 2: BARROCO -->
+                <a href="slides/barroco_premium.html" target="_blank" rel="noopener noreferrer" class="lesson-card">
+                    <div class="lesson-icon" style="background: #fef08a; color: #ca8a04;">02</div>
+                    <div class="lesson-content">
+                        <div class="lesson-header">
+                            <span class="lesson-tag" style="color: #ca8a04;">Séc XVII</span>
+                            <div class="pedagogy-badges">
+                                <span>⏱️ 25 min</span>
+                                <span>📝 11 Questões de Prova + Teoria Completa</span>
+                            </div>
+                        </div>
+                        <h3>O Barroco: A Arte do Conflito</h3>
+                        <p>A Contrarreforma Católica, Padre Antônio Vieira (Sermões), Gregório de Matos (Boca do Inferno) e o duelo entre Fé e Razão.</p>
+                    </div>
+                    <div class="lesson-action" style="background: #ca8a04; box-shadow: 0 4px 12px rgba(202, 138, 4, 0.2);">
+                        <span>Acessar</span>
+                        <svg viewBox="0 0 24 24"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/></svg>
+                    </div>
+                </a>
             </div>
         </div>
 
@@ -511,7 +604,7 @@
             <div class="subject-list">
                 
                                 <!-- AULA 1 -->
-                <a href="slides/modernismo_22_premium.html" target="_blank" class="lesson-card">
+                <a href="slides/modernismo_22_premium.html" target="_blank" rel="noopener noreferrer" class="lesson-card">
                     <div class="lesson-icon bg-amber">01</div>
                     <div class="lesson-content">
                         <div class="lesson-header">
@@ -531,7 +624,7 @@
                 </a>
                 
                                 <!-- AULA 2 -->
-                <a href="slides/modernismo_30_premium.html" target="_blank" class="lesson-card">
+                <a href="slides/modernismo_30_premium.html" target="_blank" rel="noopener noreferrer" class="lesson-card">
                     <div class="lesson-icon bg-emerald">02</div>
                     <div class="lesson-content">
                         <div class="lesson-header">
@@ -551,7 +644,7 @@
                 </a>
 
                                 <!-- AULA 3 -->
-                <a href="slides/literatura_contemporanea.html" target="_blank" class="lesson-card">
+                <a href="slides/literatura_contemporanea.html" target="_blank" rel="noopener noreferrer" class="lesson-card">
                     <div class="lesson-icon bg-rose">03</div>
                     <div class="lesson-content">
                         <div class="lesson-header">
@@ -572,7 +665,7 @@
 
             
                 <!-- AULA 4: NotebookLM Sagarana -->
-                <a href="https://notebook.google.com/notebook/aa26c37f-0c35-4da0-9993-b4ae75403828" target="_blank" class="lesson-card">
+                <a href="https://notebook.google.com/notebook/aa26c37f-0c35-4da0-9993-b4ae75403828" target="_blank" rel="noopener noreferrer" class="lesson-card">
                     <div class="lesson-icon" style="background: #e0e7ff; color: #4f46e5;">04</div>
                     <div class="lesson-content">
                         <div class="lesson-header">
@@ -592,7 +685,7 @@
                 </a>
 
                 <!-- AULA 5: NotebookLM Laços de Família -->
-                <a href="https://notebook.google.com/notebook/4166672a-8261-41e4-b6b1-68776564310d" target="_blank" class="lesson-card">
+                <a href="https://notebook.google.com/notebook/4166672a-8261-41e4-b6b1-68776564310d" target="_blank" rel="noopener noreferrer" class="lesson-card">
                     <div class="lesson-icon" style="background: #fce7f3; color: #db2777;">05</div>
                     <div class="lesson-content">
                         <div class="lesson-header">

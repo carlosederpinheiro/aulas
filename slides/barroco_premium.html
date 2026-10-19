@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>O Barroco Completo - Prof. Carlos</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800;900&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Montserrat', sans-serif; background-color: #0f172a; color: #1e293b; overflow: hidden; width: 100vw; height: 100vh; position: relative; }
+        
+        .slide { 
+            position: absolute; top: 0; left: 0; width: 100vw; height: 100vh; 
+            opacity: 0; pointer-events: none; transition: opacity 0.4s ease; z-index: 1;
+            background: #ffffff;
+        }
+        .slide.active { opacity: 1; pointer-events: auto; z-index: 10; }
+
+        /* Unidade dinâmica para ajuste perfeito de altura */
+        .fit { --u: min(1vw, 1.7778vh); }
+
+        /* Tipografia e Títulos */
+        h1, h2, h3 { font-family: 'Montserrat', sans-serif; font-weight: 900; line-height: 1.1; letter-spacing: -1px; }
+        .ttl { font-size: calc(var(--u) * 3.2); color: #0f172a; margin-bottom: calc(var(--u) * 1.5); border-bottom: calc(var(--u) * 0.4) solid #ca8a04; padding-bottom: calc(var(--u) * 0.5); display: inline-block; }
+        .sub-ttl { font-size: calc(var(--u) * 2.2); color: #ca8a04; margin-bottom: calc(var(--u) * 1); }
+        .lead { font-size: calc(var(--u) * 1.35); line-height: 1.5; color: #334155; margin-bottom: calc(var(--u) * 1.2); }
+        p { font-size: calc(var(--u) * 1.3); line-height: 1.5; color: #334155; margin-bottom: calc(var(--u) * 1); }
+        ul { margin-left: calc(var(--u) * 2); margin-bottom: calc(var(--u) * 1.2); }
+        li { font-size: calc(var(--u) * 1.25); line-height: 1.45; color: #334155; margin-bottom: calc(var(--u) * 0.5); }
+        strong { color: #0f172a; }
+
+        /* Scrollbars elegantes para conteúdos densos */
+        ::-webkit-scrollbar { width: calc(var(--u) * 0.5); }
+        ::-webkit-scrollbar-track { background: rgba(0,0,0,0.05); }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+
+        /* Layouts de Capa */
+        .cover-slide { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; color: white; padding: calc(var(--u) * 4); background: #0f172a; }
+        .cover-barroco {
+            background-image: linear-gradient(rgba(10, 15, 30, 0.85), rgba(15, 20, 35, 0.95)), url("capa_barroco.jpg");
+            background-size: cover; background-position: center;
+        }
+        .cover-slide h1 { font-size: calc(var(--u) * 4.5); font-weight: 900; color: #fef08a; margin-bottom: calc(var(--u) * 1); border: none; text-transform: uppercase; text-shadow: 0 4px 20px rgba(0,0,0,0.9); }
+        .cover-slide h2 { font-size: calc(var(--u) * 2.2); color: #fde047; font-weight: 400; border: none; text-shadow: 0 2px 10px rgba(0,0,0,0.9); }
+        .cover-slide .badge { background: #ca8a04; color: white; padding: calc(var(--u) * 0.5) calc(var(--u) * 1.5); border-radius: 99px; font-size: calc(var(--u) * 1.2); font-weight: 700; margin-bottom: calc(var(--u) * 2); letter-spacing: 2px; }
+
+        /* Split Slides */
+        .split-slide { display: flex; width: 100%; height: 100%; background: #f8fafc; flex-direction: row; }
+        .split-text { flex: 1.2; padding: calc(var(--u) * 3) calc(var(--u) * 4); display: flex; flex-direction: column; justify-content: flex-start; overflow-y: auto; }
+        .split-image { flex: 0.8; background-size: cover; background-position: center; position: relative; }
+        .img-caption { position: absolute; bottom: calc(var(--u) * 1.5); right: calc(var(--u) * 1.5); background: rgba(0,0,0,0.8); color: white; padding: calc(var(--u) * 0.4) calc(var(--u) * 0.8); font-size: calc(var(--u) * 1); border-radius: calc(var(--u) * 0.3); }
+
+        .text-slide { display: flex; flex-direction: column; padding: calc(var(--u) * 3) calc(var(--u) * 5); background: #fff; justify-content: flex-start; overflow-y: auto; }
+        
+        /* Citações e Caixas */
+        .quote-box { background: #fefce8; border-left: calc(var(--u) * 0.5) solid #eab308; padding: calc(var(--u) * 1.2) calc(var(--u) * 1.5); font-family: 'Playfair Display', serif; font-size: calc(var(--u) * 1.25); font-style: italic; color: #422006; margin: calc(var(--u) * 1) 0; }
+        .alert-box { background: #fff1f2; border: calc(var(--u) * 0.15) solid #fda4af; padding: calc(var(--u) * 1) calc(var(--u) * 1.5); border-radius: calc(var(--u) * 0.8); margin-bottom: calc(var(--u) * 1); }
+        .alert-box h3 { font-size: calc(var(--u) * 1.3); color: #be123c; margin-bottom: calc(var(--u) * 0.4); }
+        .alert-box p { font-size: calc(var(--u) * 1.15); margin-bottom: 0; color: #881337; }
+
+        /* Grids e Destaques */
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: calc(var(--u) * 1.5); margin-top: calc(var(--u) * 1); }
+        .card-box { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: calc(var(--u) * 0.8); padding: calc(var(--u) * 1.2); }
+
+        /* Questões */
+        .question-slide { display: flex; flex-direction: row; padding: calc(var(--u) * 2) calc(var(--u) * 4); background: #fff; justify-content: center; gap: calc(var(--u) * 3); align-items: center; }
+        .question-text { flex: 1; padding: calc(var(--u) * 1); }
+        .question-text h2 { font-size: calc(var(--u) * 1.8); color: #0f172a; margin-bottom: calc(var(--u) * 1); border-bottom: 2px solid #ca8a04; padding-bottom: calc(var(--u) * 0.3); }
+        .question-text p { font-size: calc(var(--u) * 1.2); line-height: 1.45; margin-bottom: calc(var(--u) * 0.8); }
+        .options-container { flex: 1; display: flex; flex-direction: column; gap: calc(var(--u) * 0.8); }
+        .option { background: #f8fafc; border: calc(var(--u) * 0.15) solid #cbd5e1; padding: calc(var(--u) * 1) calc(var(--u) * 1.2); border-radius: calc(var(--u) * 0.6); font-size: calc(var(--u) * 1.15); font-weight: 600; cursor: pointer; transition: all 0.2s ease; display: flex; align-items: center; gap: calc(var(--u) * 0.8); }
+        
+        .revealed .option.correct { background: #dcfce7; border-color: #22c55e; color: #166534; box-shadow: 0 4px 12px rgba(34, 197, 94, 0.2); }
+        .revealed .option.correct::after { content: '✓ Correta'; margin-left: auto; color: #166534; font-weight: 800; font-size: calc(var(--u) * 1); }
+        .revealed .option:not(.correct) { opacity: 0.5; filter: grayscale(1); }
+        .explanation-box { display: block; visibility: hidden; opacity: 0; margin-top: calc(var(--u) * 1); background: #f0fdf4; border: calc(var(--u) * 0.15) solid #86efac; padding: calc(var(--u) * 1); border-radius: calc(var(--u) * 0.6); }
+        .explanation-box h4 { color: #166534; font-size: calc(var(--u) * 1.2); margin-bottom: calc(var(--u) * 0.3); }
+        .explanation-box p { font-size: calc(var(--u) * 1.1); color: #15803d; margin-bottom: 0; }
+        .revealed .explanation-box { visibility: visible; opacity: 1; transition: opacity 0.4s ease; }
+        
+        #progress { position: fixed; bottom: calc(var(--u) * 2); left: calc(var(--u) * 2); color: #94a3b8; font-weight: 800; font-size: calc(var(--u) * 1.1); z-index: 100; background: rgba(255,255,255,0.9); padding: calc(var(--u) * 0.4) calc(var(--u) * 0.8); border-radius: 99px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+
+        /* --- Alerta Mobile --- */
+        .mobile-rotate-alert {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: #0f172a; color: #fff; z-index: 99999;
+            flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 5vw;
+        }
+        .mobile-rotate-alert svg { width: 15vw; height: 15vw; margin-bottom: 5vw; fill: #fff; animation: rotatePhone 2s ease-in-out infinite; }
+        .mobile-rotate-alert h2 { font-size: 6vw; color: #fff; border-bottom: none; margin-bottom: 2vw;}
+        .mobile-rotate-alert p { font-size: 4.5vw; color: #cbd5e1; line-height: 1.5;}
+        
+        @keyframes rotatePhone { 
+            0% { transform: rotate(0deg); } 
+            50% { transform: rotate(-90deg); } 
+            100% { transform: rotate(-90deg); } 
+        }
+        
+        @media screen and (orientation: portrait) and (max-width: 900px) {
+            .mobile-rotate-alert { display: flex; }
+            .slide, #progress { display: none !important; }
+        }
+    </style>
+</head>
+
+<body class="fit">
+
+    <!-- Alerta Mobile -->
+    <div class="mobile-rotate-alert">
+        <svg viewBox="0 0 24 24"><path d="M16 1H8C6.34 1 5 2.34 5 4v16c0 1.66 1.34 3 3 3h8c1.66 0 3-1.34 3-3V4c0-1.66-1.34-3-3-3zm-2 20h-4v-1h4v1zm3.25-3H6.75V4h10.5v14z"/></svg>
+        <h2 style="padding-bottom: 0;">Vire o seu celular</h2>
+        <p>Apresentações exigem o formato widescreen.<br>Coloque seu aparelho na horizontal para acompanhar a aula.</p>
+    </div>
+
+    <div id="progress">1 / X</div>
+
+    <!-- SLIDE 1: CAPA -->
+    <div class="slide cover-slide active cover-barroco">
+        <div class="badge">LITERATURA - 1ª SÉRIE</div>
+        <h1>O BARROCO NO BRASIL E NO MUNDO</h1>
+        <h2>A Arte do Conflito, da Contrarreforma e da Tensão Humana</h2>
+        <p style="color: #94a3b8; font-size: calc(var(--u) * 1.2); margin-top: calc(var(--u) * 2); font-weight: 600;">PORTAL LITERÁRIO - PROF. CARLOS</p>
+    </div>
+
+    <!-- SLIDE 2: ETIMOLOGIA E CONCEITO -->
+    <div class="slide text-slide">
+        <h2 class="ttl">O que significa "Barroco"?</h2>
+        <p class="lead">A palavra <strong>barroco</strong> origina-se do vocábulo espanhol <em>barrueco</em> (do português arcaico), usado por joalheiros desde o século XVI para designar uma <strong>pérola irregular e de formação defeituosa</strong>.</p>
+        <div class="alert-box">
+            <h3>💎 O Significado Estético</h3>
+            <p>Em oposição à disciplina e simetria perfeitas do Renascimento, o Barroco estabeleceu-se como a arte das formas livres, assimétricas, dramáticas e de grande intensidade emotiva.</p>
+        </div>
+        <p style="margin-top: calc(var(--u) * 1);">O homem barroco não busca mais a harmonia estática grega, mas a vibração dos contrastes e a dramaticidade da vida real.</p>
+    </div>
+
+    <!-- SLIDE 3: CONTEXTO HISTÓRICO GLOBAL -->
+    <div class="slide split-slide">
+        <div class="split-text">
+            <h2 class="ttl">Contexto Histórico Global</h2>
+            <p>O movimento nasceu na Itália no final do séc. XVI e difundiu-se pela Europa e colônias americanas. O grande divisor de águas foi o <strong>Concílio de Trento (1545-1563)</strong>.</p>
+            <ul>
+                <li><strong>A Contrarreforma:</strong> Reação católica à Reforma Protestante de Lutero. A Igreja busca restaurar sua autoridade e disciplina.</li>
+                <li><strong>A Companhia de Jesus:</strong> Passa a dominar quase inteiramente o ensino e a evangelização nas colônias.</li>
+                <li><strong>O Homem Atormentado:</strong> Colocado entre o Céu e a Terra, consciente de sua grandeza racional, mas aterrorizado pela ideia do pecado e do inferno.</li>
+            </ul>
+        </div>
+        <div class="split-image" style="background-image: url('capa_barroco.jpg');">
+            <div class="img-caption">O Drama da Contrarreforma na Arquitetura</div>
+        </div>
+    </div>
+
+    <!-- SLIDE 4: O BARROCO NO BRASIL -->
+    <div class="slide split-slide">
+        <div class="split-text">
+            <h2 class="ttl">O Barroco no Brasil Colonial</h2>
+            <p>O Barroco desembarca no Brasil no final do século XVII trazido pelos colonos europeus, num momento em que a economia colonial era impulsionada pelo <strong>ouro branco: o açúcar</strong>.</p>
+            <ul>
+                <li><strong>O Polo Nordestino:</strong> As lavouras e engenhos se concentravam principalmente na Bahia e Pernambuco, de onde surgiram os primeiros escritores.</li>
+                <li><strong>Sociedade Açucareira:</strong> Uma sociedade patriarcal, escravocrata e profundamente religiosa, onde o luxo dos Senhores de Engenho convivia com o sofrimento e a devoção.</li>
+            </ul>
+        </div>
+        <div class="split-image" style="background-image: url('capa_barroco.jpg');">
+            <div class="img-caption">Engenho e Sociedade Colonial</div>
+        </div>
+    </div>
+
+    <!-- SLIDE 5: AS 5 CARACTERÍSTICAS FUNDAMENTAIS -->
+    <div class="slide text-slide">
+        <h2 class="ttl">As 5 Marcas da Estética Barroca</h2>
+        <div class="grid-2">
+            <div class="card-box" style="border-left: 4px solid #ca8a04;">
+                <h3 style="color: #ca8a04; font-size: calc(var(--u) * 1.4);">1. Culto do Contraste</h3>
+                <p>Aproximação constante de opostos: Carne x Espírito, Pecado x Perdão, Céu x Terra, Luz x Sombra.</p>
+            </div>
+            <div class="card-box" style="border-left: 4px solid #be123c;">
+                <h3 style="color: #be123c; font-size: calc(var(--u) * 1.4);">2. Fusionismo</h3>
+                <p>Tentativa de fundir a visão medieval (sagrada/religiosa) com a visão renascentista (profana/terrena).</p>
+            </div>
+            <div class="card-box" style="border-left: 4px solid #1d4ed8;">
+                <h3 style="color: #1d4ed8; font-size: calc(var(--u) * 1.4);">3. Pessimismo & Feísmo</h3>
+                <p>Consciência da dor e da miséria humana; exploração de aspectos sangrentos e cruéis da existência.</p>
+            </div>
+            <div class="card-box" style="border-left: 4px solid #15803d;">
+                <h3 style="color: #15803d; font-size: calc(var(--u) * 1.4);">4. Efemeridade (Carpe Diem)</h3>
+                <p>A certeza de que a vida é passageira leva ao desejo de aproveitar o presente antes que a morte chegue.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- SLIDE 6: SLIDE DUALIDADE (FÉ VS RAZÃO) -->
+    <div class="slide fit s3">
+        <div class="s3-wrap">
+            <h2 class="ttl">A Estética da Dualidade</h2>
+            <p class="lead">Essa angústia do homem barroco reflete-se diretamente na linguagem, rebuscada e cheia de figuras opostas:</p>
+
+            <div class="s3-figs">
+                <div class="s3-fig blue">
+                    <h3 class="ft">Antítese</h3>
+                    <p class="fd">Aproximação de ideias opostas que não se anulam: vida e morte, luz e trevas, céu e inferno.</p>
+                    <p class="fv">"Nasce o Sol e não dura mais que um dia."</p>
+                </div>
+                <div class="s3-fig red">
+                    <h3 class="ft">Paradoxo</h3>
+                    <p class="fd">Oposição que parece absurda, fundindo opostos num mesmo elemento: amor que é fogo e choro ao mesmo tempo.</p>
+                    <p class="fv">"Ardor em coração firme nascido; pranto por belos olhos derramado."</p>
+                </div>
+            </div>
+
+            <div class="s3-label">O homem barroco entre dois mundos</div>
+
+            <div class="s3-poles">
+                <div class="s3-pole dark">
+                    <h3 class="pt">Teocentrismo</h3>
+                    <p class="pd">Espírito, Fé, Castidade, Punição</p>
+                </div>
+                <div class="s3-pole gold">
+                    <h3 class="pt">Antropocentrismo</h3>
+                    <p class="pd">Matéria, Razão, Desejo, Prazer</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SLIDE 7: CULTISMO VS CONCEPTISMO -->
+    <div class="slide fit s4">
+        <div class="s4-wrap">
+            <h2 class="ttl">As Duas Faces do Barroco</h2>
+            <p class="lead">Dois estilos dominam o período, influenciados pelos espanhóis Luís de Góngora e Francisco de Quevedo:</p>
+
+            <div class="s4-cards">
+                <div class="s4-card gold">
+                    <span class="s4-tag">GONGORISMO</span>
+                    <h3 class="ct">Cultismo</h3>
+                    <p class="cs">O jogo das palavras</p>
+                    <ul>
+                        <li>Foco na <strong>forma</strong>: ornamentação e vocabulário culto.</li>
+                        <li>Trocadilhos e apelo aos cinco sentidos (sinestesia).</li>
+                        <li>Poesia voltada ao deslumbramento estético.</li>
+                    </ul>
+                    <div class="s4-chip">Exemplo no Brasil: a poesia de <strong>Gregório de Matos</strong></div>
+                </div>
+
+                <div class="s4-vs">VS</div>
+
+                <div class="s4-card navy">
+                    <span class="s4-tag">QUEVEDISMO</span>
+                    <h3 class="ct">Conceptismo</h3>
+                    <p class="cs">O jogo das ideias</p>
+                    <ul>
+                        <li>Foco no <strong>conteúdo</strong>: raciocínio lógico e argumentação afiada.</li>
+                        <li>Metáforas complexas para convencer a mente do ouvinte.</li>
+                        <li>Não enfeitar as palavras, e sim persuadir.</li>
+                    </ul>
+                    <div class="s4-chip">Maior nome em português: a prosa do <strong>Padre Antônio Vieira</strong></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SLIDE 8: MARCO INICIAL - BENTO TEIXEIRA -->
+    <div class="slide split-slide">
+        <div class="split-text">
+            <h2 class="ttl">O Marco Inicial: Bento Teixeira</h2>
+            <p>O marco zero do Barroco no Brasil ocorre em <strong>1601</strong> com a publicação do poema épico <strong>Prosopopeia</strong>, em Lisboa.</p>
+            <ul>
+                <li><strong>Estrutura:</strong> Composto por 94 estâncias (estrofes) em versos decassílabos em oitava heroica (AB AB AB CC).</li>
+                <li><strong>Influência:</strong> Inspirado abertamente em <em>Os Lusíadas</em> de Camões. O narrador do poema é o deus marinho Proteu.</li>
+                <li><strong>Objetivo:</strong> Escrito para homenagear D. Jorge de Albuquerque Coelho, donatário da Capitania de Pernambuco.</li>
+                <li><strong>Curiosidade Histórica:</strong> Por muito tempo pensou-se ser pernambucano, mas descobriu-se que Bento Teixeira era natural do Porto (Portugal).</li>
+            </ul>
+        </div>
+        <div class="split-image" style="background-image: url('cabral.jpg');">
+            <div class="img-caption">Prosopopeia (1601) - O Início do Barroco</div>
+        </div>
+    </div>
+
+    <!-- SLIDE 9: MANUEL BOTELHO DE OLIVEIRA -->
+    <div class="slide text-slide">
+        <h2 class="ttl">Manuel Botelho de Oliveira</h2>
+        <p class="lead">Autor da obra <strong>Música do Parnaso</strong> (publicada em Lisboa, em 1705).</p>
+        <div class="alert-box" style="background: #eff6ff; border-color: #93c5fd;">
+            <h3 style="color: #1e3a8a;">🏆 O Primeiro Escritor Nascido no Brasil</h3>
+            <p style="color: #1e40af;">Botelho de Oliveira detém o título histórico de ser o <strong>primeiro escritor nascido em solo brasileiro</strong> a ter um livro impresso e publicado.</p>
+        </div>
+        <ul style="margin-top: calc(var(--u) * 1);">
+            <li><strong>Obra Poliglota:</strong> Dividida em quatro coros de rimas (portuguesas, castelhanas, italianas e latinas).</li>
+            <li><strong>Destaque Nativista:</strong> Destaca-se o celebre poema <em>A Ilha da Maré</em> (louvando a paisagem baiana) e os sonetos dedicados à sua musa Anarda.</li>
+        </ul>
+    </div>
+
+    <!-- SLIDE 10: GREGÓRIO DE MATOS (BIOGRAFIA) -->
+    <div class="slide split-slide fit s5">
+        <div class="s5-text">
+            <h2 class="ttl">Gregório de Matos: "Boca do Inferno"</h2>
+            <p class="lead">Nasceu em 1636 em Salvador numa família abastada (dona de 2 engenhos e 130 escravos). Educou-se no colégio jesuíta e formou-se em Direito em Coimbra, onde chegou a ser juiz de órfãos.</p>
+            <p>Ao retornar à Bahia em 1681, foi nomeado vigário-geral, mas <strong>recusou-se a usar a batina</strong> e denunciou os vícios do clero. Afastado da Igreja, passou a satirizar toda a sociedade baiana, ganhando o temido apelido.</p>
+            <div class="s5-items">
+                <div class="s5-item"><strong>Poesia Satírica:</strong> Crítica social ácida e de linguagem crua a políticos, clero e comerciantes.</div>
+                <div class="s5-item"><strong>Poesia Religiosa:</strong> Arrependimento, culpa e busca sincera de perdão a Deus.</div>
+                <div class="s5-item"><strong>Poesia Lírico-Amorosa:</strong> A mulher vista entre a elevação espiritual e a tentação carnal.</div>
+            </div>
+        </div>
+        <div class="split-image" style="background-image: url('gregorio.jpg'); background-size: contain; background-repeat: no-repeat; background-color: #0c0a09; background-position: center;">
+            <div class="img-caption">Gregório de Matos (1636-1696)</div>
+        </div>
+    </div>
+
+    <!-- SLIDE 11: ANÁLISE POÉTICA 1 (RELIGIOSA) -->
+    <div class="slide text-slide">
+        <h2 class="ttl">Análise Poética: A Jesus Cristo Nosso Senhor</h2>
+        <div class="quote-box" style="font-size: calc(var(--u) * 1.25);">
+            "Pequei, Senhor; mas não porque hei pecado,<br>
+            Da vossa Alta Piedade me despido:<br>
+            Antes, quanto mais tenho delinquido,<br>
+            Vos tenho a perdoar mais empenhado.<br><br>
+            (...) Eu sou, Senhor, a ovelha desgarrada;<br>
+            Cobrai-a; e não queirais, Pastor Divino,<br>
+            Perder na vossa ovelha a vossa glória."
+        </div>
+        <div class="alert-box" style="background: #fefce8; border-color: #fde047;">
+            <h3 style="color: #854d0e;">💡 O Raciocínio Conceptista da Salvação</h3>
+            <p style="color: #713f12;">Gregório argumenta logicamente com Deus: se Cristo é o bom Pastor que se alegra ao resgatar a ovelha perdida, o poeta — sendo o maior dos pecadores — oferece a Deus a maior oportunidade possível de demonstrar Sua Glória divina através do perdão.</p>
+        </div>
+    </div>
+
+    <!-- SLIDE 12: ANÁLISE POÉTICA 2 (RECURSOS ESTÍSTICOS) -->
+    <div class="slide text-slide">
+        <h2 class="ttl">Desenganos da Vida Humana (Metáforas)</h2>
+        <div class="quote-box" style="font-size: calc(var(--u) * 1.15);">
+            "É a vaidade, Fábio, nesta vida, / Rosa, que da manhã lisonjeada...<br>
+            É planta, que de abril favorecida... / É nau enfim, que em breve ligeireza...<br>
+            Mas ser planta, ser rosa, nau vistosa / De que importa, se aguarda sem defesa<br>
+            Penha a nau, ferro a planta, tarde a rosa?"
+        </div>
+        <div class="grid-2">
+            <div class="card-box">
+                <strong>Metáfora Tripla:</strong> A vaidade humana é comparada consecutivamente a uma <em>rosa</em>, uma <em>planta</em> e uma <em>nau</em>.
+            </div>
+            <div class="card-box">
+                <strong>Hipérbato:</strong> Inversão violenta da ordem sintática direta dos termos ("É a vaidade, Fábio, nesta vida...").
+            </div>
+            <div class="card-box">
+                <strong>Metonímia:</strong> Uso da matéria pelo objeto: <em>ferro</em> substituindo a palavra <em>machado</em>.
+            </div>
+            <div class="card-box">
+                <strong>Hipérbole:</strong> Exagero dramático para impressionar os sentidos ("púrpuras mil").
+            </div>
+        </div>
+    </div>
+
+    <!-- SLIDE 13: ANÁLISE POÉTICA 3 (SENHORA DONA BAHIA) -->
+    <div class="slide text-slide">
+        <h2 class="ttl">Poesia Satírica: "Senhora Dona Bahia"</h2>
+        <p class="lead">Gregório utiliza versos em eco (perguntas curtas respondidas pelas rimas) para desacreditar a elite colonial:</p>
+        <div class="quote-box" style="font-size: calc(var(--u) * 1.15); max-height: 40vh; overflow-y: auto;">
+            "Que falta nesta cidade?.........Verdade<br>
+            Que mais por sua desonra?......Honra<br>
+            Falta mais que se lhe ponha.....Vergonha.<br><br>
+            Quem a pôs neste socrócio?.....Negócio<br>
+            Quem causa tal perdição?........Ambição<br>
+            E o maior desta loucura?..........Usura.<br><br>
+            Quais são os seus doces objetos?....Pretos<br>
+            Tem outros bens mais maciços?.....Mestiços<br>
+            Quais destes lhe são mais gratos?...Mulatos."
+        </div>
+        <p style="margin-top: calc(var(--u) * 1);">O poeta denuncia a mercantilização da justiça, a corrupção do clero e a hipocrisia da sociedade soteropolitana do séc. XVII.</p>
+    </div>
+
+    <!-- SLIDE 14: PADRE ANTÔNIO VIEIRA -->
+    <div class="slide split-slide">
+        <div class="split-text">
+            <h2 class="ttl">Padre Antônio Vieira</h2>
+            <p>Considerado o maior orador de Língua Portuguesa e mestre supremo do <strong>Conceptismo</strong>. Jesuíta, atuou como diplomata, conselheiro real e defensor incansável da liberdade dos indígenas.</p>
+            <h3 style="color: #ca8a04; margin-top: calc(var(--u) * 1);">Sua Produção Dividida em 3 Pilares:</h3>
+            <ul>
+                <li><strong>Sermões:</strong> Discursos religiosos e políticos marcados por rigorosa lógica e retórica persuavisa (mais de 200 preservados).</li>
+                <li><strong>Cartas:</strong> Mais de 700 documentos que retratam bastidores políticos de Portugal e da Colônia.</li>
+                <li><strong>Profecias:</strong> Obras messiânicas e sebastianistas (como a <em>Clavis Prophetarum</em>).</li>
+            </ul>
+        </div>
+        <div class="split-image" style="background-image: url('vieira.jpg'); background-size: contain; background-repeat: no-repeat; background-color: #0c0a09; background-position: center;">
+            <div class="img-caption">Padre Antônio Vieira (1608-1697)</div>
+        </div>
+    </div>
+
+    <!-- SLIDE 15: SERMÃO DA SEXAGÉSIMA -->
+    <div class="slide text-slide">
+        <h2 class="ttl">O Sermão da Sexagésima (1655)</h2>
+        <p class="lead">Pregado na Capela Real de Lisboa, é uma obra metalinguística: <strong>um sermão sobre como se deve pregar</strong>.</p>
+        <div class="quote-box" style="font-size: calc(var(--u) * 1.15);">
+            "Nunca na Igreja de Deus houve tantas pregações, nem tantos pregadores como hoje. Pois se tanto se semeia a palavra de Deus, como é tão pouco o fruto? (...) Esta tão grande e tão importante dúvida será a matéria do sermão."
+        </div>
+        <div class="alert-box" style="background: #f0fdf4; border-color: #86efac;">
+            <h3 style="color: #166534;">🎯 A Tese de Vieira</h3>
+            <p style="color: #15803d;">Vieira culpa os pregadores cultistas pelo fracasso da conversão dos fiéis: eles se preocupam em fazer "enfeites de palavras" e trocadilhos vãos em vez de semear ideias claras e lógicas que transformem a alma do ouvinte.</p>
+        </div>
+    </div>
+
+    <!-- SLIDE 16: OS OUTROS SERMÕES DESTAQUE -->
+    <div class="slide text-slide">
+        <h2 class="ttl">Outros Sermões Fundamentais</h2>
+        <div class="grid-2">
+            <div class="card-box" style="border-left: 4px solid #1d4ed8;">
+                <h3 style="color: #1d4ed8; font-size: calc(var(--u) * 1.3);">🐟 Sermão de Sto. Antônio aos Peixes</h3>
+                <p>Pregado no Maranhão (1654). Uma alegoria irônica: como os homens não queriam ouvi-lo proibir a escravidão indígena, Vieira prega aos peixes, elogiando suas virtudes e condenando a voracidade dos peixes grandes que devoram os pequenos.</p>
+            </div>
+            <div class="card-box" style="border-left: 4px solid #be123c;">
+                <h3 style="color: #be123c; font-size: calc(var(--u) * 1.3);">🗣️ Sermão do Demônio Mudo</h3>
+                <p>Pregado em 1651. Vieira aborda a tentação que entra pelo olhar e critica o pecado da omissão — o silêncio daqueles que deveriam denunciar as injustiças e os abusos poder do mundo colonial.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- SLIDE 17: ARTES PLÁSTICAS (ALEIJADINHO E MESTRE ATAÍDE) -->
+    <div class="slide split-slide">
+        <div class="split-text">
+            <h2 class="ttl">O Barroco nas Artes Plásticas</h2>
+            <p>No século XVIII, o Barroco ganha força nas Minas Gerais através da mineração do ouro.</p>
+            <ul>
+                <li><strong>Aleijadinho (Antônio Francisco Lisboa):</strong> Escultor e arquiteto genial. Trabalhava com <strong>pedra-sabão</strong> e <strong>cedro-rosa</strong>. Sua obra-prima são os <em>12 Profetas</em> no Santuário do Bom Jesus de Matosinhos (Congonhas).</li>
+                <li><strong>Mestre Ataíde:</strong> Maior pintor do Barroco mineiro, famoso pela ilusionismo nos tetos das igrejas de Ouro Preto, representando anjos e santas com traços mesticizados.</li>
+            </ul>
+        </div>
+        <div class="split-image" style="background-image: url('capa_barroco.jpg'); filter: sepia(0.5) contrast(1.2);">
+            <div class="img-caption">Arte Sacra nas Igrejas Mineiras</div>
+        </div>
+    </div>
+
+    <!-- SLIDE 18: O MELÔ DO BARROCO -->
+    <div class="slide text-slide">
+        <h2 class="ttl">🎵 O Melô do Barroco (Para Memorização)</h2>
+        <p class="lead" style="font-size: calc(var(--u) * 1.1);"><em>Letra: Prof. Joãozinho / Melodia de "Quero que vá tudo pro inferno"</em></p>
+        <div class="quote-box" style="font-size: calc(var(--u) * 1.1); line-height: 1.45; max-height: 50vh; overflow-y: auto;">
+            O Barroco é dualidade e oposição / Luta entre o corpo e a alma, a fé e a razão<br>
+            Na Idade Média era Teocentrismo / E no Renascimento Antropocentrismo<br>
+            O Barroco é o céu e o inferno / Crise entre o efêmero e o eterno<br>
+            Linguagem complexa como forma de expressão / Já que a vida é curta: “carpe diem, meu irmão!”<br>
+            Mas a consciência clama por perdão / A alma quer o céu, e o corpo, a perdição<br><br>
+            <strong>Gregório de Matos é o Boca do Inferno / E o Padre Vieira é bom de verbo (2x)</strong><br><br>
+            “Dormir e acordar” é uma antítese, eu sei / “Dormir acordado” é paradoxo, captei<br>
+            Jogo de palavras chamamos de cultismo / E jogo de ideias é o conceptismo!
+        </div>
+    </div>
+
+    <!-- BATERIA DE EXERCÍCIOS DO PDF (SLIDES 19 A 27) -->
+
+    <!-- QUESTÃO 1 -->
+    <div class="slide question-slide">
+        <div class="question-text">
+            <h2>Questão 01 - PDF Degraus</h2>
+            <p>Escolha a alternativa que completa de forma correta a frase abaixo:</p>
+            <p><em>"A linguagem ______, o paradoxo, ________ e o registro das impressões sensoriais são recursos linguísticos presentes na poesia ________."</em></p>
+            <div class="explanation-box">
+                <h4>✓ Gabarito: B</h4>
+                <p>A poesia barroca caracteriza-se pelo estilo rebuscado (cultismo), pelo emprego frequente de antíteses e paradoxos, e pelo apelo às impressões sensoriais.</p>
+            </div>
+        </div>
+        <div class="options-container">
+            <div class="option">A) simples; a antítese; trovadoresca.</div>
+            <div class="option correct">B) rebuscada; a antítese; barroca.</div>
+            <div class="option">C) objetiva; a metáfora; simbolista.</div>
+            <div class="option">D) subjetiva; o verso livre; trovadoresca.</div>
+            <div class="option">E) detalhada; o subjetivismo; barroca.</div>
+        </div>
+    </div>
+
+    <!-- QUESTÃO 2 -->
+    <div class="slide question-slide">
+        <div class="question-text">
+            <h2>Questão 02 - PDF Degraus</h2>
+            <p>Com referência ao Barroco, todas as alternativas são corretas, <strong>EXCETO</strong>:</p>
+            <div class="explanation-box">
+                <h4>✓ Gabarito: B</h4>
+                <p>A alternativa B descreve o Humanismo/Renascimento (antropocentrismo greco-latino). O Barroco vive o conflito religioso da Contrarreforma, não o aprimoramento pagão estritamente racional.</p>
+            </div>
+        </div>
+        <div class="options-container">
+            <div class="option">A) O Barroco estabelece contradições entre espírito e carne, alma e corpo, morte e vida.</div>
+            <div class="option correct">B) O homem centra suas preocupações em seu próprio ser, tendo em mira seu aprimoramento, com base na cultura greco-latina.</div>
+            <div class="option">C) Apresenta o espírito de tensão e conflito entre teocentrismo medieval e antropocentrismo renascentista.</div>
+            <div class="option">D) A arte barroca é fortemente vinculada à Contrarreforma.</div>
+            <div class="option">E) Caracteriza-se pela sintaxe obscura, uso de hipérbole e metáforas.</div>
+        </div>
+    </div>
+
+    <!-- QUESTÃO 3 -->
+    <div class="slide question-slide">
+        <div class="question-text">
+            <h2>Questão 03 - PDF Degraus</h2>
+            <p>Considere o poema <em>"À Instabilidade das Cousas do Mundo"</em> (Nasce o Sol e não dura mais que um dia...). A ideia central do texto é:</p>
+            <div class="explanation-box">
+                <h4>✓ Gabarito: A</h4>
+                <p>O tema central do poema é a efemeridade e a transitoriedade de tudo no mundo (a beleza, a luz, o dia, a alegria), marcante no sentimento barroco.</p>
+            </div>
+        </div>
+        <div class="options-container">
+            <div class="option correct">A) A duração efêmera de todas as realidades do mundo.</div>
+            <div class="option">B) A grandeza de Deus e a pequenez humana.</div>
+            <div class="option">C) Os contrastes da vida moderna.</div>
+            <div class="option">D) A falsidade das aparências sociais.</div>
+            <div class="option">E) A duração prolongada do sofrimento na terra.</div>
+        </div>
+    </div>
+
+    <!-- QUESTÃO 4 -->
+    <div class="slide question-slide">
+        <div class="question-text">
+            <h2>Questão 04 - PDF Degraus</h2>
+            <p>A preocupação com a brevidade da vida induz o poeta barroco a assumir uma atitude que:</p>
+            <div class="explanation-box">
+                <h4>✓ Gabarito: C</h4>
+                <p>Trata-se do conceito de <em>Carpe Diem</em> (aproveitar o dia): diante da certeza da efemeridade da vida e da mocidade, o poeta sente urgência em gozar o presente.</p>
+            </div>
+        </div>
+        <div class="options-container">
+            <div class="option">A) Descrê da misericórdia divina e contesta a religião.</div>
+            <div class="option">B) Desiste de lutar contra o tempo, menosprezando a juventude.</div>
+            <div class="option correct">C) Quer gozar ao máximo seus dias, enquanto a mocidade dura.</div>
+            <div class="option">D) Se revolta contra os desígnios de Deus.</div>
+            <div class="option">E) Deixa-se subjugar pela apatia total.</div>
+        </div>
+    </div>
+
+    <!-- QUESTÃO 5 -->
+    <div class="slide question-slide">
+        <div class="question-text">
+            <h2>Questão 05 - PDF Degraus</h2>
+            <p>No Brasil, o Barroco foi introduzido oficialmente em 1601 com a obra <em>Prosopopeia</em> do poeta:</p>
+            <div class="explanation-box">
+                <h4>✓ Gabarito: D</h4>
+                <p>Bento Teixeira escreveu <em>Prosopopeia</em> (1601), considerado o marco inicial do Barroco literário no Brasil.</p>
+            </div>
+        </div>
+        <div class="options-container">
+            <div class="option">A) Gregório de Matos</div>
+            <div class="option">B) Padre Antônio Vieira</div>
+            <div class="option">C) Bento Gonçalves</div>
+            <div class="option correct">D) Bento Teixeira</div>
+            <div class="option">E) Manuel Botelho de Oliveira</div>
+        </div>
+    </div>
+
+    <!-- QUESTÃO 6 -->
+    <div class="slide question-slide">
+        <div class="question-text">
+            <h2>Questão 06 - PDF Degraus</h2>
+            <p>Considere as afirmações sobre o Barroco:<br>
+            I. Apresenta dualidades, conflitos e paradoxos.<br>
+            II. Conceptismo e cultismo apresentam imaginário bucólico com ninfas.<br>
+            III. A oposição entre Reforma e Contrarreforma expressa os dilemas do Barroco.</p>
+            <div class="explanation-box">
+                <h4>✓ Gabarito: D</h4>
+                <p>A afirmação II é falsa porque o imaginário bucólico de pastoras e ninfas é característico do <em>Arcadismo</em> (Século XVIII), não do Barroco.</p>
+            </div>
+        </div>
+        <div class="options-container">
+            <div class="option">A) Apenas I está correta.</div>
+            <div class="option">B) Apenas II está correta.</div>
+            <div class="option">C) Apenas III está correta.</div>
+            <div class="option correct">D) Apenas I e III estão corretas.</div>
+            <div class="option">E) Todas estão corretas.</div>
+        </div>
+    </div>
+
+    <!-- QUESTÃO 7 -->
+    <div class="slide question-slide">
+        <div class="question-text">
+            <h2>Questão 07 - PDF Degraus</h2>
+            <p><strong>NÃO</strong> é característica da estética do Barroco:</p>
+            <div class="explanation-box">
+                <h4>✓ Gabarito: A</h4>
+                <p>O Barroco rejeita o cientificismo e a razão fria; é pautado pela emoção, fé, conflito e subjetividade religiosa.</p>
+            </div>
+        </div>
+        <div class="options-container">
+            <div class="option correct">A) Preferência pelos aspectos científicos da vida.</div>
+            <div class="option">B) Tentativa de reunir num todo realidades contraditórias.</div>
+            <div class="option">C) Angústia diante da transitoriedade da vida.</div>
+            <div class="option">D) Exploração dos aspectos dolorosos da miséria humana.</div>
+            <div class="option">E) Abuso da hipérbole para exprimir o sentido da existência.</div>
+        </div>
+    </div>
+
+    <!-- QUESTÃO 8 -->
+    <div class="slide question-slide">
+        <div class="question-text">
+            <h2>Questão 08 - PDF Degraus</h2>
+            <p><em>"Pequei, Senhor; mas não porque hei pecado / Da vossa alta clemência me despido..."</em><br>A estrofe de Gregório de Matos apresenta prioritariamente:</p>
+            <div class="explanation-box">
+                <h4>✓ Gabarito: D</h4>
+                <p>Trata-se de uma confissão poética acompanhada de um raciocínio conceptista para obter o perdão divino.</p>
+            </div>
+        </div>
+        <div class="options-container">
+            <div class="option">A) Um pedido irônico de desculpas ao governador.</div>
+            <div class="option">B) Uma acusação contra o clero baiano.</div>
+            <div class="option">C) Uma ordem direta de salvação.</div>
+            <div class="option correct">D) Uma confissão religiosa e busca de absolvição.</div>
+            <div class="option">E) Um elogio à perfeição da Igreja.</div>
+        </div>
+    </div>
+
+    <!-- QUESTÃO 9 -->
+    <div class="slide question-slide">
+        <div class="question-text">
+            <h2>Questão 09 - PDF Degraus</h2>
+            <p><em>"Que és terra, homem, e em terra hás de tornar-te / Te lembra hoje Deus por sua igreja..."</em><br>O poeta barroco expressa:</p>
+            <div class="explanation-box">
+                <h4>✓ Gabarito: B</h4>
+                <p>A estrofe reforça o tema da efemeridade da matéria humana ("és pó/terra") e o sentimento de nulidade perante o poder eterno de Deus.</p>
+            </div>
+        </div>
+        <div class="options-container">
+            <div class="option">A) O medo da infelicidade terrena e o abandono de Deus.</div>
+            <div class="option correct">B) A consciência de que o mundo terreno é efêmero e vão, e a nulidade diante de Deus.</div>
+            <div class="option">C) A certeza de que a salvação é impossível para o homem.</div>
+            <div class="option">D) O desejo de usufruir o lado material sem se importar com a religião.</div>
+        </div>
+    </div>
+
+    <!-- QUESTÃO 10 -->
+    <div class="slide question-slide">
+        <div class="question-text">
+            <h2>Questão 10 - PDF Degraus</h2>
+            <p>Das alternativas abaixo, apenas uma <strong>NÃO</strong> apresenta característica de Gregório de Matos. Assinale-a:</p>
+            <div class="explanation-box">
+                <h4>✓ Gabarito: D</h4>
+                <p>Gregório de Matos não escreveu poesia nativista exaltando a beleza da flora/fauna brasileira. Isso é marca do Arcadismo (ex: Santa Rita Durão, Cláudio Manuel da Costa).</p>
+            </div>
+        </div>
+        <div class="options-container">
+            <div class="option">A) Sentido vivo de pecado aliado à busca do perdão espiritual.</div>
+            <div class="option">B) Poesia com força crítica poderosa, satírica e obscena.</div>
+            <div class="option">C) Destaque para a beleza física da amada e sua transitoriedade.</div>
+            <div class="option correct">D) Realce da beleza da flora e fauna brasileiras em manifestação nativista.</div>
+            <div class="option">E) Busca da unidade através da tentativa de conciliar contradições.</div>
+        </div>
+    </div>
+
+    <!-- QUESTÃO 11 -->
+    <div class="slide question-slide">
+        <div class="question-text">
+            <h2>Questão 11 - PDF Degraus</h2>
+            <p>Ardoroso defensor da liberdade humana, lutou contra a escravização indígena e é considerado o maior exemplo de conceptismo em Língua Portuguesa. Trata-se de:</p>
+            <div class="explanation-box">
+                <h4>✓ Gabarito: C</h4>
+                <p>Padre Antônio Vieira celebrizou-se pela defesa retórica dos indígenas e por ser o mestre inquestionável da prosa conceptista.</p>
+            </div>
+        </div>
+        <div class="options-container">
+            <div class="option">A) Padre José de Anchieta.</div>
+            <div class="option">B) Gregório de Matos.</div>
+            <div class="option correct">C) Padre Antônio Vieira.</div>
+            <div class="option">D) Padre Eusébio de Matos.</div>
+            <div class="option">E) Bento Teixeira.</div>
+        </div>
+    </div>
+
+    <script>
+        let current = 0;
+        const slides = document.querySelectorAll('.slide');
+        const counter = document.getElementById('progress');
+
+        function update() {
+            slides.forEach((s, i) => {
+                if (i === current) {
+                    s.classList.add('active');
+                } else {
+                    s.classList.remove('active');
+                }
+            });
+            if(counter) counter.innerText = `${current + 1} / ${slides.length}`;
+        }
+
+        function goNext() {
+            const s = slides[current];
+            if (s.classList.contains('question-slide') && !s.classList.contains('revealed')) {
+                s.classList.add('revealed');
+                return;
+            }
+            if(current < slides.length - 1) {
+                current++;
+                update();
+            }
+        }
+        
+        function goPrev() {
+            if(current > 0) {
+                current--;
+                update();
+            }
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ') goNext();
+            else if (e.key === 'ArrowLeft') goPrev();
+        });
+        
+        document.addEventListener('click', (e) => {
+            if (window.innerHeight > window.innerWidth && window.innerWidth < 900) return;
+            if (e.clientX > window.innerWidth / 2) goNext();
+            else goPrev();
+        });
+        
+        update();
+    </script>
+</body>
+</html>

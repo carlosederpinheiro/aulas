@@ -1,0 +1,1304 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Revisão PSC: Simbolismo e Pré-Modernismo - Prof. Carlos</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+    <style>
+        /* CSS Reset & Base */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body, html {
+            width: 100%; height: 100%;
+            background-color: #090d16;
+            overflow: hidden;
+            display: flex; justify-content: center; align-items: center;
+            font-family: 'Montserrat', sans-serif;
+            color: #1e293b;
+            user-select: none; -webkit-user-select: none;
+        }
+
+        /* 16:9 Widescreen Container com Safe Area Rigorosa */
+        .slide-container {
+            width: 100vw;
+            height: 100vh;
+            max-width: 177.78vh;
+            max-height: 56.25vw;
+            position: relative;
+            background: #ffffff;
+            overflow: hidden;
+            box-shadow: 0 0 40px rgba(0,0,0,0.85);
+            --u: min(1vw, 1.7778vh);
+        }
+
+        /* Estrutura de Transição de Slides */
+        .slide {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            opacity: 0; pointer-events: none;
+            transition: opacity 0.35s ease-in-out, transform 0.35s ease;
+            transform: scale(0.99);
+            background: #ffffff;
+            display: flex; flex-direction: column;
+            padding: calc(var(--u) * 3.5) calc(var(--u) * 5.5) calc(var(--u) * 3.8);
+            overflow: hidden;
+        }
+        .slide.active {
+            opacity: 1; pointer-events: auto; transform: scale(1); z-index: 10;
+        }
+
+        /* Paletas de Temas: Simbolismo (Indigo/Violeta) vs Pré-Modernismo (Terracota/Âmbar) */
+        .theme-simb { --accent: #6d28d9; --accent-light: #f5f3ff; --accent-border: #c4b5fd; --accent-dark: #4c1d95; }
+        .theme-pre { --accent: #b45309; --accent-light: #fffbeb; --accent-border: #fde68a; --accent-dark: #78350f; }
+
+        /* Barra Superior do Slide (Tag + Título) */
+        .slide-top {
+            display: flex; align-items: center; justify-content: space-between;
+            margin-bottom: calc(var(--u) * 1.4);
+            flex-shrink: 0;
+        }
+        .section-tag {
+            display: inline-flex; align-items: center; gap: calc(var(--u) * 0.5);
+            background: var(--accent-light, #f1f5f9);
+            color: var(--accent, #0f172a);
+            border: calc(var(--u) * 0.12) solid var(--accent-border, #cbd5e1);
+            padding: calc(var(--u) * 0.35) calc(var(--u) * 1);
+            border-radius: 99px;
+            font-size: calc(var(--u) * 0.95);
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+        }
+        .ttl {
+            font-size: calc(var(--u) * 2.5);
+            font-weight: 900;
+            color: #0f172a;
+            letter-spacing: -0.03em;
+            line-height: 1.15;
+            border-bottom: calc(var(--u) * 0.35) solid var(--accent, #6d28d9);
+            padding-bottom: calc(var(--u) * 0.35);
+            display: inline-block;
+            margin-bottom: calc(var(--u) * 1.2);
+            flex-shrink: 0;
+        }
+        .lead {
+            font-size: calc(var(--u) * 1.25);
+            line-height: 1.45;
+            color: #334155;
+            margin-bottom: calc(var(--u) * 1.2);
+            flex-shrink: 0;
+        }
+
+        /* Capa e Divisores */
+        .cover-slide {
+            background: radial-gradient(circle at 80% 20%, #311042 0%, #0f172a 55%, #090d16 100%);
+            justify-content: center; align-items: center; text-align: center;
+            color: #ffffff;
+            padding: calc(var(--u) * 5);
+        }
+        .cover-slide.with-bg {
+            background-image: linear-gradient(135deg, rgba(15, 23, 42, 0.88) 0%, rgba(30, 17, 54, 0.82) 50%, rgba(28, 19, 12, 0.9) 100%), url('capa_psc_simb_premod.jpg');
+            background-size: cover; background-position: center;
+        }
+        .cover-badge {
+            background: linear-gradient(90deg, #7c3aed, #d97706);
+            color: #fff;
+            padding: calc(var(--u) * 0.5) calc(var(--u) * 1.6);
+            border-radius: 99px;
+            font-size: calc(var(--u) * 1.1);
+            font-weight: 800;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            margin-bottom: calc(var(--u) * 1.8);
+            box-shadow: 0 4px 15px rgba(124, 58, 237, 0.4);
+        }
+        .cover-slide h1 {
+            font-size: calc(var(--u) * 4.1);
+            font-weight: 900;
+            color: #ffffff;
+            line-height: 1.08;
+            letter-spacing: -0.03em;
+            text-transform: uppercase;
+            margin-bottom: calc(var(--u) * 1.2);
+            text-shadow: 0 4px 24px rgba(0,0,0,0.8);
+        }
+        .cover-slide h2 {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-weight: 700;
+            font-size: calc(var(--u) * 2);
+            color: #e2e8f0;
+            max-width: 80%;
+            margin-bottom: calc(var(--u) * 2.5);
+        }
+        .cover-pills {
+            display: flex; gap: calc(var(--u) * 1.5); flex-wrap: wrap; justify-content: center;
+        }
+        .cover-pill {
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.2);
+            backdrop-filter: blur(8px);
+            padding: calc(var(--u) * 0.7) calc(var(--u) * 1.4);
+            border-radius: calc(var(--u) * 0.7);
+            font-size: calc(var(--u) * 1.05);
+            color: #f8fafc;
+            font-weight: 600;
+        }
+
+        /* Grids e Cards Teóricos */
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: calc(var(--u) * 1.5); flex: 1; min-height: 0; align-content: start; }
+        .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: calc(var(--u) * 1.3); flex: 1; min-height: 0; align-content: start; }
+        .grid-2x2 { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: calc(var(--u) * 1.2); flex: 1; min-height: 0; }
+
+        .card {
+            background: #f8fafc;
+            border: calc(var(--u) * 0.12) solid #e2e8f0;
+            border-left: calc(var(--u) * 0.45) solid var(--accent, #6d28d9);
+            border-radius: calc(var(--u) * 0.7);
+            padding: calc(var(--u) * 1.25) calc(var(--u) * 1.4);
+            display: flex; flex-direction: column; justify-content: flex-start;
+        }
+        .card h3 {
+            font-size: calc(var(--u) * 1.35);
+            font-weight: 800;
+            color: var(--accent-dark, #0f172a);
+            margin-bottom: calc(var(--u) * 0.45);
+            line-height: 1.2;
+        }
+        .card p, .card li {
+            font-size: calc(var(--u) * 1.12);
+            line-height: 1.42;
+            color: #334155;
+        }
+        .card ul { padding-left: calc(var(--u) * 1.4); margin-top: calc(var(--u) * 0.3); }
+        .card li { margin-bottom: calc(var(--u) * 0.35); }
+
+        .quote-box {
+            background: var(--accent-light, #f5f3ff);
+            border-left: calc(var(--u) * 0.45) solid var(--accent, #6d28d9);
+            padding: calc(var(--u) * 1) calc(var(--u) * 1.4);
+            border-radius: 0 calc(var(--u) * 0.6) calc(var(--u) * 0.6) 0;
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: calc(var(--u) * 1.15);
+            line-height: 1.42;
+            color: #1e293b;
+        }
+
+        .tip-banner {
+            margin-top: auto;
+            background: #0f172a;
+            color: #f8fafc;
+            border-radius: calc(var(--u) * 0.7);
+            padding: calc(var(--u) * 0.9) calc(var(--u) * 1.4);
+            display: flex; align-items: center; gap: calc(var(--u) * 1);
+            font-size: calc(var(--u) * 1.1);
+            line-height: 1.35;
+            flex-shrink: 0;
+        }
+        .tip-banner .tip-badge {
+            background: #eab308; color: #0f172a;
+            font-weight: 900; font-size: calc(var(--u) * 0.9);
+            padding: calc(var(--u) * 0.25) calc(var(--u) * 0.7);
+            border-radius: calc(var(--u) * 0.4);
+            text-transform: uppercase;
+            flex-shrink: 0;
+        }
+
+        /* Layout de Questões (2 Colunas com Tipografia Ampliada para Projeção em Quadro) */
+        .question-slide {
+            display: grid;
+            grid-template-columns: 1.06fr 0.94fr;
+            gap: calc(var(--u) * 1.8);
+            align-items: center;
+            padding: calc(var(--u) * 2.2) calc(var(--u) * 3.8) calc(var(--u) * 3.1);
+            background: #f8fafc;
+        }
+        .q-left {
+            background: #ffffff;
+            border: calc(var(--u) * 0.12) solid #e2e8f0;
+            border-top: calc(var(--u) * 0.45) solid var(--accent, #6d28d9);
+            border-radius: calc(var(--u) * 0.8);
+            padding: calc(var(--u) * 1.25) calc(var(--u) * 1.5);
+            height: 100%;
+            display: flex; flex-direction: column; justify-content: center;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+        }
+        .q-header {
+            display: flex; align-items: center; justify-content: space-between;
+            margin-bottom: calc(var(--u) * 0.6);
+            flex-shrink: 0;
+        }
+        .q-num {
+            font-size: calc(var(--u) * 1.65);
+            font-weight: 900;
+            color: #0f172a;
+        }
+        .q-source {
+            font-size: calc(var(--u) * 1.05);
+            font-weight: 800;
+            background: var(--accent-light, #f5f3ff);
+            color: var(--accent, #6d28d9);
+            padding: calc(var(--u) * 0.28) calc(var(--u) * 0.85);
+            border-radius: 99px;
+            border: 1px solid var(--accent-border, #c4b5fd);
+        }
+        .q-stem {
+            font-size: calc(var(--u) * 1.32);
+            line-height: 1.36;
+            color: #0f172a;
+            font-weight: 700;
+            margin-bottom: calc(var(--u) * 0.55);
+        }
+        .q-excerpt {
+            background: #f8fafc;
+            border-left: calc(var(--u) * 0.4) solid var(--accent, #6d28d9);
+            padding: calc(var(--u) * 0.85) calc(var(--u) * 1.15);
+            border-radius: 0 calc(var(--u) * 0.5) calc(var(--u) * 0.5) 0;
+            font-family: 'Playfair Display', serif;
+            font-size: calc(var(--u) * 1.28);
+            line-height: 1.38;
+            color: #0f172a;
+            margin-bottom: calc(var(--u) * 0.6);
+        }
+        .q-excerpt.verse-2col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: calc(var(--u) * 1);
+            font-size: calc(var(--u) * 1.16);
+            line-height: 1.3;
+        }
+        .q-excerpt.prose-compact {
+            font-family: 'Montserrat', sans-serif;
+            font-style: normal;
+            font-size: calc(var(--u) * 1.18);
+            line-height: 1.36;
+            font-weight: 500;
+        }
+        .q-cite {
+            display: block;
+            margin-top: calc(var(--u) * 0.35);
+            font-family: 'Montserrat', sans-serif;
+            font-style: normal;
+            font-size: calc(var(--u) * 0.92);
+            color: #475569;
+            font-weight: 600;
+        }
+        .vf-list {
+            display: flex; flex-direction: column; gap: calc(var(--u) * 0.48);
+            margin-bottom: calc(var(--u) * 0.55);
+        }
+        .vf-item {
+            background: #f8fafc;
+            border: 1px solid #cbd5e1;
+            border-radius: calc(var(--u) * 0.45);
+            padding: calc(var(--u) * 0.52) calc(var(--u) * 0.8);
+            font-size: calc(var(--u) * 1.14);
+            line-height: 1.32;
+            color: #0f172a;
+            font-weight: 500;
+        }
+        .vf-item strong { color: var(--accent, #6d28d9); font-weight: 800; }
+
+        .q-right {
+            display: flex; flex-direction: column; justify-content: center;
+            gap: calc(var(--u) * 0.65);
+            height: 100%;
+        }
+        .options-container {
+            display: flex; flex-direction: column;
+            gap: calc(var(--u) * 0.58);
+        }
+        .option {
+            background: #ffffff;
+            border: calc(var(--u) * 0.15) solid #cbd5e1;
+            padding: calc(var(--u) * 0.8) calc(var(--u) * 1.05);
+            border-radius: calc(var(--u) * 0.55);
+            font-size: calc(var(--u) * 1.24);
+            line-height: 1.32;
+            font-weight: 600;
+            color: #0f172a;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex; align-items: flex-start; gap: calc(var(--u) * 0.7);
+        }
+        .opt-letter {
+            background: #f1f5f9;
+            color: #0f172a;
+            font-weight: 800;
+            font-size: calc(var(--u) * 1.12);
+            min-width: calc(var(--u) * 2.15);
+            height: calc(var(--u) * 2.15);
+            border-radius: calc(var(--u) * 0.42);
+            display: inline-flex; align-items: center; justify-content: center;
+            flex-shrink: 0;
+        }
+
+        /* Estado Revelado da Questão */
+        .revealed .option.correct {
+            background: #dcfce7;
+            border-color: #16a34a;
+            color: #14532d;
+            box-shadow: 0 4px 12px rgba(22, 163, 74, 0.18);
+        }
+        .revealed .option.correct .opt-letter {
+            background: #16a34a; color: #ffffff;
+        }
+        .revealed .option:not(.correct) {
+            opacity: 0.48;
+        }
+        .explanation-box {
+            visibility: hidden; opacity: 0;
+            background: #f0fdf4;
+            border: calc(var(--u) * 0.14) solid #86efac;
+            border-left: calc(var(--u) * 0.45) solid #16a34a;
+            padding: calc(var(--u) * 0.8) calc(var(--u) * 1.05);
+            border-radius: calc(var(--u) * 0.55);
+            transition: opacity 0.35s ease;
+        }
+        .explanation-box h4 {
+            color: #14532d;
+            font-size: calc(var(--u) * 1.22);
+            font-weight: 800;
+            margin-bottom: calc(var(--u) * 0.25);
+        }
+        .explanation-box p {
+            color: #14532d;
+            font-size: calc(var(--u) * 1.12);
+            line-height: 1.34;
+            font-weight: 500;
+            margin: 0;
+        }
+        .revealed .explanation-box {
+            visibility: visible; opacity: 1;
+        }
+
+        
+        /* Ajuste fino para questões com 5 alternativas muito extensas (Q06 e Q10) */
+        .question-slide.q-dense .option {
+            font-size: calc(var(--u) * 1.13);
+            padding: calc(var(--u) * 0.65) calc(var(--u) * 0.95);
+            line-height: 1.28;
+        }
+        .question-slide.q-dense .options-container {
+            gap: calc(var(--u) * 0.45);
+        }
+        .question-slide.q-dense .q-excerpt.prose-compact {
+            font-size: calc(var(--u) * 1.08);
+            line-height: 1.32;
+        }
+
+        /* Rodapé de Navegação & Progresso (Fora da área de texto) */
+        #progress {
+            position: absolute; bottom: calc(var(--u) * 1.1); left: calc(var(--u) * 2.5);
+            color: #475569; font-weight: 800; font-size: calc(var(--u) * 0.95);
+            z-index: 100; background: rgba(248, 250, 252, 0.92);
+            border: 1px solid #cbd5e1;
+            padding: calc(var(--u) * 0.3) calc(var(--u) * 0.9);
+            border-radius: 99px; pointer-events: none;
+        }
+        .keyboard-hint {
+            position: absolute; bottom: calc(var(--u) * 1.1); right: calc(var(--u) * 2.5);
+            font-size: calc(var(--u) * 0.9); color: #64748b;
+            z-index: 100; font-weight: 600; pointer-events: none;
+        }
+
+        /* Scrollbars discretas */
+        ::-webkit-scrollbar { width: calc(var(--u) * 0.4); }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 99px; }
+
+        /* Alerta Mobile (Forçar Horizontal) */
+        .mobile-rotate-alert {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: #0f172a; color: #fff; z-index: 99999;
+            flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 5vw;
+        }
+        .mobile-rotate-alert svg { width: 15vw; height: 15vw; margin-bottom: 5vw; fill: #fff; animation: rotatePhone 2s ease-in-out infinite; }
+        .mobile-rotate-alert h2 { font-size: 6vw; color: #fff; border-bottom: none; margin-bottom: 2vw; }
+        .mobile-rotate-alert p { font-size: 4.5vw; color: #cbd5e1; line-height: 1.5; }
+        @keyframes rotatePhone { 0% { transform: rotate(0deg); } 50% { transform: rotate(-90deg); } 100% { transform: rotate(-90deg); } }
+        @media screen and (orientation: portrait) and (max-width: 900px) {
+            .mobile-rotate-alert { display: flex; }
+            .slide-container { display: none !important; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Alerta Mobile Retrato -->
+    <div class="mobile-rotate-alert">
+        <svg viewBox="0 0 24 24"><path d="M16 1H8C6.34 1 5 2.34 5 4v16c0 1.66 1.34 3 3 3h8c1.66 0 3-1.34 3-3V4c0-1.66-1.34-3-3-3zm-2 20h-4v-1h4v1zm3.25-3H6.75V4h10.5v14z"/></svg>
+        <h2>Vire o seu celular</h2>
+        <p>Apresentações exigem o formato widescreen.<br>Coloque seu aparelho na horizontal para acompanhar a aula.</p>
+    </div>
+
+    <div class="slide-container">
+        <div id="progress">1 / 28</div>
+        <div class="keyboard-hint">Setas ou Toque nas Laterais para Navegar →</div>
+
+        <!-- ==================== SLIDE 1: CAPA ==================== -->
+        <div class="slide cover-slide with-bg active">
+            <div class="cover-badge">REVISÃO ESPECIAL PSC • UFAM</div>
+            <h1>Simbolismo &amp;<br>Pré-Modernismo</h1>
+            <h2>Teoria Direcionada, Análise de Poemas, Prosa Social e 15 Questões Oficiais do PSC Comentadas</h2>
+            <div class="cover-pills">
+                <div class="cover-pill">🦢 Cruz e Sousa &amp; Alphonsus</div>
+                <div class="cover-pill">🧬 Augusto dos Anjos</div>
+                <div class="cover-pill">🏘️ Lima Barreto &amp; Lobato</div>
+                <div class="cover-pill">🌵 Euclides da Cunha &amp; Graça Aranha</div>
+            </div>
+        </div>
+
+        <!-- ==================== SLIDE 2: SIMBOLISMO - CONTEXTO ==================== -->
+        <div class="slide theme-simb">
+            <div class="slide-top">
+                <span class="section-tag">Parte I • Simbolismo no Brasil (1893–1922)</span>
+                <span style="font-size: calc(var(--u)*0.95); color:#64748b; font-weight:700;">Marco Inicial: Missal e Broquéis (1893)</span>
+            </div>
+            <h2 class="ttl">O Simbolismo: A Arte da Sugestão e do Inconsciente</h2>
+            <p class="lead">Enquanto o Realismo, o Naturalismo e o Parnasianismo cultuavam a ciência, a objetividade e a forma rígida, o <strong>Simbolismo</strong> mergulhou no mistério, na espiritualidade e nas camadas profundas do <strong>inconsciente humano</strong>.</p>
+            <div class="grid-3">
+                <div class="card">
+                    <h3>1. Antipositivismo e Mistério</h3>
+                    <p>Rejeita o cientificismo materialista do séc. XIX. O poeta não quer <em>descrever</em> o objeto de modo fotográfico, mas <strong>sugerir</strong> sensações por meio de símbolos, névoas e estados de alma.</p>
+                </div>
+                <div class="card">
+                    <h3>2. Inconsciente e Surrealismo</h3>
+                    <p>Ao explorar sonhos, delírios, loucura e impulsos ocultos da psique, o Simbolismo abriu caminho para o que a vanguarda do <strong>Surrealismo</strong> retomaria décadas depois no século XX.</p>
+                </div>
+                <div class="card">
+                    <h3>3. Movimento Internacional</h3>
+                    <p>Nascido na França (Baudelaire, Verlaine, Mallarmé) sob o signo do <em>Decadentismo</em>, dialoga com o mundo europeu e ganha voz própria no Brasil com <strong>Cruz e Sousa</strong> e <strong>Alphonsus de Guimaraens</strong>.</p>
+                </div>
+            </div>
+            <div class="tip-banner">
+                <span class="tip-badge">Foco PSC</span>
+                <span>O PSC cobra a conexão entre o <strong>Simbolismo</strong> e a descoberta do <strong>inconsciente</strong> (precursor do Surrealismo), além de sua oposição direta ao racionalismo parnasiano/realista!</span>
+            </div>
+        </div>
+
+        <!-- ==================== SLIDE 3: SIMBOLISMO - RECURSOS ==================== -->
+        <div class="slide theme-simb">
+            <div class="slide-top">
+                <span class="section-tag">Parte I • Estética e Linguagem Simbolista</span>
+            </div>
+            <h2 class="ttl">A Alquimia Verbal: Símbolos, Musicalidade e Morte</h2>
+            <div class="grid-2x2">
+                <div class="card">
+                    <h3>🎵 Musicalidade, Sinestesia e Aliteração</h3>
+                    <p>"A música antes de tudo" (Verlaine). Uso intenso de <strong>aliterações</strong> (repetição de consoantes), assonâncias e <strong>sinestesias</strong> (fusão de sentidos: som, cor, perfume) para criar transe poético.</p>
+                </div>
+                <div class="card">
+                    <h3>🦢 Vocabulário Litúrgico e Alvura</h3>
+                    <p>Obsessão pela cor branca (<em>alvura, luar, cisnes, lírios, névoa, marfim</em>) misturada a termos religiosos (<em>ladainhas, padre-nossos, incenso, altares, turíbulos</em>).</p>
+                </div>
+                <div class="card">
+                    <h3>💀 Tematização da Morte e Pessimismo</h3>
+                    <p>A existência terrena é vista como prisão dolorosa ("medonha carruagem"). Daí as imagens fúnebres constantes: <strong>covas, aves agoireiras, caveiras, chagas, cicatrizes e crepúsculo</strong>.</p>
+                </div>
+                <div class="card">
+                    <h3>🔮 Subjetivismo Profundo (Não Político)</h3>
+                    <p>A poesia simbolista volta-se para o <strong>transcendente e espiritual</strong>, distante do panfletarismo político imediato. O foco é a dor metafísica de existir.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== SLIDE 4: CRUZ E SOUSA ==================== -->
+        <div class="slide theme-simb">
+            <div class="slide-top">
+                <span class="section-tag">Parte I • Autor Fundamental 01</span>
+                <span style="font-size: calc(var(--u)*0.95); color:#64748b; font-weight:700;">O "Cisne Negro" (1861–1898)</span>
+            </div>
+            <h2 class="ttl">Cruz e Sousa e o "Acrobata da Dor"</h2>
+            <p class="lead">Filho de escravizados alforriados, sofreu intenso racismo e perseguição estética. Inaugurou o Simbolismo brasileiro em 1893 com <em>Missal</em> (prosa poética) e <em>Broquéis</em> (poesia), seguidos de <em>Faróis</em> e <em>Últimos Sonetos</em>.</p>
+            <div class="grid-2">
+                <div class="card">
+                    <h3>🎭 Análise de "Acrobata da Dor"</h3>
+                    <ul>
+                        <li><strong>A Metáfora do Palhaço (Clown / Gavroche):</strong> O artista e o próprio ser humano precisam fingir alegria ("pedem-se bis!") enquanto sangram por dentro em "macabras piruetas d'aço".</li>
+                        <li><strong>"Coração, tristíssimo palhaço":</strong> Funciona como <strong>metonímia do ser humano</strong> (a parte pelo todo), traduzindo a visão profundamente <strong>pessimista e dolorosa</strong> do eu-lírico perante a vida.</li>
+                        <li><strong>Sonoridade Tensa:</strong> A repetição de <em>/r/</em> e <em>/s/</em> ("gargalhada atroz, sanguinolenta... retesa os músculos") imita a convulsão física da dor.</li>
+                    </ul>
+                </div>
+                <div style="display:flex; flex-direction:column; gap: calc(var(--u)*1);">
+                    <div class="quote-box">
+                        "Gargalha, ri, num riso de tormenta,<br>
+                        como um palhaço, que, desengonçado,<br>
+                        nervoso, ri, num riso absurdo, inflado<br>
+                        de uma ironia e de uma dor violenta.<br><br>
+                        E embora caias sobre o chão, fremente,<br>
+                        afogado em teu sangue estuoso e quente,<br>
+                        ri! Coração, tristíssimo palhaço."
+                    </div>
+                    <div class="tip-banner">
+                        <span class="tip-badge">Pegadinha PSC</span>
+                        <span>Cuidado! <em>Acrobata da Dor</em> <strong>NÃO</strong> retrata um palhaço alegre nem pertence ao Romantismo: é obra-prima do <strong>Simbolismo</strong>!</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== SLIDE 5: ALPHONSUS DE GUIMARAENS ==================== -->
+        <div class="slide theme-simb">
+            <div class="slide-top">
+                <span class="section-tag">Parte I • Autor Fundamental 02</span>
+                <span style="font-size: calc(var(--u)*0.95); color:#64748b; font-weight:700;">O Eremita de Mariana (1870–1921)</span>
+            </div>
+            <h2 class="ttl">Alphonsus de Guimaraens: Misticismo, Morte e "Ismália"</h2>
+            <div class="grid-2">
+                <div class="card">
+                    <h3>🕯️ "Ó Cisnes Brancos" e o Amor Morto</h3>
+                    <p>Marcado pela morte precoce de sua noiva Constança, Alphonsus une misticismo católico medieval e obsessão pela morte:</p>
+                    <ul>
+                        <li><strong>Vocabulário Fúnebre e Litúrgico:</strong> <em>covas, aves agoireiras, caveiras, chagas, cicatrizes, padre-nossos, ladainhas</em>.</li>
+                        <li><strong>A Vida como Prisão:</strong> O mundo terreno é um "deserto cheio de covas" e uma "medonha carruagem" onde a alma morre aos solavancos.</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>🌙 Desvendando "Ismália" (Para o PSC!)</h3>
+                    <ul>
+                        <li><strong>Dualidade / Antíteses:</strong> Jogo constante de pares opostos: <em>céu × mar</em> (espírito × matéria), <em>subir × descer</em>, <em>perto × longe</em>, <em>alma × corpo</em>.</li>
+                        <li><strong>Métrica e Rima:</strong> Quarteto em <strong>redondilha maior</strong> (7 sílabas poéticas: <em>Quan/do Is/má/lia en/lou/que/<strong>ceu</strong></em>) com rimas alternadas <strong>ABAB</strong> em todas as estrofes.</li>
+                        <li><strong>Simbolismo da Torre:</strong> A torre representa o isolamento, o delírio místico e o aprisionamento na loucura que culmina no suicídio/transcendência.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="tip-banner">
+                <span class="tip-badge">Atenção Técnica</span>
+                <span>Em questões de exceto no PSC: <em>Ismália</em> tem versos de <strong>7 sílabas (redondilha maior)</strong> — portanto, dizer que está em "redondilhas menores" (5 sílabas) é <strong>INCORRETO</strong>!</span>
+            </div>
+        </div>
+
+        <!-- ==================== QUESTÃO 01 (PSC-2020) ==================== -->
+        <div class="slide question-slide theme-simb">
+            <div class="q-left">
+                <div class="q-header">
+                    <span class="q-num">QUESTÃO 01</span>
+                    <span class="q-source">PSC 2020 • SIMBOLISMO</span>
+                </div>
+                <p class="q-stem">Leia os versos de Alphonsus de Guimaraens:</p>
+                <div class="q-excerpt verse-2col">
+                    <div>
+                        Ó cisnes brancos, cisnes brancos,<br>
+                        Porque viestes, se era tão tarde?<br>
+                        O sol não beija mais os flancos<br>
+                        Da Montanha onde mora a tarde.<br><br>
+                        Ó cisnes brancos, dolorida<br>
+                        Minh'alma sente dores novas.<br>
+                        Cheguei à terra prometida:<br>
+                        É um deserto cheio de covas.<br><br>
+                        Voai para outras risonhas plagas,<br>
+                        Cisnes brancos! Sede felizes...<br>
+                        Deixai-me só com as minhas chagas,<br>
+                        E só com as minhas cicatrizes.
+                    </div>
+                    <div>
+                        Venham as aves agoireiras,<br>
+                        De risada que esfria os ossos...<br>
+                        Minh'alma, cheia de caveiras,<br>
+                        Está branca de padre-nossos.<br><br>
+                        Queimando a carne como brasas,<br>
+                        Venham as tentações daninhas,<br>
+                        Que eu lhes porei, bem sob asas,<br>
+                        A alma cheia de ladainhas.<br><br>
+                        Ó cisnes brancos, cisnes brancos,<br>
+                        Doce afago da alva plumagem!<br>
+                        Minh'alma morre aos solavancos<br>
+                        Nesta medonha carruagem...
+                    </div>
+                </div>
+                <p class="q-stem" style="margin-bottom:0;">Os versos do poeta simbolista revelam as suas tendências para:</p>
+            </div>
+            <div class="q-right">
+                <div class="options-container">
+                    <div class="option"><span class="opt-letter">A</span><span>acreditar na objetividade da vida e seu percurso biologicamente linear: nascer, crescer, reproduzir e morrer.</span></div>
+                    <div class="option"><span class="opt-letter">B</span><span>crer na morte como um momento de dor e sofrimento, o fim da alegria e da ilusão de felicidade terrena.</span></div>
+                    <div class="option"><span class="opt-letter">C</span><span>iludir-se com a pureza das formas, sendo a alvura exagerada dessas formas a demonstração da desesperança no amor.</span></div>
+                    <div class="option"><span class="opt-letter">D</span><span>sugerir apatia em relação a própria existência por meio de uma linguagem rebuscada.</span></div>
+                    <div class="option correct"><span class="opt-letter">E</span><span>tematizar a morte, referindo-se aos elementos a ela associados como: covas, aves agoireiras, caveiras.</span></div>
+                </div>
+                <div class="explanation-box">
+                    <h4>✓ Gabarito Oficial: E</h4>
+                    <p>Alphonsus de Guimaraens tematiza constantemente a morte e o desencanto terreno valendo-se de imagens fúnebres explícitas no poema: "deserto cheio de covas", "aves agoireiras" e "alma cheia de caveiras".</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== QUESTÃO 02 (PSC-2019) ==================== -->
+        <div class="slide question-slide theme-simb">
+            <div class="q-left">
+                <div class="q-header">
+                    <span class="q-num">QUESTÃO 02</span>
+                    <span class="q-source">PSC 2019 • SIMBOLISMO</span>
+                </div>
+                <p class="q-stem">Acrobata da Dor (Cruz e Sousa)</p>
+                <div class="q-excerpt">
+                    Gargalha, ri, num riso de tormenta, como um palhaço, que, desengonçado, nervoso, ri, num riso absurdo, inflado de uma ironia e de uma dor violenta.<br>
+                    Da gargalhada atroz, sanguinolenta, agita os guizos, e convulsionado salta, gavroche, salta clown, varado pelo estertor dessa agonia lenta...<br>
+                    Pedem-se bis e um bis não se despreza! Vamos! retesa os músculos, retesa nessas macabras piruetas d'aço...<br>
+                    E embora caias sobre o chão, fremente, afogado em teu sangue estuoso e quente, ri! Coração, tristíssimo palhaço.
+                    <span class="q-cite">(In MOISÉS, Massaud, Literatura Brasileira através dos textos, 2000, p.312)</span>
+                </div>
+                <div class="vf-list">
+                    <div class="vf-item"><strong>I.</strong> "Coração, tristíssimo palhaço", metonímia do ser humano, resulta da visão pessimista do eu-lírico em relação à vida.</div>
+                    <div class="vf-item"><strong>II.</strong> O poema reproduz o cotidiano alegre de um palhaço.</div>
+                    <div class="vf-item"><strong>III.</strong> O poema de Cruz e Sousa é um dos mais representativos do Romantismo brasileiro.</div>
+                </div>
+                <p class="q-stem" style="margin-bottom:0;">Assinale a alternativa correta:</p>
+            </div>
+            <div class="q-right">
+                <div class="options-container">
+                    <div class="option correct"><span class="opt-letter">A</span><span>Somente a afirmativa I está correta.</span></div>
+                    <div class="option"><span class="opt-letter">B</span><span>Somente as afirmativas I e II estão corretas.</span></div>
+                    <div class="option"><span class="opt-letter">C</span><span>Somente as afirmativas I e III estão corretas.</span></div>
+                    <div class="option"><span class="opt-letter">D</span><span>Somente a afirmativa III está correta.</span></div>
+                    <div class="option"><span class="opt-letter">E</span><span>Todas as afirmativas estão corretas.</span></div>
+                </div>
+                <div class="explanation-box">
+                    <h4>✓ Gabarito Oficial: A</h4>
+                    <p>Apenas I é verdadeira: o "Coração" (metonímia do homem) é visto como um palhaço trágico que sangra enquanto o mundo exige que ele sorria. II é falsa (não há alegria, mas agonia) e III é falsa (Cruz e Sousa é o maior nome do Simbolismo, não do Romantismo).</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== QUESTÃO 03 (PSC-2017) ==================== -->
+        <div class="slide question-slide theme-simb">
+            <div class="q-left">
+                <div class="q-header">
+                    <span class="q-num">QUESTÃO 03</span>
+                    <span class="q-source">PSC 2017 • SIMBOLISMO</span>
+                </div>
+                <p class="q-stem">Sobre o Simbolismo, assinale a alternativa CORRETA:</p>
+                <div class="q-excerpt prose-compact">
+                    <strong>Guia de Análise Rápida para as Alternativas:</strong><br><br>
+                    • O uso de símbolos é exclusivo do Simbolismo? Não, toda literatura usa símbolos.<br>
+                    • Alphonsus foi o único poeta de repercussão? Não, Cruz e Sousa ("Cisne Negro") é o grande líder do movimento no Brasil.<br>
+                    • Poemas de intenso vigor político contra censura? Não, o Simbolismo é místico, espiritual e transcendental.<br>
+                    • Diferente de outros países? Não, dialoga diretamente com o Simbolismo/Decadentismo francês.<br>
+                    • E a relação com o <strong>inconsciente e o Surrealismo</strong>? Perfeita!
+                </div>
+            </div>
+            <div class="q-right">
+                <div class="options-container">
+                    <div class="option"><span class="opt-letter">A</span><span>O uso aprofundado dos símbolos, em literatura, só aconteceu com propriedade no Simbolismo.</span></div>
+                    <div class="option"><span class="opt-letter">B</span><span>Alphonsus de Guimarães foi o único poeta do Simbolismo a ter repercussão no Brasil.</span></div>
+                    <div class="option"><span class="opt-letter">C</span><span>O Simbolismo, devido à alta carga metafórica de seus poemas, burlou a censura e apresentou poemas de intenso vigor político.</span></div>
+                    <div class="option correct"><span class="opt-letter">D</span><span>Pode-se afirmar que o Simbolismo foi um movimento que trouxe à tona elementos do inconsciente, o que seria retomado pela vanguarda Surrealismo, anos depois.</span></div>
+                    <div class="option"><span class="opt-letter">E</span><span>Pensar o Simbolismo no Brasil significa pensar um movimento singular, completamente diferente do que acontecia em outros países.</span></div>
+                </div>
+                <div class="explanation-box">
+                    <h4>✓ Gabarito Oficial: D</h4>
+                    <p>Ao abandonar a lógica racionalista e explorar sonhos, delírios e zonas ocultas da mente humana, o Simbolismo investigou o inconsciente, antecipando as bases psíquicas do Surrealismo no séc. XX.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== QUESTÃO 04 (PSC-2015) ==================== -->
+        <div class="slide question-slide theme-simb">
+            <div class="q-left">
+                <div class="q-header">
+                    <span class="q-num">QUESTÃO 04</span>
+                    <span class="q-source">PSC 2015 • SIMBOLISMO</span>
+                </div>
+                <p class="q-stem">Leia o poema "Ismália", de autoria de Alphonsus de Guimaraens:</p>
+                <div class="q-excerpt verse-2col">
+                    <div>
+                        Quando Ismália enlouqueceu,<br>
+                        Pôs-se na torre a sonhar...<br>
+                        Viu uma lua no céu,<br>
+                        Viu outra lua no mar.<br><br>
+                        No sonho em que se perdeu,<br>
+                        Banhou-se toda em luar...<br>
+                        Queria subir ao céu,<br>
+                        Queria descer ao mar...<br><br>
+                        E, no desvario seu,<br>
+                        Na torre pôs-se a cantar...<br>
+                        Estava perto do céu,<br>
+                        Estava longe do mar...
+                    </div>
+                    <div>
+                        E como um anjo pendeu<br>
+                        As asas para voar...<br>
+                        Queria a lua do céu,<br>
+                        Queria a lua do mar...<br><br>
+                        As asas que Deus lhe deu<br>
+                        Ruflaram de par em par...<br>
+                        Sua alma subiu ao céu,<br>
+                        Seu corpo desceu ao mar.
+                    </div>
+                </div>
+                <p class="q-stem" style="margin-bottom:0;">Assinale a alternativa que <strong>NÃO</strong> está correta <strong>NEM</strong> é admissível:</p>
+            </div>
+            <div class="q-right">
+                <div class="options-container">
+                    <div class="option"><span class="opt-letter">A</span><span>O autor trabalha com, pelo menos, três pares de antíteses, sendo "céu" e "mar" uma delas.</span></div>
+                    <div class="option correct"><span class="opt-letter">B</span><span>O poema está escrito em redondilhas menores, de onde se origina a extrema musicalidade de seus versos.</span></div>
+                    <div class="option"><span class="opt-letter">C</span><span>O esquema de rimas, em todas as estrofes, é: ABAB.</span></div>
+                    <div class="option"><span class="opt-letter">D</span><span>Sendo a ode um poema de estrofes simétricas (ou iguais), pode-se dizer que esse poema se enquadra nessa forma fixa.</span></div>
+                    <div class="option"><span class="opt-letter">E</span><span>A torre, na verdade, não existe, sendo símbolo de degeneração e de aprisionamento na loucura.</span></div>
+                </div>
+                <div class="explanation-box">
+                    <h4>✓ Gabarito Oficial: B (Incorreta)</h4>
+                    <p>Fazendo a escansão: "Quan/do Is/má/lia en/lou/que/<strong>ceu</strong>" possui <strong>7 sílabas poéticas (redondilha MAIOR)</strong>, e não redondilha menor (que teria 5 sílabas). Além disso, há antíteses claras (céu/mar, subir/descer, perto/longe, alma/corpo) e rimas ABAB.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== SLIDE 10: PRÉ-MODERNISMO VISÃO GERAL ==================== -->
+        <div class="slide theme-pre">
+            <div class="slide-top">
+                <span class="section-tag">Parte II • Pré-Modernismo no Brasil (1902–1922)</span>
+                <span style="font-size: calc(var(--u)*0.95); color:#64748b; font-weight:700;">Marcos de 1902: Os Sertões e Canaã</span>
+            </div>
+            <h2 class="ttl">O Pré-Modernismo: Sincretismo e Redescoberta do Brasil</h2>
+            <p class="lead">Termo criado por Tristão de Athayde e consolidado por <strong>Alfredo Bosi</strong> para designar o período de transição (1902 a 1922). Não é uma "escola literária" fechada, mas um momento de <strong>ruptura temática</strong> que desmascara o Brasil oficial.</p>
+            <div class="grid-3">
+                <div class="card">
+                    <h3>1. Do Brasil Oficial ao Brasil Real</h3>
+                    <p>Enquanto a <em>Belle Époque</em> fingia que o Rio era Paris, os pré-modernistas denunciam a miséria dos <strong>subúrbios cariocas</strong>, o abandono do <strong>sertão nordestino</strong>, a decadência do <strong>Vale do Paraíba</strong> e os conflitos da imigração.</p>
+                </div>
+                <div class="card">
+                    <h3>2. Personagens Marginalizados</h3>
+                    <p>Entram em cena protagonistas antes ignorados pela elite: o <strong>sertanejo</strong> (Euclides), o <strong>suburbano pobre e o funcionário público</strong> (Lima Barreto), o <strong>caboclo Jeca Tatu e a órfã Negrinha</strong> (Lobato).</p>
+                </div>
+                <div class="card">
+                    <h3>3. Linguagem em Transição</h3>
+                    <p>Convivem o rigor cientificista/erudito (Euclides e Augusto dos Anjos) com uma prosa muito mais <strong>simples, jornalística e despojada</strong> (Lima Barreto) que combate o academicismo parnasiano.</p>
+                </div>
+            </div>
+            <div class="tip-banner">
+                <span class="tip-badge">Conceito-Chave</span>
+                <span>Para Alfredo Bosi, o Pré-Modernismo destaca-se pelo <strong>"ensaísmo social"</strong> e pela crítica aguda às mazelas da República Velha e à herança escravocrata.</span>
+            </div>
+        </div>
+
+        <!-- ==================== SLIDE 11: LIMA BARRETO (VIDA E CRÔNICA) ==================== -->
+        <div class="slide theme-pre">
+            <div class="slide-top">
+                <span class="section-tag">Parte II • AutorMais Cobrado no PSC (5 Questões!)</span>
+                <span style="font-size: calc(var(--u)*0.95); color:#64748b; font-weight:700;">Afonso Henriques de Lima Barreto (1881–1922)</span>
+            </div>
+            <h2 class="ttl">Lima Barreto: O Cronista dos Subúrbios e dos Excluídos</h2>
+            <div class="grid-2">
+                <div class="card">
+                    <h3>🏘️ O Universo Suburbano e Anti-Elitista</h3>
+                    <ul>
+                        <li><strong>Linguagem Despojada:</strong> Escrita fluida, irônica e direta, oposta ao estilo empolado dos parnasianos (como Coelho Neto).</li>
+                        <li><strong>Denúncia do Racismo e Desigualdade:</strong> Retrata afrodescendentes, pobres, amanuenses e moradores dos <strong>"caixotins humanos"</strong> (casas de cômodos subdivididas onde paira a miséria com "rigor londrino").</li>
+                        <li><strong>Mulheres Oprimidas:</strong> Expõe a dominação masculina e social sobre personagens femininas como <em>Clara dos Anjos</em>, <em>Olga</em> e <em>Ismênia</em>.</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>⚖️ Lima Barreto vs. Machado de Assis (PSC 2022)</h3>
+                    <ul>
+                        <li><strong>Semelhanças:</strong> Ambos são gigantes negros da literatura brasileira, mestres na <strong>narrativa curta (contos)</strong>, flagrando pessoas comuns com <strong>ironia e humor crítico</strong>.</li>
+                        <li><strong>A Grande Diferença (Pegadinha!):</strong> Machado alcançou consagração em vida (presidente da ABL). Já <strong>Lima Barreto NÃO teve reconhecimento imediato</strong>: foi rejeitado pela elite acadêmica, internado no hospício e marginalizado em vida!</li>
+                        <li><strong>Crítica ao Centenário da Independência (1922):</strong> Denunciou que as festas oficiais, luminárias, paradas militares e jogos de bola serviam como <strong>pão e circo para manipular o povo</strong> e ofuscar a carestia.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== SLIDE 12: LIMA BARRETO (OBRAS) ==================== -->
+        <div class="slide theme-pre">
+            <div class="slide-top">
+                <span class="section-tag">Parte II • Obras de Lima Barreto no PSC</span>
+            </div>
+            <h2 class="ttl">Policarpo Quaresma e Clara dos Anjos: Como Identificar?</h2>
+            <p class="lead">O PSC adora cobrar a identificação de trechos de Lima Barreto misturados com trechos de Euclides da Cunha e Monteiro Lobato. Grave as marcas de cada obra:</p>
+            <div class="grid-2">
+                <div class="card">
+                    <h3>🎺 Triste Fim de Policarpo Quaresma (1911)</h3>
+                    <ul>
+                        <li><strong>O Protagonista:</strong> Major Quaresma, subsecretário de repartição pública, nacionalista ingênuo e quixotesco.</li>
+                        <li><strong>1ª Parte (Cultura):</strong> Aprende violão, pesquisa folclore, propõe o <strong>Tupi-Guarani</strong> como língua oficial (ganha o apelido de <em>"Ubirajara"</em> dos amanuenses e vai parar no hospício).</li>
+                        <li><strong>2ª e 3ª Partes (Agricultura e Política):</strong> Tenta salvar a lavoura no Sítio do Sossego; apoia Floriano Peixoto na Revolta da Armada e acaba preso por denunciar fuzilamentos.</li>
+                        <li><strong>Personagens Femininas:</strong> <em>Ismênia</em> (enlouquece por achar que só existe se casar) e <em>Olga</em> (afilhada lúcida e crítica).</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>💔 Clara dos Anjos (1922 / póstumo 1948)</h3>
+                    <ul>
+                        <li><strong>Enredo:</strong> Clara é uma jovem mulata pobre do subúrbio carioca, filha do carteiro Joaquim dos Anjos.</li>
+                        <li><strong>O Conflito Social e Racial:</strong> Seduzida e engravidada pelo inescrupuloso Cassi Jones (rapaz branco de família pequeno-burguesa), Clara é humilhada pela mãe de Cassi (Dona Salustiana).</li>
+                        <li><strong>A Epifania Dolorosa (Trecho Clássico PSC):</strong> Na rua, após o vexame, Clara toma consciência brutal do racismo e do machismo: <em>"nós não somos nada nesta vida"</em>.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== SLIDE 13: EUCLIDES DA CUNHA E GRAÇA ARANHA ==================== -->
+        <div class="slide theme-pre">
+            <div class="slide-top">
+                <span class="section-tag">Parte II • Os Dois Romances de 1902</span>
+            </div>
+            <h2 class="ttl">Euclides da Cunha (Os Sertões) &amp; Graça Aranha (Canaã)</h2>
+            <div class="grid-2">
+                <div class="card">
+                    <h3>🌵 Euclides da Cunha — Os Sertões (1902)</h3>
+                    <ul>
+                        <li><strong>A Obra Maior do Pré-Modernismo:</strong> Classificada por Alfredo Bosi como <strong>"ensaísmo social"</strong>; obra híbrida (ciência, sociologia, história e literatura) dividida em: <em>A Terra, O Homem e A Luta</em> (Guerra de Canudos).</li>
+                        <li><strong>Perspectiva Cientificista e Paradoxo:</strong> Sob forte influência determinista, tenta explicar o sertanejo pela raça e pelo meio, mas rende-se à sua força:</li>
+                        <li><strong>"O sertanejo é, antes de tudo, um forte":</strong> Apesar da aparência "desgraciosa, desengonçada, torta" (o antítese/oxímoro <strong>Hércules-Quasímodo</strong>), quando surge um estímulo, transfigura-se num titã resistente.</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>🌲 Graça Aranha — Canaã (1902)</h3>
+                    <ul>
+                        <li><strong>Romance-Tese (Filosófico):</strong> Ambientado em Porto do Cachoeiro (Espírito Santo), retrata a imigração alemã através do diálogo ideológico entre dois imigrantes:</li>
+                        <li><strong>Milkau (Humanista/Idealista):</strong> Vê o Brasil como "Canaã" (terra prometida), defende a solidariedade universal, o amor e a integração harmônica das raças.</li>
+                        <li><strong>Lentz (Supremacista/Racista):</strong> Influenciado por um darwinismo social agressivo, é <strong>xenofóbico, racista e bélico</strong> — despreza o mulato brasileiro e sonha com o domínio ariano ("antiga Germânia") sobre a terra.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== SLIDE 14: MONTEIRO LOBATO E AUGUSTO DOS ANJOS ==================== -->
+        <div class="slide theme-pre">
+            <div class="slide-top">
+                <span class="section-tag">Parte II • Conto Regionalista &amp; Poesia Cientificista</span>
+            </div>
+            <h2 class="ttl">Monteiro Lobato &amp; Augusto dos Anjos</h2>
+            <div class="grid-2">
+                <div class="card">
+                    <h3>🏚️ Monteiro Lobato (Urupês e Negrinha)</h3>
+                    <ul>
+                        <li><strong>Jeca Tatu (em <em>Urupês</em>, 1918):</strong> O caboclo "piraquara do Paraíba", acocorado diante do fogo na choça de palha. Antes visto como preguiçoso nato, Lobato descobre depois que "o Jeca não é assim, está assim" (abandonado pelo Estado e doente).</li>
+                        <li><strong>O Conto "Negrinha" (1920):</strong> Denúncia feroz da herança escravista pós-Abolição. <strong>Dona Inácia</strong> (viúva rica, "dama de virtudes apostólicas" bajulada pelo padre) pratica seu <strong>sadismo e tortura</strong> contra a órfã de 7 anos, negando-lhe qualquer alegria (até o apelido "bubônica" lhe tiram quando percebem que ela achou a palavra bonita).</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>🧬 Augusto dos Anjos — Livro "Eu" (1912)</h3>
+                    <ul>
+                        <li><strong>O Poeta Singular ("Psicologia de um vencido"):</strong> Único livro publicado em vida: <em>Eu</em> (1912). Combina estrutura parnasiana (soneto decassílabo), musicalidade simbolista e <strong>vocabulário científico/biológico</strong> (<em>carbono, amoníaco, epigênese, inorgânica</em>).</li>
+                        <li><strong>Pessimismo Cósmico e Decomposição:</strong> Visão niilista e materialista — toda matéria viva caminha inevitavelmente para a podridão e para o <strong>verme ("operário das ruínas")</strong>.</li>
+                        <li><strong>Universalidade do "Eu":</strong> O "Eu" que abre o poema representa não só o indivíduo, mas toda a <strong>espécie humana</strong> subjugada pela morte. Passa longe da "arte pela arte"!</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== QUESTÃO 05 (PSC-2023) ==================== -->
+        <div class="slide question-slide theme-pre">
+            <div class="q-left">
+                <div class="q-header">
+                    <span class="q-num">QUESTÃO 05</span>
+                    <span class="q-source">PSC 2023 • PRÉ-MODERNISMO</span>
+                </div>
+                <p class="q-stem">O fragmento a seguir pertence ao livro <em>Triste Fim de Policarpo Quaresma</em>, de Lima Barreto:</p>
+                <div class="q-excerpt prose-compact">
+                    "Além disto, os subúrbios têm mais aspectos interessantes [...] as casas de cômodos (quem as suporia lá!) constituem um deles bem inédito. Casas que mal dariam para uma pequena família, são divididas, subdivididas, e os minúsculos aposentos assim obtidos, alugados à população miserável da cidade. Aí, nesses caixotins humanos, é que se encontra a fauna menos observada da nossa vida, sobre a qual a miséria paira com um rigor londrino."
+                </div>
+                <p class="q-stem" style="margin-bottom:0;">É CORRETO afirmar que:</p>
+            </div>
+            <div class="q-right">
+                <div class="options-container">
+                    <div class="option"><span class="opt-letter">A</span><span>o rigor londrino refere-se à forma como eram as habitações de Londres.</span></div>
+                    <div class="option correct"><span class="opt-letter">B</span><span>os pobres habitavam casas que, de tão pequenas, pareciam caixotes. Nos "caixotins humanos" moravam os mais miseráveis da cidade.</span></div>
+                    <div class="option"><span class="opt-letter">C</span><span>a população mais abastada da cidade habitava as casas que se pareciam com caixotes de tão divididas e pequenas que eram.</span></div>
+                    <div class="option"><span class="opt-letter">D</span><span>sobre os aposentos pequenos eram cobrados aluguéis vultosos.</span></div>
+                    <div class="option"><span class="opt-letter">E</span><span>os "caixotins humanos" são as habitações que não se localizavam nos subúrbios cariocas.</span></div>
+                </div>
+                <div class="explanation-box">
+                    <h4>✓ Gabarito Oficial: B</h4>
+                    <p>Lima Barreto cria a metáfora "caixotins humanos" para denunciar as casas dos subúrbios cariocas que eram divididas e subdivididas em cubículos minúsculos, alugados à população mais miserável da cidade.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== QUESTÃO 06 (PSC-2022) ==================== -->
+        <div class="slide question-slide q-dense theme-pre">
+            <div class="q-left">
+                <div class="q-header">
+                    <span class="q-num">QUESTÃO 06</span>
+                    <span class="q-source">PSC 2022 • PRÉ-MODERNISMO</span>
+                </div>
+                <p class="q-stem">Dono de uma arguta percepção sobre a realidade, Lima Barreto declara, em relação às comemorações do Centenário da Independência do Brasil, por ele testemunhada:</p>
+                <div class="q-excerpt prose-compact">
+                    "O que se nota, nas atuais festas comemorativas da passagem do centenário da proclamação da Independência do Brasil, é que elas se vão desenrolando completamente estranhas ao povo da cidade. O observador imparcial não vê nele nenhum entusiasmo, não lhe sente no ânimo nenhuma vibração patriótica. Se não há, na nossa pequena gente, indiferença, há pelo menos, incompreensão pela data que se comemora. [....] Os tempos estão bicudos; tudo está pelos olhos da cara. Um pobre chefe de família tem que pensar constantemente no dia de amanhã. Terá ele tempo de impressionar-se com festividades patrióticas em que mais predominam jogos de bola e outras futilidades que mesmo manifestações sérias de um culto ao país e seu passado? [...] Disse no começo destas breves linhas que o povo não se associava às festas do Centenário. Enganei-me. Às esportivas, ele se associa de bom grado. A elas, e às de luminárias e às paradas militares. O povo saberá que parentesco elas têm."
+                    <span class="q-cite">Fonte: Lima Barreto. Toda crônica, 2004.</span>
+                </div>
+                <p class="q-stem" style="margin-bottom:0;">Sobre o texto, pode-se afirmar que:</p>
+            </div>
+            <div class="q-right">
+                <div class="options-container">
+                    <div class="option correct"><span class="opt-letter">A</span><span>Lima Barreto entende que as autoridades usam a data para manipular a população, de modo que o espetáculo oferecido ofusque os problemas sociais e econômicos enfrentados pela população que nem sabe ao certo o que se está festejando.</span></div>
+                    <div class="option"><span class="opt-letter">B</span><span>conhecedor dos subúrbios cariocas, Lima Barreto esperava que o centenário despertasse mais interesse na população, considerando o tratamento dado pelas autoridades à data.</span></div>
+                    <div class="option"><span class="opt-letter">C</span><span>percebendo a movimentação de conscientização por parte dos políticos acerca da importância da data em questão, o autor questiona as ações, que deveriam buscar mais os festejos que preocupações ideológicas.</span></div>
+                    <div class="option"><span class="opt-letter">D</span><span>Lima Barreto destaca as futilidades políticas como um meio que as autoridades têm de contribuir com o lazer da população.</span></div>
+                    <div class="option"><span class="opt-letter">E</span><span>o autor entende que a população não se deixa manipular em troca de meros espetáculos esportivos ou exibicionismo de militares e políticos.</span></div>
+                </div>
+                <div class="explanation-box">
+                    <h4>✓ Gabarito Oficial: A</h4>
+                    <p>Lima Barreto aponta a política do "pão e circo": enquanto "tudo está pelos olhos da cara", o poder público promove jogos de bola, luminárias e paradas militares para distrair o povo de suas reais dificuldades econômicas.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== QUESTÃO 07 (PSC-2022) ==================== -->
+        <div class="slide question-slide theme-pre">
+            <div class="q-left">
+                <div class="q-header">
+                    <span class="q-num">QUESTÃO 07</span>
+                    <span class="q-source">PSC 2022 • PRÉ-MODERNISMO</span>
+                </div>
+                <p class="q-stem">Leia as afirmativas a seguir sobre os dois grandes escritores negros do Brasil:</p>
+                <div class="vf-list">
+                    <div class="vf-item"><strong>I.</strong> Lima Barreto, assim como Machado de Assis, foi mestre na narrativa curta, explorando com ironia aspectos da alma humana.</div>
+                    <div class="vf-item"><strong>II.</strong> Lima Barreto e Machado de Assis flagraram situações de pessoas comuns e as transformaram em pequenos tratados sobre o comportamento humano, tratando com humor temas complexos socialmente.</div>
+                    <div class="vf-item"><strong>III.</strong> Tanto Machado de Assis quanto Lima Barreto superaram sua condição social e alcançaram reconhecimento acerca do valor de sua obra assim que publicadas.</div>
+                </div>
+                <p class="q-stem" style="margin-bottom:0;">Assinale a alternativa CORRETA:</p>
+            </div>
+            <div class="q-right">
+                <div class="options-container">
+                    <div class="option"><span class="opt-letter">A</span><span>Somente a afirmativa I é verdadeira.</span></div>
+                    <div class="option correct"><span class="opt-letter">B</span><span>Somente as afirmativas I e II são verdadeiras.</span></div>
+                    <div class="option"><span class="opt-letter">C</span><span>Somente as afirmativas I e III são verdadeiras.</span></div>
+                    <div class="option"><span class="opt-letter">D</span><span>Somente as afirmativas II e III são verdadeiras.</span></div>
+                    <div class="option"><span class="opt-letter">E</span><span>Todas as afirmativas são verdadeiras.</span></div>
+                </div>
+                <div class="explanation-box">
+                    <h4>✓ Gabarito Oficial: B</h4>
+                    <p>As afirmativas I e II são verdadeiras. A afirmativa III é FALSA: ao contrário de Machado de Assis (que presidiu a ABL), Lima Barreto sofreu boicote, preconceito racial e rejeição crítica em vida, só tendo o devido reconhecimento postumamente.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== QUESTÃO 08 (PSC-2022) ==================== -->
+        <div class="slide question-slide theme-pre">
+            <div class="q-left">
+                <div class="q-header">
+                    <span class="q-num">QUESTÃO 08</span>
+                    <span class="q-source">PSC 2022 • PRÉ-MODERNISMO</span>
+                </div>
+                <p class="q-stem">Assinale a alternativa <strong>INCORRETA</strong> quanto à afirmação a seguir:<br><br>Lima Barreto cria um universo de personagens, a partir do qual:</p>
+                <div class="q-excerpt prose-compact">
+                    <strong>Dica de Interpretação:</strong><br>
+                    A questão pede a alternativa <strong>INCORRETA</strong> sobre a obra de Lima Barreto.<br><br>
+                    Lima Barreto elogia a classe dirigente pelo "bem-estar" proporcionado aos subúrbios cariocas? Jamais! Pelo contrário, ele denuncia o completo abandono, o descaso e a exploração dos subúrbios pelo Estado e pelas elites.
+                </div>
+            </div>
+            <div class="q-right">
+                <div class="options-container">
+                    <div class="option"><span class="opt-letter">A</span><span>ilustra situações em que fica clara a discriminação étnica e de classe sobre elas.</span></div>
+                    <div class="option"><span class="opt-letter">B</span><span>expressou a contradição de quem não possui um lugar, atormentada pela constante sensação de não pertencimento ou de inadaptação.</span></div>
+                    <div class="option"><span class="opt-letter">C</span><span>instituições sociais pautadas no preconceito, na exploração e na extrema desigualdade, herança recente da sociedade escravista, revelam sua indiferença em relação à condição dos pobres.</span></div>
+                    <div class="option correct"><span class="opt-letter">D</span><span>revê a condição de país independente, evidenciando o papel da classe dirigente no bem estar dos subúrbios cariocas.</span></div>
+                    <div class="option"><span class="opt-letter">E</span><span>revela a complexidade e a multiplicidade das estratégias e das práticas de dominação masculina e sociais sobre as mulheres, como exemplo, Olga e Ismênia.</span></div>
+                </div>
+                <div class="explanation-box">
+                    <h4>✓ Gabarito Oficial: D (Incorreta)</h4>
+                    <p>Na obra de Lima Barreto, a classe dirigente jamais promove o "bem-estar dos subúrbios cariocas"; ao contrário, é retratada como negligente, corrupta e indiferente à miséria suburbana.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== QUESTÃO 09 (PSC-2021) ==================== -->
+        <div class="slide question-slide theme-pre">
+            <div class="q-left">
+                <div class="q-header">
+                    <span class="q-num">QUESTÃO 09</span>
+                    <span class="q-source">PSC 2021 • PRÉ-MODERNISMO</span>
+                </div>
+                <p class="q-stem">Leia o trecho de <em>Canaã</em>, de Graça Aranha:</p>
+                <div class="q-excerpt prose-compact">
+                    "Lentz se esforçava por dormir e se debatia inutilmente para afastar os tumultuosos pensamentos que lhe galopavam na cabeça. As visões acumuladas nos últimos dias de travessia da mata persistiam em toda a sua força. [...] E Lentz via por toda parte o homem branco apossando-se resolutamente da terra e expulsando definitivamente o homem moreno que ali se gerara. E Lentz sorria com orgulho na perspectiva da vitória e do domínio de sua raça. Um desdém pelo mulato, em que ele exprimia o seu desprezo pela languidez, pela fatuidade e fragilidade deste, turvou-lhe a visão radiosa que a natureza do país lhe imprimira no espírito. Tudo nele era agora um sonho de grandeza e triunfo... Aquelas terras seriam o lar dos batalhadores eternos, aquelas florestas seriam consagradas aos cultos temerosos das virgens ferozes e louras... Era tudo um recapitular da antiga Germânia. [...]"
+                    <span class="q-cite">ARANHA, Graça. Canaã. São Paulo, Ediouro, s/d. p. 78-79.</span>
+                </div>
+                <p class="q-stem" style="margin-bottom:0; font-size:calc(var(--u)*1.16);"><em>Canaã</em> narra a trajetória de dois imigrantes alemães no Espírito Santo: Milkau e Lentz. O primeiro é um idealista; já o segundo, pelo excerto lido, pode-se afirmar que seja:</p>
+            </div>
+            <div class="q-right">
+                <div class="options-container">
+                    <div class="option correct"><span class="opt-letter">A</span><span>xenofóbico, racista e supremacista, sendo um homem que crê na superioridade do povo alemão sobre os demais povos.</span></div>
+                    <div class="option"><span class="opt-letter">B</span><span>patriótico, idealista e classista, sendo um homem que crê na igualdade entre o povo alemão e o brasileiro.</span></div>
+                    <div class="option"><span class="opt-letter">C</span><span>bélico, inquieto e preconceituoso, sendo focado na constante afirmação que faz para si mesmo sobre a inferioridade da raça alemã.</span></div>
+                    <div class="option"><span class="opt-letter">D</span><span>dominador, astuto e inteligente, ciente de que não se vê capaz de dominar os nativos e tornar a região uma colônia portuguesa.</span></div>
+                    <div class="option"><span class="opt-letter">E</span><span>narcisista, impulsivo e traidor, ciente de que fugiu da Alemanha por não acreditar que sua pátria poderia prosperar mais.</span></div>
+                </div>
+                <div class="explanation-box">
+                    <h4>✓ Gabarito Oficial: A</h4>
+                    <p>Lentz encarna a tese supremacista e racista no romance-ensaio de Graça Aranha: expressa "desdém pelo mulato", celebra a expulsão do "homem moreno" e sonha com o domínio da raça germânica.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== QUESTÃO 10 (PSC-2021) ==================== -->
+        <div class="slide question-slide q-dense theme-pre">
+            <div class="q-left">
+                <div class="q-header">
+                    <span class="q-num">QUESTÃO 10</span>
+                    <span class="q-source">PSC 2021 • PRÉ-MODERNISMO</span>
+                </div>
+                <p class="q-stem">Leia o trecho do conto <em>Negrinha</em>, de Monteiro Lobato:</p>
+                <div class="q-excerpt prose-compact" style="font-size: calc(var(--u)*1.06); line-height: 1.32;">
+                    "Negrinha era uma pobre órfã de sete anos. Preta? Não. Fusca, mulatinha escura, de cabelos ruços e olhos assustados. Nascera na senzala, de mãe escrava, e seus primeiros anos de vida, vivera-os pelos cantos escuros da cozinha, sobre farrapos de esteira e panos imundos. Sempre escondida, que a patroa não gostava de crianças. Excelente senhora, a patroa. Gorda, rica, dona do mundo, amimada pelos padres, com lugar certo na igreja e camarote de luxo no céu. [...] Uma virtuosa senhora, em suma — 'dama de grandes virtudes apostólicas, esteio da religião e da moral', dizia o padre. Ótima, a D. Inácia. Mas não admitia choro de criança. [...] Assim cresceu Negrinha — magra, atrofiada, com olhos eternamente assustados. Órfã aos quatro anos, ficou por ali, feita gato sem dono, levada a pontapés. [...] Batiam-lhe sempre, por ação ou omissão. [...] Pestinha, diabo, coruja, barata descascada, bruxa, pata choca, pinto gorado, mosca morta, sujeira, bisca, trapo, cachorrinha, coisa ruim, lixo — não tinha conta o número de apelidos com que a mimoseavam. Tempo houve em que foi — bubônica. A epidemia andava à berra, como novidade, e Negrinha viu-se logo apelidada assim — por sinal, achou linda a palavra. Perceberam-no e suprimiram-na da lista. Estava escrito que não teria um gostinho só na vida, nem esse de personalizar a peste..."
+                </div>
+                <p class="q-stem" style="margin-bottom:0;">Sobre o trecho do conto, é CORRETO afirmar que:</p>
+            </div>
+            <div class="q-right">
+                <div class="options-container">
+                    <div class="option"><span class="opt-letter">A</span><span>O conto faz referência ao período da escravidão no Brasil, e o tratamento dispensado à Negrinha era respaldado pela Lei do Ventre Livre.</span></div>
+                    <div class="option"><span class="opt-letter">B</span><span>O padre, ao afirmar que D. Inácia era "Ótima", faz por julgá-la caridosa, de grandes virtudes e esteio da religião por ter adotado Negrinha.</span></div>
+                    <div class="option correct"><span class="opt-letter">C</span><span>Negrinha era torturada por D. Inácia e por ela vista como um estorvo em quem poderia praticar o seu sadismo, além de uma criatura que não poderia ter qualquer alegria.</span></div>
+                    <div class="option"><span class="opt-letter">D</span><span>Negrinha aceitou o apelido de "bubônica" porque ela não tinha um nome de batismo e a palavra a representa muito bem, já que se via como uma doença.</span></div>
+                    <div class="option"><span class="opt-letter">E</span><span>A única alegria de Negrinha era a presença do vigário que a livrava de castigos e torturas, já que D. Inácia precisava mostrar sua benevolência diante dele ou perderia seu lugar no céu.</span></div>
+                </div>
+                <div class="explanation-box">
+                    <h4>✓ Gabarito Oficial: C</h4>
+                    <p>Com fina ironia ("Excelente senhora, a patroa"), Lobato desmascara a hipocrisia cristã de D. Inácia, que torturava física e psicologicamente a menina órfã e lhe negava até o prazer inocente de gostar da sonoridade de uma palavra.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== QUESTÃO 11 (PSC-2020) ==================== -->
+        <div class="slide question-slide theme-pre">
+            <div class="q-left">
+                <div class="q-header">
+                    <span class="q-num">QUESTÃO 11</span>
+                    <span class="q-source">PSC 2020 • PRÉ-MODERNISMO</span>
+                </div>
+                <p class="q-stem" style="font-size: calc(var(--u)*1.2);">Identifique trechos da produção literária de <strong>Lima Barreto</strong>, assinalando com <strong>V</strong> as verdadeiras e com <strong>F</strong> as falsas:</p>
+                <div class="vf-list">
+                    <div class="vf-item"><strong>( )</strong> "É desgracioso, desengonçado, torto. Hércules-Quasímodo, reflete no aspecto a fealdade típica dos fracos. [...] Entretanto, toda esta aparência de cansaço ilude."</div>
+                    <div class="vf-item"><strong>( )</strong> "Jeca Tatu é um piraquara do Paraíba, maravilhoso epítome de carne onde se resumem todas as características da espécie. [...] De noite, na choça de palha, acocora-se em frente ao fogo para 'aquentá-lo'..."</div>
+                    <div class="vf-item"><strong>( )</strong> "[...] Na rua, Clara pensou em tudo aquilo, naquela dolorosa cena que tinha presenciado e no vexame que sofrera. Agora é que tinha a noção exata da sua situação na sociedade. [...]"</div>
+                    <div class="vf-item"><strong>( )</strong> "[...] Havia um ano a esta parte que se dedicava ao tupi-guarani. [...] Na repartição, os pequenos empregados, amanuenses e escreventes, tendo notícia desse seu estudo do idioma tupiniquim, deram não se sabe por que em chamá-lo – Ubirajara."</div>
+                </div>
+                <p class="q-stem" style="margin-bottom:0;">Lida de cima para baixo, a sequência CORRETA é:</p>
+            </div>
+            <div class="q-right">
+                <div class="options-container">
+                    <div class="option"><span class="opt-letter">A</span><span>F – V – F – V</span></div>
+                    <div class="option correct"><span class="opt-letter">B</span><span>F – F – V – V</span></div>
+                    <div class="option"><span class="opt-letter">C</span><span>F – V – V – F</span></div>
+                    <div class="option"><span class="opt-letter">D</span><span>V – F – V – F</span></div>
+                    <div class="option"><span class="opt-letter">E</span><span>V – F – F – V</span></div>
+                </div>
+                <div class="explanation-box">
+                    <h4>✓ Gabarito Oficial: B (F – F – V – V)</h4>
+                    <p>1º trecho (F): é de <em>Os Sertões</em>, de Euclides da Cunha.<br>2º trecho (F): é de <em>Urupês</em>, de Monteiro Lobato.<br>3º trecho (V): é de <em>Clara dos Anjos</em>, de Lima Barreto.<br>4º trecho (V): é de <em>Triste Fim de Policarpo Quaresma</em>, de Lima Barreto.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== QUESTÃO 12 (PSC-2019) ==================== -->
+        <div class="slide question-slide theme-pre">
+            <div class="q-left">
+                <div class="q-header">
+                    <span class="q-num">QUESTÃO 12</span>
+                    <span class="q-source">PSC 2019 • PRÉ-MODERNISMO</span>
+                </div>
+                <p class="q-stem">Leia a análise crítica sobre <em>Os Sertões</em>:</p>
+                <div class="q-excerpt prose-compact">
+                    Alfredo Bosi, em <em>História concisa da literatura brasileira</em>, de 1970, situa <em>Os Sertões</em> no momento que denominou como Pré-Modernismo, afirmando que "o grosso da literatura anterior à 'Semana' foi, como é sabido, pouco inovador", e classifica como "ensaísmo social" a obra euclidiana (BOSI, 2006, p. 306). Porém, para o crítico, "É preciso ler <em>Os Sertões</em> sem a obsessão de enquadrá-lo em um determinado gênero literário, o que implicaria em prejuízo paralisante. Ao contrário, a abertura a mais de uma perspectiva é o modo próprio de enfrentá-lo" (BOSI, 2006, p. 309).
+                </div>
+                <p class="q-stem" style="margin-bottom:0;">Assinale a alternativa correta:</p>
+            </div>
+            <div class="q-right">
+                <div class="options-container">
+                    <div class="option"><span class="opt-letter">A</span><span>A afirmação de Bosi franqueia ao leitor situar Os Sertões no Romantismo brasileiro.</span></div>
+                    <div class="option"><span class="opt-letter">B</span><span>O "ensaísmo social" na obra euclidiana, ao qual se refere Bosi, está no conflito de Antonio Conselheiro com os seus seguidores.</span></div>
+                    <div class="option"><span class="opt-letter">C</span><span>Os Sertões, de Euclides da Cunha, ao lado do conto de Monteiro Lobato, configuram o que há de melhor na Semana de Arte Moderna.</span></div>
+                    <div class="option correct"><span class="opt-letter">D</span><span>Os Sertões, de Euclides da Cunha, é considerada a obra maior do pré-modernismo brasileiro.</span></div>
+                    <div class="option"><span class="opt-letter">E</span><span>Enquanto gênero literário, Os Sertões, de Euclides da Cunha, deve ser compreendido como romance policial.</span></div>
+                </div>
+                <div class="explanation-box">
+                    <h4>✓ Gabarito Oficial: D</h4>
+                    <p>Publicada em 1902, <em>Os Sertões</em> inaugura e sintetiza com monumentalidade o Pré-Modernismo brasileiro, unindo ciência, história, sociologia e alta literatura para retratar Canudos.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== QUESTÃO 13 (PSC-2018) ==================== -->
+        <div class="slide question-slide theme-pre">
+            <div class="q-left">
+                <div class="q-header">
+                    <span class="q-num">QUESTÃO 13</span>
+                    <span class="q-source">PSC 2018 • PRÉ-MODERNISMO</span>
+                </div>
+                <p class="q-stem" style="font-size: calc(var(--u)*1.18);">Leia "Psicologia de um vencido", de Augusto dos Anjos, e classifique em <strong>V</strong> ou <strong>F</strong>:</p>
+                <div class="q-excerpt verse-2col" style="margin-bottom: calc(var(--u)*0.45);">
+                    <div>
+                        Eu, filho do carbono e do amoníaco,<br>
+                        Monstro de escuridão e rutilância,<br>
+                        Sofro, desde a epigênese da infância,<br>
+                        A influência má dos signos do zodíaco.<br><br>
+                        Profundissimamente hipocondríaco,<br>
+                        Este ambiente me causa repugnância...<br>
+                        Sobe-me à boca uma ânsia análoga à ânsia<br>
+                        Que se escapa da boca de um cardíaco.
+                    </div>
+                    <div>
+                        Já o verme - este operário das ruínas –<br>
+                        Que o sangue podre das carnificinas<br>
+                        Come, e à vida em geral declara guerra,<br><br>
+                        Anda a espreitar meus olhos para roê-los,<br>
+                        E há de deixar-me apenas os cabelos,<br>
+                        Na frialdade inorgânica da terra!
+                    </div>
+                </div>
+                <div class="vf-list" style="gap: calc(var(--u)*0.25);">
+                    <div class="vf-item" style="padding: calc(var(--u)*0.36) calc(var(--u)*0.65); font-size: calc(var(--u)*1.02);"><strong>( )</strong> Os versos decadentistas trazem a afirmação de que toda carne se arrasta para a decomposição.</div>
+                    <div class="vf-item" style="padding: calc(var(--u)*0.36) calc(var(--u)*0.65); font-size: calc(var(--u)*1.02);"><strong>( )</strong> O soneto é do mais alto pessimismo.</div>
+                    <div class="vf-item" style="padding: calc(var(--u)*0.36) calc(var(--u)*0.65); font-size: calc(var(--u)*1.02);"><strong>( )</strong> O soneto faz parte da obra <em>Eu</em>, único livro de Augusto dos Anjos.</div>
+                    <div class="vf-item" style="padding: calc(var(--u)*0.36) calc(var(--u)*0.65); font-size: calc(var(--u)*1.02);"><strong>( )</strong> O "Eu" que abre os versos não é uma referência somente ao eu-lírico, mas à humanidade.</div>
+                    <div class="vf-item" style="padding: calc(var(--u)*0.36) calc(var(--u)*0.65); font-size: calc(var(--u)*1.02);"><strong>( )</strong> O poema é uma canção com clara exaltação à "arte pela arte".</div>
+                </div>
+            </div>
+            <div class="q-right">
+                <div class="options-container">
+                    <div class="option"><span class="opt-letter">A</span><span>F – V – F – V – F</span></div>
+                    <div class="option"><span class="opt-letter">B</span><span>F – F – V – F – F</span></div>
+                    <div class="option"><span class="opt-letter">C</span><span>V – F – V – V – V</span></div>
+                    <div class="option"><span class="opt-letter">D</span><span>V – V – F – F – V</span></div>
+                    <div class="option correct"><span class="opt-letter">E</span><span>V – V – V – V – F</span></div>
+                </div>
+                <div class="explanation-box">
+                    <h4>✓ Gabarito Oficial: E (V – V – V – V – F)</h4>
+                    <p>As 4 primeiras são verdadeiras: decomposição da matéria, pessimismo radical, publicado em <em>Eu</em> (1912) e "Eu" universal (o ser humano). A última é FALSA: é um soneto filosófico-científico, e não uma canção de "arte pela arte" (lema parnasiano).</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== QUESTÃO 14 (PSC-2018) ==================== -->
+        <div class="slide question-slide theme-pre">
+            <div class="q-left">
+                <div class="q-header">
+                    <span class="q-num">QUESTÃO 14</span>
+                    <span class="q-source">PSC 2018 • PRÉ-MODERNISMO</span>
+                </div>
+                <p class="q-stem">Sobre o escritor Lima Barreto pode-se afirmar:</p>
+                <div class="vf-list">
+                    <div class="vf-item"><strong>I.</strong> É reconhecido por ter mantido uma escrita de estilo livre e muito mais despojada que o estilo dos empolados parnasianos do seu tempo.</div>
+                    <div class="vf-item"><strong>II.</strong> Forte denunciador da questão do preconceito racial, tanto por suas crônicas quanto por seus romances.</div>
+                    <div class="vf-item"><strong>III.</strong> São temas recorrentes em sua obra: a injustiça com relação aos afrodescendentes e pobres que residiam em subúrbios cariocas, a crítica política com relação aos problemas do país e as mazelas de uma sociedade escravocrata.</div>
+                </div>
+                <p class="q-stem" style="margin-bottom:0;">Assinale a alternativa correta:</p>
+            </div>
+            <div class="q-right">
+                <div class="options-container">
+                    <div class="option"><span class="opt-letter">A</span><span>Somente as afirmativas I e II estão corretas.</span></div>
+                    <div class="option"><span class="opt-letter">B</span><span>Somente as afirmativas I e III estão corretas.</span></div>
+                    <div class="option"><span class="opt-letter">C</span><span>Somente a afirmativa II está correta.</span></div>
+                    <div class="option"><span class="opt-letter">D</span><span>Somente a afirmativa III está correta.</span></div>
+                    <div class="option correct"><span class="opt-letter">E</span><span>Todas as afirmativas estão corretas.</span></div>
+                </div>
+                <div class="explanation-box">
+                    <h4>✓ Gabarito Oficial: E</h4>
+                    <p>Síntese perfeita de Lima Barreto: estilo coloquial/despojado anti-parnasiano (I), denúncia frontal do racismo em crônicas e romances (II) e retrato crítico dos subúrbios e das feridas pós-escravidão (III).</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== QUESTÃO 15 (PSC-2017) ==================== -->
+        <div class="slide question-slide theme-pre">
+            <div class="q-left">
+                <div class="q-header">
+                    <span class="q-num">QUESTÃO 15</span>
+                    <span class="q-source">PSC 2017 • PRÉ-MODERNISMO</span>
+                </div>
+                <p class="q-stem">O fragmento a seguir é do texto de Euclides da Cunha, <em>Os Sertões</em>, quando ele caracteriza o homem:</p>
+                <div class="q-excerpt prose-compact">
+                    "O sertanejo é, antes de tudo, um forte. [...] A sua aparência, entretanto, ao primeiro lance de vista, revela o contrário. Falta-lhe a plástica impecável, o desempeno, a estrutura corretíssima das organizações atléticas. É desgracioso, desengonçado, torto. Hércules-Quasímodo, reflete no aspecto a fealdade típica dos fracos. O andar sem firmeza, sem aprumo, quase gingante e sinuoso, aparenta a translação de membros desarticulados. Agrava-o a postura normalmente abatida, num manifestar de displicência que lhe dá um caráter de humildade deprimente. [...]"
+                </div>
+                <p class="q-stem" style="margin-bottom:0;">Assinale a alternativa CORRETA:</p>
+            </div>
+            <div class="q-right">
+                <div class="options-container">
+                    <div class="option"><span class="opt-letter">A</span><span>A visão que o autor tem do sertanejo é alterada ao longo do livro, Os sertões, como se o autor passasse a ver melhor o homem.</span></div>
+                    <div class="option correct"><span class="opt-letter">B</span><span>Mesmo que não alcance o objetivo, o texto tenta seguir uma perspectiva cientificista.</span></div>
+                    <div class="option"><span class="opt-letter">C</span><span>A caracterização do sertanejo no fragmento segue o padrão romântico das descrições dos romances sertanejos.</span></div>
+                    <div class="option"><span class="opt-letter">D</span><span>Chamar o sertanejo de Hércules-Quasímodo é uma ironia.</span></div>
+                    <div class="option"><span class="opt-letter">E</span><span>Ao descrever a aparência do sertanejo, destacando-lhe os aspectos negativos, o autor corrobora a afirmação inicial do parágrafo.</span></div>
+                </div>
+                <div class="explanation-box">
+                    <h4>✓ Gabarito Oficial: B</h4>
+                    <p>Euclides da Cunha parte de um instrumental determinista e cientificista do século XIX ("organizações atléticas", anatomia, meio e raça), ainda que a realidade heroica do sertanejo acabe superando as teses raciais deterministas.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== SLIDE FINAL: RESUMO DE BOLSO ==================== -->
+        <div class="slide cover-slide with-bg">
+            <div class="cover-badge">CHECKLIST FINAL • PROVA DO PSC</div>
+            <h1 style="font-size: calc(var(--u)*3.2);">Resumo de Ouro para o Gabarito</h1>
+            <div class="grid-2" style="width: 100%; max-width: 92%; text-align: left; margin-top: calc(var(--u)*1);">
+                <div class="card" style="background: rgba(15, 23, 42, 0.88); border-color: #7c3aed; color: #f8fafc;">
+                    <h3 style="color: #c4b5fd;">🦢 Simbolismo (Q01 a Q04)</h3>
+                    <ul style="color: #e2e8f0;">
+                        <li style="color: #e2e8f0;"><strong>Cruz e Sousa:</strong> "Acrobata da Dor" → coração/palhaço é metonímia do ser humano e seu pessimismo.</li>
+                        <li style="color: #e2e8f0;"><strong>Alphonsus:</strong> Tematiza a morte (covas, caveiras, aves agoireiras). Em <em>Ismália</em>: antíteses (céu/mar), rimas ABAB e <strong>redondilha maior</strong> (7 sílabas).</li>
+                        <li style="color: #e2e8f0;"><strong>Inconsciente:</strong> Precursor direto do Surrealismo.</li>
+                    </ul>
+                </div>
+                <div class="card" style="background: rgba(15, 23, 42, 0.88); border-color: #f59e0b; color: #f8fafc;">
+                    <h3 style="color: #fde68a;">🌵 Pré-Modernismo (Q05 a Q15)</h3>
+                    <ul style="color: #e2e8f0;">
+                        <li style="color: #e2e8f0;"><strong>Lima Barreto:</strong> Subúrbios ("caixotins humanos"), crítica ao Centenário de 1922, racismo em <em>Clara dos Anjos</em> e tupi em <em>Policarpo</em>. Não teve reconhecimento imediato!</li>
+                        <li style="color: #e2e8f0;"><strong>Euclides (Os Sertões):</strong> Ensaísmo social e perspectiva cientificista ("Hércules-Quasímodo").</li>
+                        <li style="color: #e2e8f0;"><strong>Graça Aranha (Canaã):</strong> Lentz = racista/supremacista.</li>
+                        <li style="color: #e2e8f0;"><strong>Lobato &amp; Augusto:</strong> Sadismo de D. Inácia em <em>Negrinha</em>; pessimismo e decomposição no livro <em>Eu</em>.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        let current = 0;
+        const slides = document.querySelectorAll('.slide');
+        const counter = document.getElementById('progress');
+
+        function update() {
+            slides.forEach((s, i) => {
+                if (i === current) {
+                    s.classList.add('active');
+                } else {
+                    s.classList.remove('active');
+                }
+            });
+            if (counter) counter.innerText = `${current + 1} / ${slides.length}`;
+        }
+
+        function goNext() {
+            const s = slides[current];
+            if (s.classList.contains('question-slide') && !s.classList.contains('revealed')) {
+                s.classList.add('revealed');
+                return;
+            }
+            if (current < slides.length - 1) {
+                current++;
+                update();
+            }
+        }
+
+        function goPrev() {
+            if (current > 0) {
+                current--;
+                update();
+            }
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                e.preventDefault();
+                goNext();
+            } else if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                goPrev();
+            }
+        });
+
+        document.addEventListener('click', (e) => {
+            if (window.innerHeight > window.innerWidth && window.innerWidth < 900) return;
+            if (e.clientX > window.innerWidth / 2) goNext();
+            else goPrev();
+        });
+
+        update();
+    </script>
+</body>
+</html>
